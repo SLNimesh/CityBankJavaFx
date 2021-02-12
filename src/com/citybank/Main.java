@@ -1,4 +1,4 @@
-package com.company;
+package com.citybank;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -6,13 +6,12 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
+/* TODO: https://www.jfx-ensemble.com/?page=sample/jfoenix/Button */
 
 public class Main extends Application {
 

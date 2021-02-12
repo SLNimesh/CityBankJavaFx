@@ -1,4 +1,4 @@
-package com.company;
+package com.citybank;
 
 public class Controller {
 }

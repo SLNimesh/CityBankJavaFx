@@ -1,4 +1,4 @@
-package com.company.model;
+package com.citybank.model;
 
 import java.time.LocalDate;
 import java.util.List;

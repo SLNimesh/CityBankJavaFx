@@ -1,4 +1,4 @@
-package com.company.model.enums;
+package com.citybank.model.enums;
 
 public enum Branch {
 

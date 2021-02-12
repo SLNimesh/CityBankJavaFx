@@ -1,4 +1,4 @@
-package com.company.model;
+package com.citybank.model;
 
 public class Address {
 

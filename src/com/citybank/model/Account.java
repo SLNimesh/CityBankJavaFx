@@ -1,7 +1,7 @@
-package com.company.model;
+package com.citybank.model;
 
-import com.company.model.enums.AccountType;
-import com.company.model.enums.Branch;
+import com.citybank.model.enums.AccountType;
+import com.citybank.model.enums.Branch;
 
 public class Account {
 

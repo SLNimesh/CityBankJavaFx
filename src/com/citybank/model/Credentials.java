@@ -1,4 +1,4 @@
-package com.company.model;
+package com.citybank.model;
 
 import java.util.Base64;
 

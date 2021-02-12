@@ -1,6 +1,6 @@
-package com.company.model;
+package com.citybank.model;
 
-import com.company.model.enums.TransactionType;
+import com.citybank.model.enums.TransactionType;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
