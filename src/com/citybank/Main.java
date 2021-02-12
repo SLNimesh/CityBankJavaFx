@@ -17,6 +17,12 @@ public class Main extends Application {
 
     private Integer count = 0;
 
+    /* TODO <legit> */
+
+    private BankService bankService = new BankService();
+
+    /* TODO </legit> */
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -48,6 +54,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        launch(args);
+        //launch(args);
     }
 }

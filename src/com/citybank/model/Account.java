@@ -3,19 +3,24 @@ package com.citybank.model;
 import com.citybank.model.enums.AccountType;
 import com.citybank.model.enums.Branch;
 
-public class Account {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Account implements Serializable {
+
+    private static final long serialVersionUID = 2L;
 
     private static Integer accNumCount = Integer.MAX_VALUE - 100000000;
     private static final Integer fixedDeposit = 470;
 
     private Integer accountNumber;
-    private AccountHolder accountHolder;
+    private String accountHolder;
     private Branch accountBranch;
     private AccountType accountType;
     private Double availBalance;
     private Double currentBalance;
 
-    public Account(AccountHolder accountHolder, Branch accountBranch, AccountType accountType, Double currentBalance) {
+    public Account(String accountHolder, Branch accountBranch, AccountType accountType, Double currentBalance) {
         this.accountHolder = accountHolder;
         this.accountBranch = accountBranch;
         this.accountType = accountType;
@@ -26,6 +31,19 @@ public class Account {
     }
 
     public Account() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return accountNumber.equals(account.accountNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountNumber);
     }
 
     public void setAvailBalance(Double availBalance) {
@@ -48,11 +66,11 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public AccountHolder getAccountHolder() {
+    public String getAccountHolder() {
         return accountHolder;
     }
 
-    public void setAccountHolder(AccountHolder accountHolder) {
+    public void setAccountHolder(String accountHolder) {
         this.accountHolder = accountHolder;
     }
 
