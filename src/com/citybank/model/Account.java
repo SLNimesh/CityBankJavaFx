@@ -4,16 +4,17 @@ import com.citybank.model.enums.AccountType;
 import com.citybank.model.enums.Branch;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 2L;
 
-    private static Integer accNumCount = Integer.MAX_VALUE - 100000000;
     private static final Integer fixedDeposit = 470;
 
-    private Integer accountNumber;
+    private String accountNumber;
     private String accountHolder;
     private Branch accountBranch;
     private AccountType accountType;
@@ -25,9 +26,10 @@ public class Account implements Serializable {
         this.accountBranch = accountBranch;
         this.accountType = accountType;
         this.currentBalance = currentBalance;
-        this.accountNumber = accNumCount;
+        this.accountNumber = String
+                .format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16))
+                .substring(0,16);
         this.availBalance = currentBalance - fixedDeposit;
-        accNumCount++;
     }
 
     public Account() {
@@ -50,19 +52,11 @@ public class Account implements Serializable {
         this.availBalance = availBalance;
     }
 
-    public static Integer getAccNumCount() {
-        return accNumCount;
-    }
-
-    public static void setAccNumCount(Integer accNumCount) {
-        Account.accNumCount = accNumCount;
-    }
-
-    public Integer getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(Integer accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 

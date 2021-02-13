@@ -16,7 +16,7 @@ public class AccountHolder implements Serializable {
     private LocalDate dateOfBirth;
     private String address;
     private Integer contactNumber;
-    private Set<Integer> accounts;
+    private Set<String> accounts;
 
     public AccountHolder() {
     }
@@ -29,6 +29,22 @@ public class AccountHolder implements Serializable {
         this.bankAssignedId = UUID.randomUUID().toString();
     }
 
+    public void setBankAssignedId(String bankAssignedId) {
+        this.bankAssignedId = bankAssignedId;
+    }
+
+    public void setNIC(String NIC) {
+        this.NIC = NIC;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -37,11 +53,11 @@ public class AccountHolder implements Serializable {
         this.contactNumber = contactNumber;
     }
 
-    public void setAccounts(Set<Integer> accounts) {
+    public void setAccounts(Set<String> accounts) {
         this.accounts = accounts;
     }
 
-    public void addAccount(Integer accNumber) {
+    public void addAccount(String accNumber) {
         this.accounts.add(accNumber);
     }
 
@@ -65,7 +81,7 @@ public class AccountHolder implements Serializable {
         return contactNumber;
     }
 
-    public Set<Integer> getAccounts() {
+    public Set<String> getAccounts() {
         return accounts;
     }
 
