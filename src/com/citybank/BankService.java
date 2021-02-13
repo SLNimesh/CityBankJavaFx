@@ -28,17 +28,17 @@ public class BankService {
 
     }
 
-    public <T> Set<T> genericFileReader(String fileName, T classType) {
+    public <T> Set<T> genericFileReader(String fileName, Class<T> classType) {
         Set<T> objectSet = new HashSet<>();
         try {
 
             BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(new File(fileName)));
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            while (true){
+            while (true) {
                 try {
                     Object object = objectInputStream.readObject();
                     objectSet.add((T) object);
-                }catch (IOException e){
+                } catch (IOException e) {
                     LOGGER.log(Level.INFO, "Reached end of file:" + fileName);
                     break;
                 }
@@ -46,7 +46,7 @@ public class BankService {
             try {
                 inputStream.close();
                 objectInputStream.close();
-            } catch (IOException e){
+            } catch (IOException e) {
                 LOGGER.log(Level.WARNING, "Failed to close streams.");
             }
 
@@ -65,6 +65,29 @@ public class BankService {
         }
 
         return objectSet;
+    }
+
+    public <T> void genericFileWriter(String fileName, Set<T> genericSet){
+        try {
+            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File(fileName)));
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
+            genericSet.forEach(t -> {
+                try {
+                    objectOutputStream.writeObject(t);
+                }catch (IOException e){
+                    LOGGER.log(Level.SEVERE, "IO Exception occurred while writing object.");
+                }
+            });
+
+        }catch (FileNotFoundException e){
+            somethingWentWrong = true;
+            LOGGER.log(Level.SEVERE, "File : " + fileName + " could not be found.");
+
+        }catch (IOException e){
+            somethingWentWrong = true;
+            LOGGER.log(Level.SEVERE, "IO Exception occurred.");
+        }
     }
 
     public static boolean isSomethingWentWrong() {

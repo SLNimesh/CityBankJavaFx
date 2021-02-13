@@ -29,7 +29,7 @@ public class Main extends Application {
 
     /* TODO <legit> */
 
-    private BankService bankService = new BankService();
+    private static BankService bankService = new BankService();
 
     /* TODO </legit> */
 
@@ -70,44 +70,52 @@ public class Main extends Application {
 
         AccountHolder accountHolder = dummyAccountHolder();
         AccountHolder accountHolder2 = dummyAccountHolder();
-        try {
-            FileOutputStream f = new FileOutputStream(new File("sample.txt"));
-            ObjectOutputStream o = new ObjectOutputStream(f);
 
-            // Write objects to file
-            o.writeObject(accountHolder);
-            o.writeObject(accountHolder2);
+        Set<AccountHolder> holders = new HashSet<>();
+        holders.add(accountHolder);
+        holders.add(accountHolder2);
 
-            o.close();
-            f.close();
+        Set<AccountHolder> accountHolders = bankService.genericFileReader("sample.txt", AccountHolder.class);
+        accountHolders.forEach(accountHolder1 -> System.out.println(accountHolder1.getBankAssignedId()));
 
-            FileInputStream fi = new FileInputStream(new File("sample.txt"));
-            ObjectInputStream oi = new ObjectInputStream(fi);
-
-            // Read objects
-            Set<AccountHolder> acc = new HashSet<>();
-            while (true){
-                try {
-                    Object object = oi.readObject();
-                    acc.add((AccountHolder) object);
-                }catch (IOException e){
-                    System.out.println("End of File");
-                    break;
-                }
-            }
-
-            acc.forEach(accountHolder1 -> System.out.println(accountHolder1.getBankAssignedId()));
-            oi.close();
-            fi.close();
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            System.out.println("Error initializing stream");
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//        try {
+//            FileOutputStream f = new FileOutputStream(new File("sample.txt"));
+//            ObjectOutputStream o = new ObjectOutputStream(f);
+//
+//            // Write objects to file
+//            o.writeObject(accountHolder);
+//            o.writeObject(accountHolder2);
+//
+//            o.close();
+//            f.close();
+//
+//            FileInputStream fi = new FileInputStream(new File("sample.txt"));
+//            ObjectInputStream oi = new ObjectInputStream(fi);
+//
+//            // Read objects
+//            Set<AccountHolder> acc = new HashSet<>();
+//            while (true){
+//                try {
+//                    Object object = oi.readObject();
+//                    acc.add((AccountHolder) object);
+//                }catch (IOException e){
+//                    System.out.println("End of File");
+//                    break;
+//                }
+//            }
+//
+//            acc.forEach(accountHolder1 -> System.out.println(accountHolder1.getBankAssignedId()));
+//            oi.close();
+//            fi.close();
+//
+//        } catch (FileNotFoundException e) {
+//            System.out.println("File not found");
+//        } catch (IOException e) {
+//            System.out.println("Error initializing stream");
+//        } catch (ClassNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
     }
 
     public static AccountHolder dummyAccountHolder() {
