@@ -6,6 +6,7 @@ import com.citybank.model.AccountHolderDTO;
 import com.citybank.model.Credentials;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -13,19 +14,33 @@ import java.util.logging.Logger;
 
 public class BankService {
 
-    private static final String accountsFile = "data/sample.txt";
+    private static final String commonPath = "src/com/citybank/data/";
+    private static final String accountsFile = commonPath.concat("accounts.txt");
+    private static final String accountsHoldersFile = commonPath.concat("accountHolders.txt");
+    private static final String transactions = commonPath.concat("transactions.txt");
+    private static final String credentials = commonPath.concat("credentials.txt");
 
     private AccountHolderDTO currentUserContext;
-    private Set<Account> allAccounts = new HashSet<>();
-    private Set<Credentials> securityTokens = new HashSet<>();
-    private Set<AccountHolder> accountHolders = new HashSet<>();
+    private Set<Account> allAccounts;
+    private Set<Credentials> securityTokens;
+    private Set<AccountHolder> accountHolders;
 
     private static boolean somethingWentWrong = false;
 
     private static Logger LOGGER = Logger.getLogger(BankService.class.getName());
 
-    public void readAccountsFile() {
+    public void loadExistingData() {
+        allAccounts = genericFileReader(accountsFile, Account.class);
+        accountHolders = genericFileReader(accountsHoldersFile, AccountHolder.class);
+        securityTokens = genericFileReader(credentials, Credentials.class);
+    }
 
+    public void persistData() {
+//        HashMap<String, Set<?>> applicationDataSetMap = new HashMap<>();
+
+        genericFileWriter(accountsHoldersFile, accountHolders);
+        genericFileWriter(accountsFile, allAccounts);
+        genericFileWriter(credentials, securityTokens);
     }
 
     public <T> Set<T> genericFileReader(String fileName, Class<T> classType) {
@@ -57,7 +72,7 @@ public class BankService {
 
         } catch (IOException e) {
             somethingWentWrong = true;
-            LOGGER.log(Level.SEVERE, "IO Exception occurred.");
+            LOGGER.log(Level.SEVERE, "IO Exception occurred while reading.");
 
         } catch (ClassNotFoundException e) {
             somethingWentWrong = true;
@@ -67,7 +82,7 @@ public class BankService {
         return objectSet;
     }
 
-    public <T> void genericFileWriter(String fileName, Set<T> genericSet){
+    public void genericFileWriter(String fileName, Set<?> genericSet) {
         try {
             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File(fileName)));
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
@@ -75,18 +90,23 @@ public class BankService {
             genericSet.forEach(t -> {
                 try {
                     objectOutputStream.writeObject(t);
-                }catch (IOException e){
+                } catch (IOException e) {
                     LOGGER.log(Level.SEVERE, "IO Exception occurred while writing object.");
                 }
             });
-
-        }catch (FileNotFoundException e){
+            try {
+                outputStream.close();
+                objectOutputStream.close();
+            } catch (IOException e) {
+                LOGGER.log(Level.WARNING, "Failed to close streams.");
+            }
+        } catch (FileNotFoundException e) {
             somethingWentWrong = true;
             LOGGER.log(Level.SEVERE, "File : " + fileName + " could not be found.");
 
-        }catch (IOException e){
+        } catch (IOException e) {
             somethingWentWrong = true;
-            LOGGER.log(Level.SEVERE, "IO Exception occurred.");
+            LOGGER.log(Level.SEVERE, "IO Exception occurred while writing.");
         }
     }
 
