@@ -20,9 +20,13 @@ import java.util.Set;
 
 public class Main extends Application {
 
+    private static String sampleForm = "scenes/Sample.fxml";
+
+
     /* TODO <final> */
 
     private static BankService bankService = new BankService();
+    private static String loginForm = "scenes/LoginForm.fxml";
 
     /* TODO </final> */
 
@@ -34,9 +38,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("scenes/Sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource(loginForm));
         primaryStage.setTitle("Commercial Bank");
-        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
 

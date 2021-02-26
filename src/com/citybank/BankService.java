@@ -1,9 +1,6 @@
 package com.citybank;
 
-import com.citybank.model.Account;
-import com.citybank.model.AccountHolder;
-import com.citybank.model.AccountHolderDTO;
-import com.citybank.model.Credentials;
+import com.citybank.model.*;
 
 import java.io.*;
 import java.util.HashSet;
@@ -16,33 +13,61 @@ public class BankService {
     private static final String commonPath = "src/com/citybank/data/";
     private static final String accountsFile = commonPath.concat("accounts.txt");
     private static final String accountsHoldersFile = commonPath.concat("accountHolders.txt");
-    private static final String transactions = commonPath.concat("transactions.txt");
-    private static final String credentials = commonPath.concat("credentials.txt");
+    private static final String transactionsFile = commonPath.concat("transactions.txt");
+    private static final String credentialsFile = commonPath.concat("credentials.txt");
+    private static final String usersFile = commonPath.concat("users.txt");
 
-    private AccountHolderDTO currentUserContext;
-    private Set<Account> allAccounts;
-    private Set<Credentials> securityTokens;
-    private Set<AccountHolder> accountHolders;
+    private static UserContext currentUserContext;
+    private static Set<Account> allAccounts;
+    private static Set<Credentials> securityTokens;
+    private static Set<AccountHolder> accountHolders;
+    private static Set<UserContext> users;
 
     private static boolean somethingWentWrong = false;
 
     private static Logger LOGGER = Logger.getLogger(BankService.class.getName());
 
-    public void loadExistingData() {
+    public static UserContext authenticate(String userName, String password) throws RuntimeException{
+        Credentials enteredCred = securityTokens.stream().
+                filter(credentials -> credentials.getUserName().equals(userName) && credentials.getPassword().equals(password)).findFirst().
+                orElseThrow(() -> new ServiceException("Entered credentials are incorrect"));
+
+        UserContext current = users.stream().filter(userContext -> userContext.getBankAssignedID().equals(enteredCred.getBankAssignedId())).findFirst().
+                orElseThrow(() -> new ServiceException("Failed to load user."));
+
+        setCurrentUserContext(current);
+        return currentUserContext;
+    }
+
+    public static void addNewUser(UserContext userContext){
+        LOGGER.log(Level.INFO, "User added with id: " + userContext.getBankAssignedID());
+        users.add(userContext);
+    }
+
+    public static UserContext getCurrentUserContext() {
+        return currentUserContext;
+    }
+
+    public static void setCurrentUserContext(UserContext userContext) {
+        LOGGER.log(Level.INFO, "Current user set to : " + userContext.getBankAssignedID());
+        currentUserContext = userContext;
+    }
+
+    public static void loadExistingData() {
+        users = genericFileReader(usersFile, UserContext.class);
         allAccounts = genericFileReader(accountsFile, Account.class);
         accountHolders = genericFileReader(accountsHoldersFile, AccountHolder.class);
-        securityTokens = genericFileReader(credentials, Credentials.class);
+        securityTokens = genericFileReader(credentialsFile, Credentials.class);
     }
 
     public void persistData() {
-//        HashMap<String, Set<?>> applicationDataSetMap = new HashMap<>();
-
+        genericFileWriter(usersFile, users);
         genericFileWriter(accountsHoldersFile, accountHolders);
         genericFileWriter(accountsFile, allAccounts);
-        genericFileWriter(credentials, securityTokens);
+        genericFileWriter(credentialsFile, securityTokens);
     }
 
-    public <T> Set<T> genericFileReader(String fileName, Class<T> classType) {
+    public static <T> Set<T> genericFileReader(String fileName, Class<T> classType) {
         Set<T> objectSet = new HashSet<>();
         try {
 
