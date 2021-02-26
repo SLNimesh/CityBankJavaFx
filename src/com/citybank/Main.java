@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,8 +27,14 @@ public class Main extends Application {
     /* TODO </final> */
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+    public void init() throws Exception {
+        System.out.println("Application starting");
+        super.init();
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("scenes/Sample.fxml"));
         primaryStage.setTitle("Commercial Bank");
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.show();
@@ -36,6 +44,12 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
 
+    }
+
+    @Override
+    public void stop() throws Exception {
+        System.out.println("Application closed");
+        super.stop();
     }
 
     public static void test(){
