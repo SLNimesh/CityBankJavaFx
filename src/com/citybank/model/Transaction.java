@@ -8,13 +8,17 @@ import java.time.ZoneId;
 public class Transaction {
 
     private LocalDateTime transactionDate;
-    private Integer accountNo;
+    private String accountNo;
     private String description;
     private TransactionType type;
     private Double amount;
     private Double accountBalance;
 
-    public Transaction(Integer accountNo, String description, Double amount, Double accountBalance, TransactionType transactionType) {
+    public Transaction() {
+
+    }
+
+    public Transaction(String accountNo, String description, Double amount, Double accountBalance, TransactionType transactionType) {
         this.accountNo = accountNo;
         if (description == null || description.equals("")) {
             this.description = "N/A";
@@ -27,6 +31,30 @@ public class Transaction {
         this.type = transactionType;
     }
 
+    public void setTransactionDate(LocalDateTime transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
+    public void setAccountNo(String accountNo) {
+        this.accountNo = accountNo;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public void setAccountBalance(Double accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
     @Override
     public String toString() {
         return type.name() + " OF " + amount + " ON " + transactionDate + "[ BAL: " + accountBalance + " ]";
@@ -36,7 +64,7 @@ public class Transaction {
         return transactionDate;
     }
 
-    public Integer getAccountNo() {
+    public String getAccountNo() {
         return accountNo;
     }
 

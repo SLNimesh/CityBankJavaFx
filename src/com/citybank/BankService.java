@@ -22,12 +22,13 @@ public class BankService {
     private static Set<Credentials> securityTokens;
     private static Set<AccountHolder> accountHolders;
     private static Set<UserContext> users;
+    private static Set<Transaction> transactions;
 
     private static boolean somethingWentWrong = false;
 
     private static Logger LOGGER = Logger.getLogger(BankService.class.getName());
 
-    public static UserContext authenticate(String userName, String password) throws RuntimeException{
+    public static UserContext authenticate(String userName, String password) throws RuntimeException {
         Credentials enteredCred = securityTokens.stream().
                 filter(credentials -> credentials.getUserName().equals(userName) && credentials.getPassword().equals(password)).findFirst().
                 orElseThrow(() -> new ServiceException("Entered credentials are incorrect"));
@@ -39,7 +40,20 @@ public class BankService {
         return currentUserContext;
     }
 
-    public static void addNewUser(UserContext userContext){
+    public static void makeTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
+    public static Account findAccount(String accNo) {
+        return allAccounts.stream().filter(account -> account.getAccountNumber().equals(accNo)).findAny()
+                .orElseThrow(() -> new ServiceException("No account exists under ACC.NO : " + accNo));
+    }
+
+    public static Set<Account> findAccountByAccHolder(String accHolderName) {
+        return new HashSet<>();
+    }
+
+    public static void addNewCashier(UserContext userContext) {
         LOGGER.log(Level.INFO, "User added with id: " + userContext.getBankAssignedID());
         users.add(userContext);
     }

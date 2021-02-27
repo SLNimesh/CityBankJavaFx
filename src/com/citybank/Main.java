@@ -13,20 +13,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TimeZone;
 
 /* TODO: https://www.jfx-ensemble.com/?page=sample/jfoenix/Button */
 
 public class Main extends Application {
 
-    private static String sampleForm = "scenes/Sample.fxml";
-
-
     /* TODO <final> */
-
+    public static Stage window;
     private static BankService bankService = new BankService();
-    private static String loginForm = "scenes/LoginForm.fxml";
+    public static String loginForm = "scenes/LoginForm.fxml";
 
     /* TODO </final> */
 
@@ -38,14 +37,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        window = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource(loginForm));
-        primaryStage.setTitle("Commercial Bank");
-        primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.show();
+        window.setTitle("Commercial Bank");
+        window.setScene(new Scene(root, 600, 400));
+        window.show();
     }
 
 
     public static void main(String[] args) {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Colombo"));
         launch(args);
 
     }
