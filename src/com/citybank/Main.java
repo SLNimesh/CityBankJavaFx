@@ -1,10 +1,9 @@
 package com.citybank;
 
-import com.citybank.model.Account;
-import com.citybank.model.AccountHolder;
-import com.citybank.model.Address;
+import com.citybank.model.*;
 import com.citybank.model.enums.AccountType;
 import com.citybank.model.enums.Branch;
+import com.citybank.model.enums.UserRole;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +12,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TimeZone;
@@ -32,6 +30,7 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         System.out.println("Application starting");
+        BankService.loadExistingData();
         super.init();
     }
 
@@ -54,10 +53,17 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         System.out.println("Application closed");
+        BankService.persistData();
         super.stop();
     }
 
-    public static void test(){
+    public static void addDummyData() {
+        UserContext rootUser = new UserContext("Super", "Admin", "2000121480", 987456123, UserRole.MANAGER);
+        Credentials rootCredentials = new Credentials("root", "toor", rootUser.getBankAssignedID());
+        BankService.addNewCashier(rootUser, rootCredentials);
+    }
+
+    public static void test() {
         AccountHolder accountHolder = dummyAccountHolder();
         AccountHolder accountHolder2 = dummyAccountHolder();
 

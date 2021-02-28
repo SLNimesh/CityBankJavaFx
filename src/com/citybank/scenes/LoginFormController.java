@@ -44,8 +44,8 @@ public class LoginFormController {
         } catch (ServiceException e) {
             errorText.setText("" + e.getMessage());
         }
-        Parent root = FXMLLoader.load(getClass().getResource("Sample.fxml"));
-        Main.window.setScene(new Scene(root, 800, 600));
+        Parent root = FXMLLoader.load(getClass().getResource("CashierView.fxml"));
+        Main.window.setScene(new Scene(root, 1280, 720));
     }
 
 }

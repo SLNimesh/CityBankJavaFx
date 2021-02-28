@@ -17,12 +17,12 @@ public class BankService {
     private static final String credentialsFile = commonPath.concat("credentials.txt");
     private static final String usersFile = commonPath.concat("users.txt");
 
-    private static UserContext currentUserContext;
-    private static Set<Account> allAccounts;
-    private static Set<Credentials> securityTokens;
-    private static Set<AccountHolder> accountHolders;
-    private static Set<UserContext> users;
-    private static Set<Transaction> transactions;
+    private static UserContext currentUserContext ;
+    private static Set<Account> allAccounts = new HashSet<>();
+    private static Set<Credentials> securityTokens = new HashSet<>();
+    private static Set<AccountHolder> accountHolders = new HashSet<>();
+    private static Set<UserContext> users = new HashSet<>();
+    private static Set<Transaction> transactions  = new HashSet<>();
 
     private static boolean somethingWentWrong = false;
 
@@ -30,7 +30,7 @@ public class BankService {
 
     public static UserContext authenticate(String userName, String password) throws RuntimeException {
         Credentials enteredCred = securityTokens.stream().
-                filter(credentials -> credentials.getUserName().equals(userName) && credentials.getPassword().equals(password)).findFirst().
+                filter(credentials -> credentials.getUserName().equals(userName) && credentials.decodePassword().equals(password)).findFirst().
                 orElseThrow(() -> new ServiceException("Entered credentials are incorrect"));
 
         UserContext current = users.stream().filter(userContext -> userContext.getBankAssignedID().equals(enteredCred.getBankAssignedId())).findFirst().
@@ -53,9 +53,10 @@ public class BankService {
         return new HashSet<>();
     }
 
-    public static void addNewCashier(UserContext userContext) {
+    public static void addNewCashier(UserContext userContext, Credentials userCredentials) {
         LOGGER.log(Level.INFO, "User added with id: " + userContext.getBankAssignedID());
         users.add(userContext);
+        securityTokens.add(userCredentials);
     }
 
     public static UserContext getCurrentUserContext() {
@@ -68,13 +69,13 @@ public class BankService {
     }
 
     public static void loadExistingData() {
-        users = genericFileReader(usersFile, UserContext.class);
-        allAccounts = genericFileReader(accountsFile, Account.class);
-        accountHolders = genericFileReader(accountsHoldersFile, AccountHolder.class);
-        securityTokens = genericFileReader(credentialsFile, Credentials.class);
+        users.addAll(genericFileReader(usersFile, UserContext.class));
+        allAccounts.addAll(genericFileReader(accountsFile, Account.class));
+        accountHolders.addAll(genericFileReader(accountsHoldersFile, AccountHolder.class));
+        securityTokens.addAll(genericFileReader(credentialsFile, Credentials.class));
     }
 
-    public void persistData() {
+    public static void persistData() {
         genericFileWriter(usersFile, users);
         genericFileWriter(accountsHoldersFile, accountHolders);
         genericFileWriter(accountsFile, allAccounts);
@@ -120,7 +121,7 @@ public class BankService {
         return objectSet;
     }
 
-    public void genericFileWriter(String fileName, Set<?> genericSet) {
+    public static void genericFileWriter(String fileName, Set<?> genericSet) {
         try {
             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File(fileName)));
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
