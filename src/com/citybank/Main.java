@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TimeZone;
 
-/* TODO: https://www.jfx-ensemble.com/?page=sample/jfoenix/Button */
+/* TODO: https://bitbucket.org/agix-material-fx/materialfx-material-design-for-javafx/src/master/material-fx-v0_3.css */
 
 public class Main extends Application {
 

@@ -32,20 +32,11 @@ public class LoginFormController {
         errorText.setText("");
         try {
             BankService.authenticate(username.getText(), password.getText());
-            if (BankService.getCurrentUserContext().getRole().equals("MANAGER")) {
-                //  Open ui for manager
-                //  Create a new cashier account
-                //  Create a new user account
-                // Same stuff as an cashier
-            } else {
-                // Open ui for cashier
+            Parent root = FXMLLoader.load(getClass().getResource("CashierView.fxml"));
+            Main.window.setScene(new Scene(root, 1280, 720));
 
-            }
         } catch (ServiceException e) {
             errorText.setText("" + e.getMessage());
         }
-        Parent root = FXMLLoader.load(getClass().getResource("CashierView.fxml"));
-        Main.window.setScene(new Scene(root, 1280, 720));
     }
-
 }

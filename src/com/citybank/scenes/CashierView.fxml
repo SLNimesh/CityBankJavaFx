@@ -1,31 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.citybank.scenes.CashierViewController">
    <children>
-      <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1080.0" style="-fx-background-color: #b99f7b;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1080.0" style="-fx-background-color: #323232;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="152.0">
                <children>
-                  <Label fx:id="headerGreeting" alignment="CENTER" text="Welcome ROLE">
+                  <Label fx:id="headerGreeting" alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="157.0" text="Welcome ROLE" textFill="#f6f6f6">
                      <padding>
                         <Insets right="10.0" top="5.0" />
                      </padding>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
-                  <Label fx:id="headerUsername" text="Username">
+                  <Label fx:id="headerUsername" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="96.0" text="Username" textFill="#f6f6f6" wrapText="true">
                      <VBox.margin>
                         <Insets right="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
                   </Label>
                </children>
             </VBox>
@@ -37,11 +53,6 @@
                   <Image url="@../icons/file200917074538938.jpg" />
                </image>
             </ImageView>
-            <Circle fx:id="profilePic" fill="#1f93ff" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Circle>
          </children>
       </HBox>
       <TabPane layoutY="52.0" prefHeight="670.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
@@ -55,23 +66,211 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TabPane layoutY="7.0" prefHeight="617.0" prefWidth="1072.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                        <TabPane layoutY="1.0" prefHeight="633.0" prefWidth="1080.0" rotateGraphic="true" side="LEFT" stylesheets="@../css/horizontalTab.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                           <tabs>
-                            <Tab text="Open Account">
+                            <Tab text="Accounts">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" prefHeight="622.0" prefWidth="914.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Label alignment="TOP_CENTER" prefHeight="20.0" styleClass="danger" text="* ONLY REGISTERED USERS ARE CAPABLE OF OPENING AN ACCOUNT/ACCOUNTS" textFill="#e13c3c" wrapText="true">
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" top="10.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Accordion prefHeight="543.0" prefWidth="914.0">
+                                                  <panes>
+                                                    <TitledPane animated="false" expanded="false" styleClass="primary" text="Register a user">
+                                                      <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <VBox prefWidth="457.0">
+                                                                     <children>
+                                                                        <Label contentDisplay="CENTER" prefWidth="435.0" text="REGISTRATION" wrapText="true">
+                                                                           <font>
+                                                                              <Font name="System Bold" size="18.0" />
+                                                                           </font>
+                                                                           <VBox.margin>
+                                                                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="Full Name">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <TextField fx:id="rFullName" prefHeight="36.0" prefWidth="375.0">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" right="100.0" />
+                                                                           </VBox.margin>
+                                                                        </TextField>
+                                                                        <Label alignment="BASELINE_LEFT" layoutX="30.0" layoutY="20.0" prefHeight="20.0" prefWidth="209.0" text="NIC No.">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="5.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <TextField fx:id="rNic" layoutX="30.0" layoutY="45.0" prefHeight="36.0" prefWidth="375.0">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" right="250.0" />
+                                                                           </VBox.margin>
+                                                                        </TextField>
+                                                                        <Label alignment="BASELINE_LEFT" layoutX="10.0" layoutY="241.0" prefHeight="20.0" prefWidth="209.0" text="Permanent Address">
+                                                                           <padding>
+                                                                              <Insets left="20.0" top="5.0" />
+                                                                           </padding>
+                                                                           <VBox.margin>
+                                                                              <Insets top="5.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <TextField fx:id="rAddress" layoutX="10.0" layoutY="281.0" prefHeight="36.0" prefWidth="375.0">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" right="70.0" />
+                                                                           </VBox.margin>
+                                                                        </TextField>
+                                                                        <Label alignment="BASELINE_LEFT" layoutX="30.0" layoutY="123.0" prefHeight="20.0" prefWidth="209.0" text="Contact No.">
+                                                                           <padding>
+                                                                              <Insets left="20.0" top="5.0" />
+                                                                           </padding>
+                                                                           <VBox.margin>
+                                                                              <Insets top="5.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <TextField fx:id="rContact" layoutX="30.0" layoutY="143.0" prefHeight="36.0" prefWidth="375.0">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" right="250.0" />
+                                                                           </VBox.margin>
+                                                                        </TextField>
+                                                                        <Label alignment="BASELINE_LEFT" layoutX="10.0" layoutY="235.0" prefHeight="20.0" prefWidth="209.0" text="Data of Birth">
+                                                                           <padding>
+                                                                              <Insets left="20.0" top="5.0" />
+                                                                           </padding>
+                                                                           <VBox.margin>
+                                                                              <Insets top="5.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <DatePicker fx:id="rDOB">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="5.0" />
+                                                                           </VBox.margin>
+                                                                        </DatePicker>
+                                                                        <Button mnemonicParsing="false" onAction="#openRegisterPrompt" text="REGISTER NOW">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="20.0" />
+                                                                           </VBox.margin>
+                                                                           <font>
+                                                                              <Font name="System Bold Italic" size="12.0" />
+                                                                           </font>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children>
+                                                            </AnchorPane>
+                                                      </content>
+                                                    </TitledPane>
+                                                    <TitledPane animated="false" styleClass="info" text="Open an account ">
+                                                      <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <VBox prefHeight="489.0" prefWidth="457.0">
+                                                                     <children>
+                                                                        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="435.0" text="NOTE : FOR A NEW USER HE/SHE NEED TO REGISTER FIRST BEFORE PROCEEDING TO OPEN AN ACCOUNT" wrapText="true">
+                                                                           <font>
+                                                                              <Font name="System Bold" size="12.0" />
+                                                                           </font>
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" right="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <Region layoutX="10.0" layoutY="60.0" prefHeight="20.0" prefWidth="914.0" />
+                                                                        <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="Assigned User ID">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <TextField fx:id="bankId" layoutX="30.0" layoutY="384.0" maxWidth="250.0" prefHeight="36.0" prefWidth="822.0">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="5.0" />
+                                                                           </VBox.margin>
+                                                                        </TextField>
+                                                                        <Label layoutX="10.0" layoutY="120.0" text="Branch">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <ChoiceBox fx:id="branch" layoutX="30.0" layoutY="316.0" prefWidth="150.0">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </ChoiceBox>
+                                                                        <Label layoutX="10.0" layoutY="176.0" text="Account Type">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <ChoiceBox fx:id="accType" layoutX="30.0" layoutY="170.0" prefWidth="150.0">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </ChoiceBox>
+                                                                        <Label layoutX="10.0" layoutY="232.0" text="Initial Deposite Amount">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <HBox alignment="BOTTOM_LEFT" prefHeight="46.0" prefWidth="456.0">
+                                                                           <children>
+                                                                              <TextField fx:id="initialDeposit" maxWidth="150.0" prefHeight="36.0" prefWidth="822.0">
+                                                                                 <HBox.margin>
+                                                                                    <Insets left="20.0" top="10.0" />
+                                                                                 </HBox.margin>
+                                                                              </TextField>
+                                                                              <Label text="LKR">
+                                                                                 <HBox.margin>
+                                                                                    <Insets left="10.0" />
+                                                                                 </HBox.margin>
+                                                                              </Label>
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <Button mnemonicParsing="false" onAction="#openRegisterPrompt" text="OPEN ACCOUNT">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="20.0" />
+                                                                           </VBox.margin>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children>
+                                                            </AnchorPane>
+                                                      </content>
+                                                    </TitledPane>
+                                                  </panes>
+                                                   <VBox.margin>
+                                                      <Insets left="20.0" right="20.0" />
+                                                   </VBox.margin>
+                                                </Accordion>
+                                             </children>
+                                          </VBox>
+                                       </children></AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="User Management">
+                            <Tab text="Users">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="1080.0" />
                               </content>
                             </Tab>
-                            <Tab text="Cashier Management">
+                            <Tab text="Cashiers ">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                               </content>
                             </Tab>
+                              <Tab text="Settings">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                </content>
+                              </Tab>
                           </tabs>
                         </TabPane>
                      </children></AnchorPane>
@@ -81,7 +280,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TabPane prefHeight="642.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                        <TabPane prefHeight="642.0" prefWidth="1080.0" side="LEFT" stylesheets="@../css/horizontalTab.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                           <tabs>
                             <Tab text="All Accounts">
                               <content>
@@ -102,16 +301,244 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TabPane layoutY="14.0" prefHeight="636.0" prefWidth="1080.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <TabPane layoutY="14.0" prefHeight="636.0" prefWidth="1080.0" side="LEFT" stylesheets="@../css/horizontalTab.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                           <tabs>
-                            <Tab text="Deposites">
+                            <Tab text="Deposits">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Accordion AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <panes>
+                                              <TitledPane animated="false" styleClass="primary" text="Make a deposit">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox prefHeight="495.0" prefWidth="334.0">
+                                                               <children>
+                                                                  <Label text="DEPOSIT">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="20.0" />
+                                                                     </VBox.margin>
+                                                                     <font>
+                                                                        <Font name="System Bold" size="24.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Region prefHeight="30.0" prefWidth="914.0" />
+                                                                  <Label text="Account Number">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="dAccNo" maxWidth="200.0">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label text="Account Type">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <ChoiceBox fx:id="DAccType" prefWidth="150.0">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </ChoiceBox>
+                                                                  <Label fx:id="dDesc" layoutX="30.0" layoutY="75.0" text="Description">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField layoutX="30.0" layoutY="105.0" maxWidth="200.0">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label text="Amount">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <HBox alignment="BOTTOM_LEFT" prefHeight="26.0" prefWidth="914.0">
+                                                                     <children>
+                                                                        <TextField fx:id="depositAmount" maxWidth="150.0" prefHeight="36.0" prefWidth="822.0">
+                                                                           <HBox.margin>
+                                                                              <Insets left="20.0" top="5.0" />
+                                                                           </HBox.margin>
+                                                                        </TextField>
+                                                                        <Label text="LKR">
+                                                                           <HBox.margin>
+                                                                              <Insets left="10.0" />
+                                                                           </HBox.margin>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </HBox>
+                                                                  <Button mnemonicParsing="false" onAction="#confirmDeposit" text="CONFIRM">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="30.0" />
+                                                                     </VBox.margin>
+                                                                  </Button>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                              <TitledPane animated="false" styleClass="info" text="All deposits">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox prefHeight="623.0" prefWidth="580.0">
+                                                               <children>
+                                                                  <Label text="Previous Deposits" textAlignment="CENTER">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="18.0" />
+                                                                     </font>
+                                                                     <VBox.margin>
+                                                                        <Insets top="20.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TableView prefHeight="200.0" prefWidth="200.0">
+                                                                    <columns>
+                                                                      <TableColumn prefWidth="75.0" text="C1" />
+                                                                      <TableColumn prefWidth="75.0" text="C2" />
+                                                                    </columns>
+                                                                     <VBox.margin>
+                                                                        <Insets right="20.0" top="20.0" />
+                                                                     </VBox.margin>
+                                                                  </TableView>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
                               </content>
                             </Tab>
                             <Tab text="Withdrawals">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="379.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="379.0">
+                                       <children>
+                                          <Accordion AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <panes>
+                                              <TitledPane animated="false" styleClass="primary" text="Make a withdrawal ">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox prefHeight="623.0" prefWidth="332.0">
+                                                               <children>
+                                                                  <Label text="WITHDRAW">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="20.0" />
+                                                                     </VBox.margin>
+                                                                     <font>
+                                                                        <Font name="System Bold" size="24.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Region prefHeight="30.0" prefWidth="914.0" />
+                                                                  <Label text="Account Number">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="wAccNo" maxWidth="200.0">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label text="Account Type">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <ChoiceBox fx:id="wAccType" prefWidth="150.0">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </ChoiceBox>
+                                                                  <Label text="OTP">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <HBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="337.0" prefHeight="26.0" prefWidth="914.0">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                     <children>
+                                                                        <TextField fx:id="wOtp" maxWidth="200.0" />
+                                                                        <Button mnemonicParsing="false" onAction="#sendOtp" text="SEND OTP">
+                                                                           <HBox.margin>
+                                                                              <Insets left="5.0" />
+                                                                           </HBox.margin>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </HBox>
+                                                                  <Label text="Amount">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <HBox alignment="BOTTOM_LEFT" prefHeight="26.0" prefWidth="914.0">
+                                                                     <children>
+                                                                        <TextField fx:id="withdrawAmount" maxWidth="150.0" prefHeight="36.0" prefWidth="822.0">
+                                                                           <HBox.margin>
+                                                                              <Insets left="20.0" top="5.0" />
+                                                                           </HBox.margin>
+                                                                        </TextField>
+                                                                        <Label text="LKR">
+                                                                           <HBox.margin>
+                                                                              <Insets left="10.0" />
+                                                                           </HBox.margin>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </HBox>
+                                                                  <Button mnemonicParsing="false" onAction="#confirmWithdraw" text="CONFIRM">
+                                                                     <VBox.margin>
+                                                                        <Insets left="20.0" top="30.0" />
+                                                                     </VBox.margin>
+                                                                  </Button>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                              <TitledPane animated="false" styleClass="info" text="All Withdrawals">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox prefHeight="623.0" prefWidth="581.0">
+                                                               <children>
+                                                                  <Label text="Previous Withdrawals" textAlignment="CENTER">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="18.0" />
+                                                                     </font>
+                                                                     <VBox.margin>
+                                                                        <Insets top="20.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TableView prefHeight="200.0" prefWidth="200.0">
+                                                                     <columns>
+                                                                        <TableColumn prefWidth="75.0" text="C1" />
+                                                                        <TableColumn prefWidth="75.0" text="C2" />
+                                                                     </columns>
+                                                                     <VBox.margin>
+                                                                        <Insets right="20.0" top="20.0" />
+                                                                     </VBox.margin>
+                                                                  </TableView>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
                               </content>
                             </Tab>
                               <Tab text="Search">
@@ -127,4 +554,8 @@
          </tabs>
       </TabPane>
    </children>
+   <stylesheets>
+      <URL value="@../css/bootstrap.css" />
+      <URL value="@../css/main.css" />
+   </stylesheets>
 </AnchorPane>
