@@ -1,6 +1,8 @@
 package com.citybank;
 
 import com.citybank.model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.HashSet;
@@ -75,6 +77,10 @@ public class BankService {
 
     public static UserContext getCurrentUserContext() {
         return currentUserContext;
+    }
+
+    public static ObservableList<AccountHolder> getAllAccountHolders() {
+        return FXCollections.observableArrayList(accountHolders);
     }
 
     public static void setCurrentUserContext(UserContext userContext) {

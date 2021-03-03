@@ -1,5 +1,8 @@
 package com.citybank.model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -90,5 +93,21 @@ public class AccountHolder implements Serializable {
 
     public String getBankAssignedId() {
         return bankAssignedId;
+    }
+
+    public StringProperty getNICTableView() {
+        return new SimpleStringProperty(NIC);
+    }
+
+    public StringProperty getNameTableView() {
+        return new SimpleStringProperty(name);
+    }
+
+    public StringProperty getContactNumberTableView() {
+        return new SimpleStringProperty(contactNumber);
+    }
+
+    public StringProperty getBankAssignedIdTableView() {
+        return new SimpleStringProperty(bankAssignedId);
     }
 }

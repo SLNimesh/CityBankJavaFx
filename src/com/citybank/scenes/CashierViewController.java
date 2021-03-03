@@ -49,6 +49,13 @@ public class CashierViewController implements Initializable {
         accType.getItems().setAll(AccountType.values());
         DAccType.getItems().setAll(AccountType.values());
         wAccType.getItems().setAll(AccountType.values());
+
+        //  Users -> all users table
+        uBankIdColumn.setCellValueFactory(cell -> cell.getValue().getBankAssignedIdTableView());
+        uNameColumn.setCellValueFactory(cell -> cell.getValue().getNameTableView());
+        uNICColumn.setCellValueFactory(cell -> cell.getValue().getNICTableView());
+        uContactNoColumn.setCellValueFactory(cell -> cell.getValue().getContactNumberTableView());
+        allUsersTable.setItems(BankService.getAllAccountHolders());
     }
 
 
@@ -168,5 +175,18 @@ public class CashierViewController implements Initializable {
     void openChangeCredentials(ActionEvent event) {
 
     }
+
+    //Accounts
+        //User
+            //All users
+    @FXML private TableView<AccountHolder> allUsersTable;
+
+    @FXML private TableColumn<AccountHolder, String> uBankIdColumn;
+
+    @FXML private TableColumn<AccountHolder, String> uNameColumn;
+
+    @FXML private TableColumn<AccountHolder, String> uNICColumn;
+
+    @FXML private TableColumn<AccountHolder, String> uContactNoColumn;
 
 }

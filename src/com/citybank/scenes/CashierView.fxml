@@ -183,7 +183,7 @@
                                                                               <Insets left="20.0" right="20.0" top="10.0" />
                                                                            </VBox.margin>
                                                                         </Label>
-                                                                        <Region layoutX="10.0" layoutY="60.0" prefHeight="20.0" prefWidth="914.0" />
+                                                                        <Region layoutX="10.0" layoutY="60.0" prefHeight="20.0" prefWidth="457.0" />
                                                                         <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="Assigned User ID">
                                                                            <VBox.margin>
                                                                               <Insets left="20.0" />
@@ -358,7 +358,7 @@
                                                          <children>
                                                             <VBox prefHeight="448.0" prefWidth="872.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                                                <children>
-                                                                  <Label text="Select Cashier">
+                                                                  <Label prefWidth="104.0" text="Select Cashier">
                                                                      <font>
                                                                         <Font name="System Bold" size="16.0" />
                                                                      </font>
@@ -425,7 +425,7 @@
                                                                         <Insets top="5.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <TextField fx:id="rNic1" prefHeight="36.0" prefWidth="375.0">
+                                                                  <TextField fx:id="rNic1" prefHeight="36.0" prefWidth="210.0">
                                                                      <VBox.margin>
                                                                         <Insets right="600.0" />
                                                                      </VBox.margin>
@@ -558,7 +558,17 @@
                                                 </TitledPane>
                                                 <TitledPane animated="false" styleClass="info" text="All users">
                                                    <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <TableView fx:id="allUsersTable" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                                              <columns>
+                                                                <TableColumn fx:id="uBankIdColumn" prefWidth="208.00000309944153" text="Bank_ID" />
+                                                                <TableColumn fx:id="uNameColumn" minWidth="2.0" prefWidth="241.9999237060547" text="Name" />
+                                                                  <TableColumn fx:id="uNICColumn" minWidth="2.0" prefWidth="205.0" text="NIC" />
+                                                                  <TableColumn fx:id="uContactNoColumn" maxWidth="173.0" minWidth="-1.0" prefWidth="172.60006103515616" text="Contact Number" />
+                                                              </columns>
+                                                            </TableView>
+                                                         </children></AnchorPane>
                                                    </content>
                                                 </TitledPane>
                                              </panes>
@@ -597,7 +607,7 @@
                                                                         <Font name="System Bold" size="22.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Region prefHeight="30.0" prefWidth="914.0" />
+                                                                  <Region prefHeight="30.0" prefWidth="334.0" />
                                                                   <Label text="Account Number">
                                                                      <VBox.margin>
                                                                         <Insets left="20.0" top="10.0" />
