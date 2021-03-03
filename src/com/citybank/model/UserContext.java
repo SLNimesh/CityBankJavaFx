@@ -13,13 +13,13 @@ public class UserContext implements Serializable {
     private String firstName;
     private String lastName;
     private String nic;
-    private Integer contactNumber;
+    private String contactNumber;
     private String role;
 
     public UserContext() {
     }
 
-    public UserContext(String firstName, String lastName, String nic, Integer contactNumber, UserRole role) {
+    public UserContext(String firstName, String lastName, String nic, String contactNumber, UserRole role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nic = nic;
@@ -60,11 +60,11 @@ public class UserContext implements Serializable {
         this.nic = nic;
     }
 
-    public Integer getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
 
-    public void setContactNumber(Integer contactNumber) {
+    public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 

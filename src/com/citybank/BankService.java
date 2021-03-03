@@ -17,12 +17,12 @@ public class BankService {
     private static final String credentialsFile = commonPath.concat("credentials.txt");
     private static final String usersFile = commonPath.concat("users.txt");
 
-    private static UserContext currentUserContext ;
+    private static UserContext currentUserContext;
     private static Set<Account> allAccounts = new HashSet<>();
     private static Set<Credentials> securityTokens = new HashSet<>();
     private static Set<AccountHolder> accountHolders = new HashSet<>();
     private static Set<UserContext> users = new HashSet<>();
-    private static Set<Transaction> transactions  = new HashSet<>();
+    private static Set<Transaction> transactions = new HashSet<>();
 
     private static boolean somethingWentWrong = false;
 
@@ -54,9 +54,23 @@ public class BankService {
     }
 
     public static void addNewCashier(UserContext userContext, Credentials userCredentials) {
-        LOGGER.log(Level.INFO, "User added with id: " + userContext.getBankAssignedID());
+        LOGGER.log(Level.INFO, "Cashier added with id: " + userContext.getBankAssignedID());
         users.add(userContext);
         securityTokens.add(userCredentials);
+    }
+
+    public static void addNewUser(AccountHolder accountHolder) {
+        LOGGER.log(Level.INFO, "User added with id: " + accountHolder.getBankAssignedId());
+        accountHolders.add(accountHolder);
+    }
+
+    public static void createNewAccount(Account account) {
+        LOGGER.log(Level.INFO, "New Account added with account number: " + account.getAccountNumber());
+        allAccounts.add(account);
+        AccountHolder accHolder = accountHolders.stream()
+                .filter(accountHolder -> accountHolder.getBankAssignedId().equals(account.getAccountHolder())).findFirst()
+                .orElseThrow(() -> new ServiceException("Account holder's bank assigned id seems to invalid"));
+        accHolder.getAccounts().add(account.getAccountNumber());
     }
 
     public static UserContext getCurrentUserContext() {

@@ -36,7 +36,7 @@
                               <Insets left="30.0" right="30.0" top="10.0" />
                            </VBox.margin>
                         </PasswordField>
-                        <Button fx:id="signInButton" mnemonicParsing="false" onAction="#authenticate" styleClass="butt" text="Sign in">
+                        <Button fx:id="signInButton" mnemonicParsing="false" onAction="#authenticate" style="-fx-border-color: #37caff; -fx-border-radius: 10;" text="Sign in">
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin>

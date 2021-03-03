@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -45,12 +46,12 @@
                   </Label>
                </children>
             </VBox>
-            <ImageView fx:id="profileImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true">
+            <ImageView fx:id="profileImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
                <image>
-                  <Image url="@../icons/file200917074538938.jpg" />
+                  <Image url="@../icons/person.jpg" />
                </image>
             </ImageView>
          </children>
@@ -62,26 +63,23 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-            <Tab text="Management">
+            <Tab fx:id="managementTab" text="Management">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <TabPane layoutY="1.0" prefHeight="633.0" prefWidth="1080.0" rotateGraphic="true" side="LEFT" stylesheets="@../css/horizontalTab.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                           <tabs>
-                            <Tab text="Accounts">
+                            <Tab text="Register">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
                                           <VBox alignment="TOP_CENTER" prefHeight="622.0" prefWidth="914.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <Label alignment="TOP_CENTER" prefHeight="20.0" styleClass="danger" text="* ONLY REGISTERED USERS ARE CAPABLE OF OPENING AN ACCOUNT/ACCOUNTS" textFill="#e13c3c" wrapText="true">
-                                                   <font>
-                                                      <Font name="System Bold" size="13.0" />
-                                                   </font>
+                                                <Button mnemonicParsing="false" styleClass="danger" text="* ONLY REGISTERED USERS ARE CAPABLE OF OPENING AN ACCOUNT/ACCOUNTS*">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" top="10.0" />
                                                    </VBox.margin>
-                                                </Label>
+                                                </Button>
                                                 <Accordion prefHeight="543.0" prefWidth="914.0">
                                                   <panes>
                                                     <TitledPane animated="false" expanded="false" styleClass="primary" text="Register a user">
@@ -152,7 +150,7 @@
                                                                               <Insets top="5.0" />
                                                                            </VBox.margin>
                                                                         </Label>
-                                                                        <DatePicker fx:id="rDOB">
+                                                                        <DatePicker fx:id="rDOB" promptText="Select">
                                                                            <VBox.margin>
                                                                               <Insets left="20.0" top="5.0" />
                                                                            </VBox.margin>
@@ -235,7 +233,7 @@
                                                                               </Label>
                                                                            </children>
                                                                         </HBox>
-                                                                        <Button mnemonicParsing="false" onAction="#openRegisterPrompt" text="OPEN ACCOUNT">
+                                                                        <Button mnemonicParsing="false" onAction="#openAccount" text="OPEN ACCOUNT">
                                                                            <VBox.margin>
                                                                               <Insets left="20.0" top="20.0" />
                                                                            </VBox.margin>
@@ -256,14 +254,252 @@
                                        </children></AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="Users">
+                            <Tab text="Cashiers">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="1080.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="1080.0">
+                                       <children>
+                                          <Accordion layoutX="122.0" layoutY="111.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <panes>
+                                              <TitledPane animated="false" styleClass="primary" text="All cashier accounts">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                </content>
+                                              </TitledPane>
+                                              <TitledPane animated="false" styleClass="info" text="Create a new cashier account">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox prefHeight="496.0" prefWidth="871.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                                                               <children>
+                                                                  <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="First Name">
+                                                                     <VBox.margin>
+                                                                        <Insets />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="cFirstName" prefHeight="32.0" prefWidth="395.0">
+                                                                     <VBox.margin>
+                                                                        <Insets right="500.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="Last Name">
+                                                                     <VBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="cLastName" prefHeight="36.0" prefWidth="375.0">
+                                                                     <VBox.margin>
+                                                                        <Insets right="500.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="NIC">
+                                                                     <VBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="cnic" prefHeight="36.0" prefWidth="375.0">
+                                                                     <VBox.margin>
+                                                                        <Insets right="600.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="Contact No.">
+                                                                     <VBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="cContact" prefHeight="36.0" prefWidth="375.0">
+                                                                     <VBox.margin>
+                                                                        <Insets right="600.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label alignment="BASELINE_LEFT" layoutX="10.0" layoutY="243.0" prefHeight="20.0" prefWidth="209.0" text="Login Credentials" underline="true">
+                                                                     <VBox.margin>
+                                                                        <Insets bottom="10.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label alignment="BASELINE_LEFT" layoutX="10.0" layoutY="186.0" prefHeight="20.0" prefWidth="209.0" text="Username">
+                                                                     <VBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="cUser" layoutX="10.0" layoutY="206.0" prefHeight="36.0" prefWidth="375.0">
+                                                                     <VBox.margin>
+                                                                        <Insets right="650.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label alignment="BASELINE_LEFT" layoutX="10.0" layoutY="238.0" prefHeight="20.0" prefWidth="209.0" text="Password">
+                                                                     <VBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="cPW" layoutX="10.0" layoutY="258.0" prefHeight="36.0" prefWidth="375.0">
+                                                                     <VBox.margin>
+                                                                        <Insets right="600.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Button mnemonicParsing="false" onAction="#createCashier" text="Create Cashier">
+                                                                     <font>
+                                                                        <Font name="System Bold Italic" size="12.0" />
+                                                                     </font>
+                                                                     <VBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Button>
+                                                               </children></VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                                <TitledPane animated="false" layoutX="10.0" layoutY="54.0" text="Manage an existing account">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox prefHeight="448.0" prefWidth="872.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                                               <children>
+                                                                  <Label text="Select Cashier">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <ComboBox fx:id="cashierId" prefWidth="150.0" promptText="Cashier  ID">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </ComboBox>
+                                                                  <Button mnemonicParsing="false" onAction="#deleteCashier" styleClass="danger" text="Delete Cashier">
+                                                                     <VBox.margin>
+                                                                        <Insets left="30.0" top="20.0" />
+                                                                     </VBox.margin>
+                                                                  </Button>
+                                                                  <Button mnemonicParsing="false" onAction="#openChangeCredentials" text="Change Credentials">
+                                                                     <VBox.margin>
+                                                                        <Insets left="30.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Button>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="Cashiers ">
+                            <Tab text="Users">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Accordion layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <panes>
+                                              <TitledPane animated="false" styleClass="primary" text="Edit user details">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                                               <children>
+                                                                  <Label text="Bank_Assigned_ID :">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                     <VBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <ChoiceBox prefWidth="150.0" />
+                                                                  <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="Full Name">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="rFullName1" prefHeight="36.0" prefWidth="375.0">
+                                                                     <VBox.margin>
+                                                                        <Insets right="300.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="NIC No.">
+                                                                     <VBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="rNic1" prefHeight="36.0" prefWidth="375.0">
+                                                                     <VBox.margin>
+                                                                        <Insets right="600.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="Permanent Address">
+                                                                     <VBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="rAddress1" prefHeight="36.0" prefWidth="375.0">
+                                                                     <VBox.margin>
+                                                                        <Insets right="100.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="Contact No.">
+                                                                     <VBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TextField fx:id="rContact1" prefHeight="36.0" prefWidth="375.0">
+                                                                     <VBox.margin>
+                                                                        <Insets right="600.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="Data of Birth">
+                                                                     <VBox.margin>
+                                                                        <Insets top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <DatePicker fx:id="rDOB1" promptText="Select" />
+                                                                  <Button mnemonicParsing="false" onAction="#openRegisterPrompt" styleClass="info" text="Update Info">
+                                                                     <font>
+                                                                        <Font name="System Bold Italic" size="12.0" />
+                                                                     </font>
+                                                                     <VBox.margin>
+                                                                        <Insets top="20.0" />
+                                                                     </VBox.margin>
+                                                                  </Button>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                              <TitledPane animated="false" styleClass="info" text="Remove user">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox prefHeight="448.0" prefWidth="872.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0">
+                                                               <children>
+                                                                  <Label text="Select User">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <ComboBox fx:id="cashierId1" prefWidth="150.0" promptText="User ID">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </ComboBox>
+                                                                  <Button mnemonicParsing="false" onAction="#deleteCashier" styleClass="danger" text="Delete User">
+                                                                     <VBox.margin>
+                                                                        <Insets left="30.0" top="20.0" />
+                                                                     </VBox.margin>
+                                                                  </Button>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
                               </content>
                             </Tab>
                               <Tab text="Settings">
@@ -282,14 +518,52 @@
                      <children>
                         <TabPane prefHeight="642.0" prefWidth="1080.0" side="LEFT" stylesheets="@../css/horizontalTab.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                           <tabs>
-                            <Tab text="All Accounts">
+                            <Tab text="Accounts">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Accordion layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <panes>
+                                              <TitledPane animated="false" styleClass="primary" text="Search account">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                </content>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                              </TitledPane>
+                                              <TitledPane animated="false" styleClass="info" text="All accounts">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                </content>
+                                              </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="Search">
+                            <Tab text="Users">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Accordion AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                             <panes>
+                                                <TitledPane animated="false" styleClass="primary" text="Search user">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                   </content>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </TitledPane>
+                                                <TitledPane animated="false" styleClass="info" text="All users">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                   </content>
+                                                </TitledPane>
+                                             </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
                               </content>
                             </Tab>
                           </tabs>
@@ -315,12 +589,12 @@
                                                          <children>
                                                             <VBox prefHeight="495.0" prefWidth="334.0">
                                                                <children>
-                                                                  <Label text="DEPOSIT">
+                                                                  <Label prefHeight="32.0" prefWidth="129.0" text="DEPOSIT">
                                                                      <VBox.margin>
                                                                         <Insets left="20.0" top="20.0" />
                                                                      </VBox.margin>
                                                                      <font>
-                                                                        <Font name="System Bold" size="24.0" />
+                                                                        <Font name="System Bold" size="22.0" />
                                                                      </font>
                                                                   </Label>
                                                                   <Region prefHeight="30.0" prefWidth="914.0" />
@@ -339,7 +613,7 @@
                                                                         <Insets left="20.0" top="10.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <ChoiceBox fx:id="DAccType" prefWidth="150.0">
+                                                                  <ChoiceBox fx:id="DAccType" prefWidth="250.0">
                                                                      <VBox.margin>
                                                                         <Insets left="20.0" top="10.0" />
                                                                      </VBox.margin>
@@ -454,7 +728,7 @@
                                                                         <Insets left="20.0" top="10.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <ChoiceBox fx:id="wAccType" prefWidth="150.0">
+                                                                  <ChoiceBox fx:id="wAccType" prefWidth="250.0">
                                                                      <VBox.margin>
                                                                         <Insets left="20.0" top="10.0" />
                                                                      </VBox.margin>
@@ -470,7 +744,7 @@
                                                                      </VBox.margin>
                                                                      <children>
                                                                         <TextField fx:id="wOtp" maxWidth="200.0" />
-                                                                        <Button mnemonicParsing="false" onAction="#sendOtp" text="SEND OTP">
+                                                                        <Button mnemonicParsing="false" onAction="#sendOtp" styleClass="success" text="SEND OTP">
                                                                            <HBox.margin>
                                                                               <Insets left="5.0" />
                                                                            </HBox.margin>
@@ -541,9 +815,95 @@
                                        </children></AnchorPane>
                               </content>
                             </Tab>
-                              <Tab text="Search">
+                              <Tab closable="false" text="Search">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="379.0" />
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="379.0">
+                                       <children>
+                                          <Accordion layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <panes>
+                                              <TitledPane animated="false" styleClass="primary" text="Search transactions">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="5.0">
+                                                               <children>
+                                                                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <Label text="Account Number :">
+                                                                           <font>
+                                                                              <Font name="System Bold" size="15.0" />
+                                                                           </font>
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                        </Label>
+                                                                        <TextField>
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                        </TextField>
+                                                                        <Button mnemonicParsing="false" styleClass="success" text="Search" />
+                                                                     </children>
+                                                                  </HBox>
+                                                                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <Label text="From :">
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                           <font>
+                                                                              <Font name="System Bold" size="16.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <DatePicker>
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                        </DatePicker>
+                                                                        <Label layoutX="399.0" layoutY="50.0" text="To :">
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                           <font>
+                                                                              <Font name="System Bold" size="16.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <DatePicker>
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                        </DatePicker>
+                                                                     </children>
+                                                                  </HBox>
+                                                                  <Label text="Results :">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                     <VBox.margin>
+                                                                        <Insets bottom="2.0" left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TableView prefHeight="360.0" prefWidth="810.0">
+                                                                    <columns>
+                                                                      <TableColumn prefWidth="129.00000309944153" text="Date" />
+                                                                      <TableColumn prefWidth="122.0" text="Account No." />
+                                                                        <TableColumn minWidth="0.0" prefWidth="105.99992370605469" text="W/D" />
+                                                                        <TableColumn prefWidth="103.0" text="Amount" />
+                                                                        <TableColumn prefWidth="136.0" text="Account Bal." />
+                                                                    </columns>
+                                                                  </TableView>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                              </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
                                  </content>
                               </Tab>
                           </tabs>

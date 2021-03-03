@@ -12,7 +12,6 @@
 	-fx-text-button-text: rgb(100.0, 100.0, 100.0);
 	-fx-text-title-color: rgb(45.0, 45.0, 45.0);
 	-fx-text-subtitle-color: rgb(65.0, 65.0, 65.0);
-	-fx-text-control-title-color: rgb(130.0, 130.0, 130.0);
 	-fx-text-fill: -fx-text-base-color;
 	-dark: rgb(47.0, 52.0, 57.0);
 	-fx-background-color: -dark;
@@ -54,16 +53,6 @@ text {
 
 }
 
-.text-area, .text-field {
-	-fx-background-color: transparent;
-	-fx-background-radius: 2.0;
-	-fx-padding: 0.5em 0.5em 0.5em 0.1em;
-	-fx-border-color: -swatch-grey;
-	-fx-border-width: 0 0 2 0;
-	-fx-prompt-text-fill: derive(-dark, 50.0%);
-	-fx-highlight-fill: rgb(94.0, 203.0, 234.0);
-}
-
 .text-area .text, .text-field>*>.text {
 	-fx-effect: null;
 	-fx-fill: -dark;
@@ -84,7 +73,7 @@ text {
 }
 
 .text-area:focused, .text-field:focused {
-	-fx-border-color: -swatch-500;
+
 }
 
 /*******************************************************************************
@@ -128,7 +117,7 @@ text {
 	-fx-background-color: derive(-swatch-500, 50.0%),
 		derive(-swatch-500, -20.0%);
 	-fx-background-insets: 0.0, 0.2em;
-	-fx-text-fill: -fx-text-button-colored;
+
 }
 
 .toggle-button:armed, .toggle-button:selected, .button:armed, .button:default:armed

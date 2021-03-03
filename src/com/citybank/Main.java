@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,7 +39,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         window = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource(loginForm));
-        window.setTitle("Commercial Bank");
+        window.setTitle("City Bank");
+        window.getIcons().add(new Image(getClass().getResourceAsStream("logo.png")));
         window.setScene(new Scene(root, 600, 400));
         window.show();
     }
@@ -46,6 +48,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Colombo"));
+        //addDummyData();
         launch(args);
 
     }
@@ -58,7 +61,7 @@ public class Main extends Application {
     }
 
     public static void addDummyData() {
-        UserContext rootUser = new UserContext("Super", "Admin", "2000121480", 987456123, UserRole.MANAGER);
+        UserContext rootUser = new UserContext("Super", "Admin", "2000121480", "0987456123", UserRole.MANAGER);
         Credentials rootCredentials = new Credentials("root", "toor", rootUser.getBankAssignedID());
         BankService.addNewCashier(rootUser, rootCredentials);
     }

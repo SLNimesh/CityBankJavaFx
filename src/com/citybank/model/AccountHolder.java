@@ -1,6 +1,7 @@
 package com.citybank.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class AccountHolder implements Serializable {
     private String name;
     private LocalDate dateOfBirth;
     private String address;
-    private Integer contactNumber;
+    private String contactNumber;
     private Set<String> accounts;
 
     public AccountHolder() {
@@ -26,7 +27,9 @@ public class AccountHolder implements Serializable {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.accounts = new HashSet<>();
-        this.bankAssignedId = UUID.randomUUID().toString();
+        this.bankAssignedId = String
+                .format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16))
+                .substring(0,16);
     }
 
     public void setBankAssignedId(String bankAssignedId) {
@@ -49,7 +52,7 @@ public class AccountHolder implements Serializable {
         this.address = address;
     }
 
-    public void setContactNumber(Integer contactNumber) {
+    public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 
@@ -77,7 +80,7 @@ public class AccountHolder implements Serializable {
         return address;
     }
 
-    public Integer getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
 

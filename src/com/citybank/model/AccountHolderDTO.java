@@ -10,7 +10,7 @@ public class AccountHolderDTO {
     private String name;
     private LocalDate dateOfBirth;
     private String address;
-    private Integer contactNumber;
+    private String contactNumber;
     private Set<Account> accounts;
     private Credentials credentials;
 
@@ -60,7 +60,7 @@ public class AccountHolderDTO {
         return address;
     }
 
-    public Integer getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
 }
