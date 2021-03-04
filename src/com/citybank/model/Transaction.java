@@ -1,12 +1,20 @@
 package com.citybank.model;
 
 import com.citybank.model.enums.TransactionType;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 public class Transaction {
 
+    private String id;
     private LocalDateTime transactionDate;
     private String accountNo;
     private String description;
@@ -19,6 +27,9 @@ public class Transaction {
     }
 
     public Transaction(String accountNo, String description, Double amount, Double accountBalance, TransactionType transactionType) {
+        this.id = String
+                .format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16))
+                .substring(0,16);
         this.accountNo = accountNo;
         if (description == null || description.equals("")) {
             this.description = "N/A";
@@ -47,12 +58,24 @@ public class Transaction {
         this.type = type;
     }
 
+    public TransactionType getType() {
+        return type;
+    }
+
     public void setAmount(Double amount) {
         this.amount = amount;
     }
 
     public void setAccountBalance(Double accountBalance) {
         this.accountBalance = accountBalance;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
@@ -64,8 +87,21 @@ public class Transaction {
         return transactionDate;
     }
 
+    public StringProperty getIdTableView() {
+        return new SimpleStringProperty(id);
+    }
+
+    public StringProperty getTransactionDateTableView() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd h:m a");
+        return new SimpleStringProperty(transactionDate.format(formatter));
+    }
+
     public String getAccountNo() {
         return accountNo;
+    }
+
+    public StringProperty getAccountNoTableView() {
+        return new SimpleStringProperty(accountNo);
     }
 
     public String getDescription() {
@@ -76,7 +112,16 @@ public class Transaction {
         return amount;
     }
 
+    public DoubleProperty getAmountTableView() {
+        return new SimpleDoubleProperty(amount);
+    }
+
     public Double getAccountBalance() {
         return accountBalance;
+    }
+
+
+    public DoubleProperty getAccountBalanceTableView() {
+        return new SimpleDoubleProperty(accountBalance);
     }
 }

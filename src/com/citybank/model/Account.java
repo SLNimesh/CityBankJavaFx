@@ -2,6 +2,10 @@ package com.citybank.model;
 
 import com.citybank.model.enums.AccountType;
 import com.citybank.model.enums.Branch;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
 import java.math.BigInteger;

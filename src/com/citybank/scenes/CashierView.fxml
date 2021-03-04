@@ -209,7 +209,7 @@
                                                                               <Insets left="20.0" top="10.0" />
                                                                            </VBox.margin>
                                                                         </Label>
-                                                                        <ChoiceBox fx:id="accType" layoutX="30.0" layoutY="170.0" prefWidth="150.0">
+                                                                        <ChoiceBox fx:id="accType" layoutX="30.0" layoutY="170.0" prefWidth="213.0">
                                                                            <VBox.margin>
                                                                               <Insets left="20.0" top="10.0" />
                                                                            </VBox.margin>
@@ -562,7 +562,7 @@
                                                          <children>
                                                             <TableView fx:id="allUsersTable" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                                               <columns>
-                                                                <TableColumn fx:id="uBankIdColumn" prefWidth="208.00000309944153" text="Bank_ID" />
+                                                                <TableColumn fx:id="uBankIdColumn" prefWidth="208.00000309944153" text="User ID" />
                                                                 <TableColumn fx:id="uNameColumn" minWidth="2.0" prefWidth="241.9999237060547" text="Name" />
                                                                   <TableColumn fx:id="uNICColumn" minWidth="2.0" prefWidth="205.0" text="NIC" />
                                                                   <TableColumn fx:id="uContactNoColumn" maxWidth="173.0" minWidth="-1.0" prefWidth="172.60006103515616" text="Contact Number" />
@@ -628,12 +628,12 @@
                                                                         <Insets left="20.0" top="10.0" />
                                                                      </VBox.margin>
                                                                   </ChoiceBox>
-                                                                  <Label fx:id="dDesc" layoutX="30.0" layoutY="75.0" text="Description">
+                                                                  <Label layoutX="30.0" layoutY="75.0" text="Description">
                                                                      <VBox.margin>
                                                                         <Insets left="20.0" top="10.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <TextField layoutX="30.0" layoutY="105.0" maxWidth="200.0">
+                                                                  <TextField fx:id="dDesc" layoutX="30.0" layoutY="105.0" maxWidth="200.0" prefWidth="200.0">
                                                                      <VBox.margin>
                                                                         <Insets left="20.0" top="5.0" />
                                                                      </VBox.margin>
@@ -672,7 +672,7 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <VBox prefHeight="623.0" prefWidth="580.0">
+                                                            <VBox layoutX="22.2" layoutY="0.1999999999999993" prefHeight="0.0" prefWidth="850.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="0.0">
                                                                <children>
                                                                   <Label text="Previous Deposits" textAlignment="CENTER">
                                                                      <font>
@@ -682,10 +682,13 @@
                                                                         <Insets top="20.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <TableView prefHeight="200.0" prefWidth="200.0">
+                                                                  <TableView fx:id="allDepositsTable" prefHeight="398.0" prefWidth="850.0">
                                                                     <columns>
-                                                                      <TableColumn prefWidth="75.0" text="C1" />
-                                                                      <TableColumn prefWidth="75.0" text="C2" />
+                                                                      <TableColumn fx:id="dTranID" prefWidth="155.00000309944153" text="Transaction ID" />
+                                                                      <TableColumn fx:id="dStamp" minWidth="0.0" prefWidth="155.99998474121094" text="Timestamp" />
+                                                                        <TableColumn fx:id="dAccNoColumn" minWidth="0.0" prefWidth="182.99993896484375" text="Account No." />
+                                                                        <TableColumn fx:id="dAmount" minWidth="0.0" prefWidth="156.0" text="Amount" />
+                                                                        <TableColumn fx:id="dAvailBal" minWidth="0.0" prefWidth="156.00006103515625" text="Available Balance" />
                                                                     </columns>
                                                                      <VBox.margin>
                                                                         <Insets right="20.0" top="20.0" />
@@ -748,13 +751,13 @@
                                                                         <Insets left="20.0" top="10.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <HBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="337.0" prefHeight="26.0" prefWidth="914.0">
+                                                                  <HBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="337.0" prefHeight="5.0" prefWidth="312.0">
                                                                      <VBox.margin>
                                                                         <Insets left="20.0" top="10.0" />
                                                                      </VBox.margin>
                                                                      <children>
                                                                         <TextField fx:id="wOtp" maxWidth="200.0" />
-                                                                        <Button mnemonicParsing="false" onAction="#sendOtp" styleClass="success" text="SEND OTP">
+                                                                        <Button mnemonicParsing="false" onAction="#sendOtp" prefHeight="0.0" prefWidth="90.0" styleClass="success" text="SEND OTP">
                                                                            <HBox.margin>
                                                                               <Insets left="5.0" />
                                                                            </HBox.margin>
@@ -795,7 +798,7 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <VBox prefHeight="623.0" prefWidth="581.0">
+                                                            <VBox prefHeight="623.0" prefWidth="581.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                <children>
                                                                   <Label text="Previous Withdrawals" textAlignment="CENTER">
                                                                      <font>
@@ -805,14 +808,17 @@
                                                                         <Insets top="20.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <TableView prefHeight="200.0" prefWidth="200.0">
-                                                                     <columns>
-                                                                        <TableColumn prefWidth="75.0" text="C1" />
-                                                                        <TableColumn prefWidth="75.0" text="C2" />
-                                                                     </columns>
+                                                                  <TableView fx:id="allWithdrawalsTable" prefHeight="404.0" prefWidth="830.0">
                                                                      <VBox.margin>
                                                                         <Insets right="20.0" top="20.0" />
                                                                      </VBox.margin>
+                                                                     <columns>
+                                                                        <TableColumn fx:id="wTranID1" prefWidth="155.00000309944153" text="Transaction ID" />
+                                                                        <TableColumn fx:id="wStampCol" minWidth="0.0" prefWidth="155.99998474121094" text="Timestamp" />
+                                                                        <TableColumn fx:id="wAccNoColumn" minWidth="0.0" prefWidth="182.99993896484375" text="Account No." />
+                                                                        <TableColumn fx:id="wAmount" minWidth="0.0" prefWidth="156.0" text="Amount" />
+                                                                        <TableColumn fx:id="wAvailBal" minWidth="0.0" prefWidth="178.00006103515625" text="Available Balance" />
+                                                                     </columns>
                                                                   </TableView>
                                                                </children>
                                                             </VBox>

@@ -1,12 +1,10 @@
 package com.citybank.scenes;
 
 import com.citybank.BankService;
-import com.citybank.model.Account;
-import com.citybank.model.AccountHolder;
-import com.citybank.model.Credentials;
-import com.citybank.model.UserContext;
+import com.citybank.model.*;
 import com.citybank.model.enums.AccountType;
 import com.citybank.model.enums.Branch;
+import com.citybank.model.enums.TransactionType;
 import com.citybank.model.enums.UserRole;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,12 +48,9 @@ public class CashierViewController implements Initializable {
         DAccType.getItems().setAll(AccountType.values());
         wAccType.getItems().setAll(AccountType.values());
 
-        //  Users -> all users table
-        uBankIdColumn.setCellValueFactory(cell -> cell.getValue().getBankAssignedIdTableView());
-        uNameColumn.setCellValueFactory(cell -> cell.getValue().getNameTableView());
-        uNICColumn.setCellValueFactory(cell -> cell.getValue().getNICTableView());
-        uContactNoColumn.setCellValueFactory(cell -> cell.getValue().getContactNumberTableView());
-        allUsersTable.setItems(BankService.getAllAccountHolders());
+        initiateAllDepositsTable();
+        initiateAllUsersTable();
+        initiateAllWithdrawalsTable();
     }
 
 
@@ -75,6 +70,7 @@ public class CashierViewController implements Initializable {
                 new Account(bankId.getText(), branch.getSelectionModel().getSelectedItem(),
                         accType.getSelectionModel().getSelectedItem(), Double.parseDouble(initialDeposit.getText()));
         BankService.createNewAccount(newAccount);
+        bankId.clear(); branch.setValue(null); accType.setValue(null); initialDeposit.clear();
     }
 
     //REGISTER
@@ -113,13 +109,73 @@ public class CashierViewController implements Initializable {
 
     @FXML private ChoiceBox<AccountType> DAccType = new ChoiceBox<>();
 
-    @FXML private Label dDesc;
+    @FXML private TextField dDesc;
 
     @FXML private TextField depositAmount;
 
     @FXML void confirmDeposit(ActionEvent event) {
-
+        Double amount = Double.parseDouble(depositAmount.getText());
+        Account account = BankService.findAccount(dAccNo.getText());
+        account.setCurrentBalance(account.getCurrentBalance() + amount);
+        Transaction newTransaction
+                = new Transaction(dAccNo.getText(), dDesc.getText(), amount, account.getCurrentBalance(), TransactionType.DEPOSIT);
+        BankService.makeTransaction(newTransaction);
+        dAccNo.clear(); DAccType.setValue(null); dDesc.clear(); depositAmount.clear();
     }
+
+    // all deposits
+
+    @FXML private TableView<Transaction> allDepositsTable;
+
+    @FXML private TableColumn<Transaction, String> dTranID;
+
+    @FXML private TableColumn<Transaction, String> dStamp;
+
+    @FXML private TableColumn<Transaction, String> dAccNoColumn;
+
+    @FXML private TableColumn<Transaction, Double> dAmount;
+
+    @FXML private TableColumn<Transaction, Double> dAvailBal;
+
+    void initiateAllDepositsTable() {
+        dTranID.setCellValueFactory(cell -> cell.getValue().getIdTableView());
+        dStamp.setCellValueFactory(cell -> cell.getValue().getTransactionDateTableView());
+        dAccNoColumn.setCellValueFactory(cell -> cell.getValue().getAccountNoTableView());
+        dAmount.setCellValueFactory(cell -> cell.getValue().getAmountTableView().asObject());
+        dAvailBal.setCellValueFactory(cell -> cell.getValue().getAccountBalanceTableView().asObject());
+        allDepositsTable.setItems(BankService.getAllDeposits());
+    }
+
+    // all withdrawals
+
+    @FXML
+    private TableView<Transaction> allWithdrawalsTable;
+
+    @FXML
+    private TableColumn<Transaction, String> wTranID1;
+
+    @FXML
+    private TableColumn<Transaction, String> wStampCol;
+
+    @FXML
+    private TableColumn<Transaction, String> wAccNoColumn;
+
+    @FXML
+    private TableColumn<Transaction, Double> wAmount;
+
+    @FXML
+    private TableColumn<Transaction, Double> wAvailBal;
+
+    void initiateAllWithdrawalsTable() {
+        wTranID1.setCellValueFactory(cell -> cell.getValue().getIdTableView());
+        wStampCol.setCellValueFactory(cell -> cell.getValue().getTransactionDateTableView());
+        wAccNoColumn.setCellValueFactory(cell -> cell.getValue().getAccountNoTableView());
+        wAmount.setCellValueFactory(cell -> cell.getValue().getAmountTableView().asObject());
+        wAvailBal.setCellValueFactory(cell -> cell.getValue().getAccountBalanceTableView().asObject());
+        allDepositsTable.setItems(BankService.getAllWithdrawals());
+    }
+
+
 
     // WITHDRAW
 
@@ -133,7 +189,12 @@ public class CashierViewController implements Initializable {
 
     @FXML
     void confirmWithdraw(ActionEvent event) {
-
+        Double amount = Double.parseDouble(withdrawAmount.getText());
+        Account account = BankService.findAccount(wAccNo.getText());
+        account.setCurrentBalance(account.getCurrentBalance() - amount);
+        Transaction newTransaction
+                = new Transaction(wAccNo.getText(), "Private matter.", amount, account.getCurrentBalance(), TransactionType.WITHDRAWAL);
+        BankService.makeTransaction(newTransaction);
     }
 
     @FXML
@@ -188,5 +249,13 @@ public class CashierViewController implements Initializable {
     @FXML private TableColumn<AccountHolder, String> uNICColumn;
 
     @FXML private TableColumn<AccountHolder, String> uContactNoColumn;
+
+    void initiateAllUsersTable() {
+        uBankIdColumn.setCellValueFactory(cell -> cell.getValue().getBankAssignedIdTableView());
+        uNameColumn.setCellValueFactory(cell -> cell.getValue().getNameTableView());
+        uNICColumn.setCellValueFactory(cell -> cell.getValue().getNICTableView());
+        uContactNoColumn.setCellValueFactory(cell -> cell.getValue().getContactNumberTableView());
+        allUsersTable.setItems(BankService.getAllAccountHolders());
+    }
 
 }

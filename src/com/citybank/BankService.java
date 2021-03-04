@@ -1,6 +1,7 @@
 package com.citybank;
 
 import com.citybank.model.*;
+import com.citybank.model.enums.TransactionType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class BankService {
 
@@ -81,6 +83,18 @@ public class BankService {
 
     public static ObservableList<AccountHolder> getAllAccountHolders() {
         return FXCollections.observableArrayList(accountHolders);
+    }
+
+    public static ObservableList<Transaction> getAllDeposits() {
+        return FXCollections.
+                observableArrayList(
+                        transactions.stream().filter(transaction -> transaction.getType().equals(TransactionType.DEPOSIT)).collect(Collectors.toList()));
+    }
+
+    public static ObservableList<Transaction> getAllWithdrawals() {
+        return FXCollections.
+                observableArrayList(
+                        transactions.stream().filter(transaction -> transaction.getType().equals(TransactionType.WITHDRAWAL)).collect(Collectors.toList()));
     }
 
     public static void setCurrentUserContext(UserContext userContext) {
