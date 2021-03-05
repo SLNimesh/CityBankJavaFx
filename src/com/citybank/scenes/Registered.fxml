@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #323232;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.citybank.scenes.RegisteredController">
+<AnchorPane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #d9d8d3;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.citybank.scenes.RegisteredController">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #f6f6f6; -fx-background-radius: 10;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #f6f6f6; -fx-background-radius: 20;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <Label text="New user registered!" textFill="#5e5c5c">
                <font>
@@ -64,7 +64,7 @@
                   <Font size="15.0" />
                </font>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#closeWindow" prefHeight="37.0" prefWidth="61.0" text="OK">
+            <Button mnemonicParsing="false" onAction="#closeWindow" prefHeight="36.0" prefWidth="60.0" text="OK">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

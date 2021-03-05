@@ -13,13 +13,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 public class CashierViewController implements Initializable {
 
@@ -71,6 +74,8 @@ public class CashierViewController implements Initializable {
                 new Account(bankId.getText(), branch.getSelectionModel().getSelectedItem(),
                         accType.getSelectionModel().getSelectedItem(), Double.parseDouble(initialDeposit.getText()));
         BankService.createNewAccount(newAccount);
+        openMsgPrompt("New account with ACC NO. : " + newAccount.getAccountNumber()
+                +  " created for " + newAccount.getAccHolderName() + "(" + newAccount.getAccountHolder() + ").");
         bankId.clear(); branch.setValue(null); accType.setValue(null); initialDeposit.clear();
     }
 
@@ -95,6 +100,7 @@ public class CashierViewController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("Registered.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Registration");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("msgLogo.png")));
         stage.setScene(new Scene(root, 400, 300));
         stage.show();
         clearFormData();
@@ -124,6 +130,7 @@ public class CashierViewController implements Initializable {
         Transaction newTransaction
                 = new Transaction(dAccNo.getText(), dDesc.getText(), amount, account.getCurrentBalance(), TransactionType.DEPOSIT);
         BankService.makeTransaction(newTransaction);
+        openMsgPrompt(newTransaction.toString());
         dAccNo.clear(); DAccType.setValue(null); dDesc.clear(); depositAmount.clear();
     }
 
@@ -178,7 +185,7 @@ public class CashierViewController implements Initializable {
         wAccNoColumn.setCellValueFactory(cell -> cell.getValue().getAccountNoTableView());
         wAmount.setCellValueFactory(cell -> cell.getValue().getAmountTableView().asObject());
         wAvailBal.setCellValueFactory(cell -> cell.getValue().getAccountBalanceTableView().asObject());
-        allDepositsTable.setItems(BankService.getAllWithdrawals());
+        allWithdrawalsTable.setItems(BankService.getAllWithdrawals());
     }
 
 
@@ -193,19 +200,35 @@ public class CashierViewController implements Initializable {
 
     @FXML private TextField withdrawAmount;
 
+    private String temporaryOTP;
+
     @FXML
     void confirmWithdraw(ActionEvent event) {
-        Double amount = Double.parseDouble(withdrawAmount.getText());
-        Account account = BankService.findAccount(wAccNo.getText());
-        account.setCurrentBalance(account.getCurrentBalance() - amount);
-        Transaction newTransaction
-                = new Transaction(wAccNo.getText(), "Private matter.", amount, account.getCurrentBalance(), TransactionType.WITHDRAWAL);
-        BankService.makeTransaction(newTransaction);
+        System.out.println();
+        BankService.getAllAccounts().stream()
+                .filter(account -> account.getAccountNumber().equals(wAccNo.getText()) && account.getAccountType().equals(wAccType.getValue()))
+                .findAny().orElseThrow(() -> new ServiceException("Account Number / Account Type invalid"));
+        if(wOtp.getText().equals(temporaryOTP)) {
+            Double amount = Double.parseDouble(withdrawAmount.getText());
+            Account account = BankService.findAccount(wAccNo.getText());
+            account.setCurrentBalance(account.getCurrentBalance() - amount);
+            Transaction newTransaction
+                    = new Transaction(wAccNo.getText(), "Withdrawal", amount, account.getCurrentBalance(), TransactionType.WITHDRAWAL);
+            BankService.makeTransaction(newTransaction);
+            openMsgPrompt(newTransaction.toString());
+        }else {
+            System.out.println("Invalid OTP");
+        }
+        wAccNo.clear(); wAccType.setValue(null); withdrawAmount.clear(); wOtp.clear();
     }
 
     @FXML
     void sendOtp(ActionEvent event) {
-
+        temporaryOTP = String
+                .format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16))
+                .substring(0,16);
+        openMsgPrompt("Your OTP is " + temporaryOTP);
+        // System.out.println("Your OTP is " + temporaryOTP);
     }
 
     // Management
@@ -293,5 +316,17 @@ public class CashierViewController implements Initializable {
         allAccountsTable.setItems(BankService.getAllAccounts());
     }
 
-
+    void openMsgPrompt(String msg) {
+        try {
+            MessagePromptController.setMsg(msg);
+            Parent root = FXMLLoader.load(getClass().getResource("MessagePrompt.fxml"));
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("msgLogo.png")));
+            stage.setTitle("Notification Center");
+            stage.setScene(new Scene(root, 400, 200));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

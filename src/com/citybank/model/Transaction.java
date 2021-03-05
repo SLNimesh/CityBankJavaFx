@@ -83,7 +83,8 @@ public class Transaction implements Serializable {
 
     @Override
     public String toString() {
-        return type.name() + " OF " + amount + " ON " + transactionDate + "[ BAL: " + accountBalance + " ]";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd h:m a");
+        return type.name() + " OF " + amount + " ON " + transactionDate.format(formatter) + " \n [ BAL: " + accountBalance + " ]";
     }
 
     public LocalDateTime getTransactionDate() {
