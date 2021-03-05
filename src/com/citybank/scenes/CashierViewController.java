@@ -48,9 +48,10 @@ public class CashierViewController implements Initializable {
         DAccType.getItems().setAll(AccountType.values());
         wAccType.getItems().setAll(AccountType.values());
 
-        initiateAllDepositsTable();
-        initiateAllUsersTable();
-        initiateAllWithdrawalsTable();
+//        initiateAllDepositsTable();
+//        initiateAllUsersTable();
+//        initiateAllWithdrawalsTable();
+//        initiateAllAccountsTable();
     }
 
 
@@ -114,6 +115,9 @@ public class CashierViewController implements Initializable {
     @FXML private TextField depositAmount;
 
     @FXML void confirmDeposit(ActionEvent event) {
+        BankService.getAllAccounts().stream()
+                .filter(account -> account.getAccountNumber().equals(dAccNo.getText()) && account.getAccountType().equals(DAccType.getValue()))
+                .findAny().orElseThrow(() -> new ServiceException("Account Number / Account Type invalid"));
         Double amount = Double.parseDouble(depositAmount.getText());
         Account account = BankService.findAccount(dAccNo.getText());
         account.setCurrentBalance(account.getCurrentBalance() + amount);
@@ -137,6 +141,7 @@ public class CashierViewController implements Initializable {
 
     @FXML private TableColumn<Transaction, Double> dAvailBal;
 
+    @FXML
     void initiateAllDepositsTable() {
         dTranID.setCellValueFactory(cell -> cell.getValue().getIdTableView());
         dStamp.setCellValueFactory(cell -> cell.getValue().getTransactionDateTableView());
@@ -166,6 +171,7 @@ public class CashierViewController implements Initializable {
     @FXML
     private TableColumn<Transaction, Double> wAvailBal;
 
+    @FXML
     void initiateAllWithdrawalsTable() {
         wTranID1.setCellValueFactory(cell -> cell.getValue().getIdTableView());
         wStampCol.setCellValueFactory(cell -> cell.getValue().getTransactionDateTableView());
@@ -250,6 +256,7 @@ public class CashierViewController implements Initializable {
 
     @FXML private TableColumn<AccountHolder, String> uContactNoColumn;
 
+    @FXML
     void initiateAllUsersTable() {
         uBankIdColumn.setCellValueFactory(cell -> cell.getValue().getBankAssignedIdTableView());
         uNameColumn.setCellValueFactory(cell -> cell.getValue().getNameTableView());
@@ -257,5 +264,34 @@ public class CashierViewController implements Initializable {
         uContactNoColumn.setCellValueFactory(cell -> cell.getValue().getContactNumberTableView());
         allUsersTable.setItems(BankService.getAllAccountHolders());
     }
+
+        //Accounts
+            //All accounts
+
+    @FXML private TableView<Account> allAccountsTable;
+
+    @FXML private TableColumn<Account, String> accountNoCol;
+
+    @FXML private TableColumn<Account, String> accHolIdCol;
+
+    @FXML private TableColumn<Account, String> accHolNameCol;
+
+    @FXML private TableColumn<Account, String> accBranchCol;
+
+    @FXML private TableColumn<Account, String> accTypeCol;
+
+    @FXML private TableColumn<Account, Double> accBalCol;
+
+    @FXML
+    void initiateAllAccountsTable() {
+        accountNoCol.setCellValueFactory(cell -> cell.getValue().getAccountNumberTable());
+        accHolIdCol.setCellValueFactory(cell -> cell.getValue().getAccountHolderTable());
+        accHolNameCol.setCellValueFactory(cell -> cell.getValue().getAccHolderName());
+        accBranchCol.setCellValueFactory(cell -> cell.getValue().getAccountBranchTable());
+        accTypeCol.setCellValueFactory(cell -> cell.getValue().getAccountTypeTable());
+        accBalCol.setCellValueFactory(cell -> cell.getValue().getCurrentBalanceTable().asObject());
+        allAccountsTable.setItems(BankService.getAllAccounts());
+    }
+
 
 }

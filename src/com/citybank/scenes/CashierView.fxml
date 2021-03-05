@@ -51,7 +51,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
                <image>
-                  <Image url="@../icons/person.jpg" />
+                  <Image url="@../icons/person.png" />
                </image>
             </ImageView>
          </children>
@@ -269,7 +269,7 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <VBox prefHeight="496.0" prefWidth="871.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                                                            <VBox layoutX="42.2" layoutY="-19.8" prefHeight="0.0" prefWidth="810.0" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="0.0">
                                                                <children>
                                                                   <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="First Name">
                                                                      <VBox.margin>
@@ -518,7 +518,7 @@
                      <children>
                         <TabPane prefHeight="642.0" prefWidth="1080.0" side="LEFT" stylesheets="@../css/horizontalTab.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                           <tabs>
-                            <Tab text="Accounts">
+                            <Tab onSelectionChanged="#initiateAllAccountsTable" text="Accounts">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -534,7 +534,19 @@
                                               </TitledPane>
                                               <TitledPane animated="false" styleClass="info" text="All accounts">
                                                 <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <TableView fx:id="allAccountsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                                                              <columns>
+                                                                <TableColumn fx:id="accountNoCol" prefWidth="118.00000309944153" text="Account No." />
+                                                                <TableColumn fx:id="accHolIdCol" prefWidth="136.0" text="Account Holder ID" />
+                                                                  <TableColumn fx:id="accHolNameCol" prefWidth="174.9999237060547" text="Account Holder Name" />
+                                                                  <TableColumn fx:id="accBranchCol" prefWidth="140.0" text="Branch" />
+                                                                  <TableColumn fx:id="accTypeCol" prefWidth="117.0" text="Account Type" />
+                                                                  <TableColumn fx:id="accBalCol" prefWidth="121.60006103515616" text="Balance" />
+                                                              </columns>
+                                                            </TableView>
+                                                         </children></AnchorPane>
                                                 </content>
                                               </TitledPane>
                                             </panes>
@@ -542,7 +554,7 @@
                                        </children></AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="Users">
+                            <Tab onSelectionChanged="#initiateAllUsersTable" text="Users">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -587,7 +599,7 @@
                      <children>
                         <TabPane layoutY="14.0" prefHeight="636.0" prefWidth="1080.0" side="LEFT" stylesheets="@../css/horizontalTab.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                           <tabs>
-                            <Tab text="Deposits">
+                            <Tab onSelectionChanged="#initiateAllDepositsTable" text="Deposits">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -672,30 +684,15 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <VBox layoutX="22.2" layoutY="0.1999999999999993" prefHeight="0.0" prefWidth="850.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <Label text="Previous Deposits" textAlignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="18.0" />
-                                                                     </font>
-                                                                     <VBox.margin>
-                                                                        <Insets top="20.0" />
-                                                                     </VBox.margin>
-                                                                  </Label>
-                                                                  <TableView fx:id="allDepositsTable" prefHeight="398.0" prefWidth="850.0">
-                                                                    <columns>
-                                                                      <TableColumn fx:id="dTranID" prefWidth="155.00000309944153" text="Transaction ID" />
-                                                                      <TableColumn fx:id="dStamp" minWidth="0.0" prefWidth="155.99998474121094" text="Timestamp" />
-                                                                        <TableColumn fx:id="dAccNoColumn" minWidth="0.0" prefWidth="182.99993896484375" text="Account No." />
-                                                                        <TableColumn fx:id="dAmount" minWidth="0.0" prefWidth="156.0" text="Amount" />
-                                                                        <TableColumn fx:id="dAvailBal" minWidth="0.0" prefWidth="156.00006103515625" text="Available Balance" />
-                                                                    </columns>
-                                                                     <VBox.margin>
-                                                                        <Insets right="20.0" top="20.0" />
-                                                                     </VBox.margin>
-                                                                  </TableView>
-                                                               </children>
-                                                            </VBox>
+                                                            <TableView fx:id="allDepositsTable" prefHeight="398.0" prefWidth="850.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                                                              <columns>
+                                                                <TableColumn fx:id="dTranID" prefWidth="155.00000309944153" text="Transaction ID" />
+                                                                <TableColumn fx:id="dStamp" minWidth="0.0" prefWidth="155.99998474121094" text="Timestamp" />
+                                                                  <TableColumn fx:id="dAccNoColumn" minWidth="0.0" prefWidth="182.99993896484375" text="Account No." />
+                                                                  <TableColumn fx:id="dAmount" minWidth="0.0" prefWidth="156.0" text="Amount" />
+                                                                  <TableColumn fx:id="dAvailBal" minWidth="0.0" prefWidth="156.00006103515625" text="Available Balance" />
+                                                              </columns>
+                                                            </TableView>
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
@@ -705,7 +702,7 @@
                                        </children></AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="Withdrawals">
+                            <Tab onSelectionChanged="#initiateAllWithdrawalsTable" text="Withdrawals">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="379.0">
                                        <children>
@@ -798,30 +795,15 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <VBox prefHeight="623.0" prefWidth="581.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <Label text="Previous Withdrawals" textAlignment="CENTER">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="18.0" />
-                                                                     </font>
-                                                                     <VBox.margin>
-                                                                        <Insets top="20.0" />
-                                                                     </VBox.margin>
-                                                                  </Label>
-                                                                  <TableView fx:id="allWithdrawalsTable" prefHeight="404.0" prefWidth="830.0">
-                                                                     <VBox.margin>
-                                                                        <Insets right="20.0" top="20.0" />
-                                                                     </VBox.margin>
-                                                                     <columns>
-                                                                        <TableColumn fx:id="wTranID1" prefWidth="155.00000309944153" text="Transaction ID" />
-                                                                        <TableColumn fx:id="wStampCol" minWidth="0.0" prefWidth="155.99998474121094" text="Timestamp" />
-                                                                        <TableColumn fx:id="wAccNoColumn" minWidth="0.0" prefWidth="182.99993896484375" text="Account No." />
-                                                                        <TableColumn fx:id="wAmount" minWidth="0.0" prefWidth="156.0" text="Amount" />
-                                                                        <TableColumn fx:id="wAvailBal" minWidth="0.0" prefWidth="178.00006103515625" text="Available Balance" />
-                                                                     </columns>
-                                                                  </TableView>
-                                                               </children>
-                                                            </VBox>
+                                                            <TableView fx:id="allWithdrawalsTable" prefHeight="451.0" prefWidth="830.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                                                               <columns>
+                                                                  <TableColumn fx:id="wTranID1" prefWidth="155.00000309944153" text="Transaction ID" />
+                                                                  <TableColumn fx:id="wStampCol" minWidth="0.0" prefWidth="155.99998474121094" text="Timestamp" />
+                                                                  <TableColumn fx:id="wAccNoColumn" minWidth="0.0" prefWidth="182.99993896484375" text="Account No." />
+                                                                  <TableColumn fx:id="wAmount" minWidth="0.0" prefWidth="156.0" text="Amount" />
+                                                                  <TableColumn fx:id="wAvailBal" minWidth="0.0" prefWidth="157.0" text="Available Balance" />
+                                                               </columns>
+                                                            </TableView>
                                                          </children>
                                                       </AnchorPane>
                                                 </content>

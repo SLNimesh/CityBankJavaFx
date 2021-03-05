@@ -1,5 +1,6 @@
 package com.citybank.model;
 
+import com.citybank.BankService;
 import com.citybank.model.enums.AccountType;
 import com.citybank.model.enums.Branch;
 import javafx.beans.property.DoubleProperty;
@@ -60,12 +61,20 @@ public class Account implements Serializable {
         return accountNumber;
     }
 
+    public StringProperty getAccountNumberTable() {
+        return new SimpleStringProperty(accountNumber);
+    }
+
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 
     public String getAccountHolder() {
         return accountHolder;
+    }
+
+    public StringProperty getAccountHolderTable() {
+        return new SimpleStringProperty(accountHolder);
     }
 
     public void setAccountHolder(String accountHolder) {
@@ -76,12 +85,20 @@ public class Account implements Serializable {
         return accountBranch;
     }
 
+    public StringProperty getAccountBranchTable() {
+        return new SimpleStringProperty(accountBranch.name());
+    }
+
     public void setAccountBranch(Branch accountBranch) {
         this.accountBranch = accountBranch;
     }
 
     public AccountType getAccountType() {
         return accountType;
+    }
+
+    public StringProperty getAccountTypeTable() {
+        return new SimpleStringProperty(accountType.name());
     }
 
     public void setAccountType(AccountType accountType) {
@@ -96,8 +113,16 @@ public class Account implements Serializable {
         return currentBalance;
     }
 
+    public DoubleProperty getCurrentBalanceTable() {
+        return new SimpleDoubleProperty(currentBalance);
+    }
+
     public void setCurrentBalance(Double currentBalance) {
         this.currentBalance = currentBalance;
         this.availBalance = currentBalance - fixedDeposit;
+    }
+
+    public StringProperty getAccHolderName() {
+        return new SimpleStringProperty(BankService.findAccountHolder(accountHolder).getName());
     }
 }

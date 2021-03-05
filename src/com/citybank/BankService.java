@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.*;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -46,6 +47,8 @@ public class BankService {
 
     public static void makeTransaction(Transaction transaction) {
         transactions.add(transaction);
+        System.out.println("Transaction added on id : " + transaction.getId());
+        LOGGER.log(Level.INFO, transaction.toString());
     }
 
     public static Account findAccount(String accNo) {
@@ -53,7 +56,12 @@ public class BankService {
                 .orElseThrow(() -> new ServiceException("No account exists under ACC.NO : " + accNo));
     }
 
-    public static Set<Account> findAccountByAccHolder(String accHolderName) {
+    public static AccountHolder findAccountHolder(String bankAssignedId) {
+        return accountHolders.stream().filter(accountHolder -> accountHolder.getBankAssignedId().equals(bankAssignedId)).findAny()
+                .orElseThrow(() -> new ServiceException("No user exists under BANK ID : " + bankAssignedId));
+    }
+
+    public static Set<Account> findAccountsByAccHolder(String accHolderName) {
         return new HashSet<>();
     }
 
@@ -85,16 +93,22 @@ public class BankService {
         return FXCollections.observableArrayList(accountHolders);
     }
 
+    public static ObservableList<Account> getAllAccounts() {
+        return FXCollections.observableArrayList(allAccounts);
+    }
+
     public static ObservableList<Transaction> getAllDeposits() {
         return FXCollections.
                 observableArrayList(
-                        transactions.stream().filter(transaction -> transaction.getType().equals(TransactionType.DEPOSIT)).collect(Collectors.toList()));
+                        transactions.stream().filter(transaction -> transaction.getType().equals(TransactionType.DEPOSIT))
+                                .sorted(Comparator.comparing(Transaction::getTransactionDate)).collect(Collectors.toList()));
     }
 
     public static ObservableList<Transaction> getAllWithdrawals() {
         return FXCollections.
                 observableArrayList(
-                        transactions.stream().filter(transaction -> transaction.getType().equals(TransactionType.WITHDRAWAL)).collect(Collectors.toList()));
+                        transactions.stream().filter(transaction -> transaction.getType().equals(TransactionType.WITHDRAWAL))
+                                .sorted(Comparator.comparing(Transaction::getTransactionDate)).collect(Collectors.toList()));
     }
 
     public static void setCurrentUserContext(UserContext userContext) {
@@ -107,6 +121,7 @@ public class BankService {
         allAccounts.addAll(genericFileReader(accountsFile, Account.class));
         accountHolders.addAll(genericFileReader(accountsHoldersFile, AccountHolder.class));
         securityTokens.addAll(genericFileReader(credentialsFile, Credentials.class));
+        transactions.addAll(genericFileReader(transactionsFile, Transaction.class));
     }
 
     public static void persistData() {
@@ -114,6 +129,7 @@ public class BankService {
         genericFileWriter(accountsHoldersFile, accountHolders);
         genericFileWriter(accountsFile, allAccounts);
         genericFileWriter(credentialsFile, securityTokens);
+        genericFileWriter(transactionsFile, transactions);
     }
 
     public static <T> Set<T> genericFileReader(String fileName, Class<T> classType) {

@@ -6,13 +6,16 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-public class Transaction {
+public class Transaction implements Serializable {
+
+    private static final long serialVersionUID = 7L;
 
     private String id;
     private LocalDateTime transactionDate;
