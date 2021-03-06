@@ -3,13 +3,13 @@ package com.citybank;
 import com.citybank.model.*;
 import com.citybank.model.enums.TransactionType;
 import com.citybank.model.enums.UserRole;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,14 +77,16 @@ public class BankService {
         return new HashSet<>();
     }
 
-    public static void addNewCashier(UserContext userContext, Credentials userCredentials) {
-        LOGGER.log(Level.INFO, "Cashier added with,\n ID: "
+    public static String addNewCashier(UserContext userContext, Credentials userCredentials) {
+        String msg = "Cashier added with,\n ID: "
                 + userContext.getBankAssignedID()
                 +"\n NAME : " + userContext.getFirstName() + " " + userContext.getLastName()
-                + "\n ROLE : " + userContext.getRole());
+                + "\n ROLE : " + userContext.getRole();
+        LOGGER.log(Level.INFO, msg);
         users.add(userContext);
         securityTokens.add(userCredentials);
         LOGGER.log(Level.INFO, "Credentials added for username :" + userCredentials.getUserName());
+        return msg;
     }
 
     public static void addNewUser(AccountHolder accountHolder) {
@@ -99,6 +101,16 @@ public class BankService {
                 .filter(accountHolder -> accountHolder.getBankAssignedId().equals(account.getAccountHolder())).findFirst()
                 .orElseThrow(() -> new ServiceException("Account holder's bank assigned id seems to invalid"));
         accHolder.getAccounts().add(account.getAccountNumber());
+    }
+
+    public static UserContext deleteCashierAccount(String bankAssignedId) {
+        UserContext deletedAccount = findUserContext(bankAssignedId);
+        Credentials deletedCredentials = findCredentials(bankAssignedId);
+        users.remove(deletedAccount);
+        LOGGER.log(Level.INFO, "Deleted account " + bankAssignedId);
+        securityTokens.remove(deletedCredentials);
+        LOGGER.log(Level.INFO, "Credentials removed under username : " + deletedCredentials.getUserName());
+        return deletedAccount;
     }
 
     public static UserContext getCurrentUserContext() {
@@ -131,6 +143,12 @@ public class BankService {
                 observableArrayList(
                         transactions.stream().filter(transaction -> transaction.getType().equals(TransactionType.WITHDRAWAL))
                                 .sorted(Comparator.comparing(Transaction::getTransactionDate)).collect(Collectors.toList()));
+    }
+
+    public static List<String> getCashierIDs() {
+        return users.stream()
+                .filter(userContext -> userContext.getRole().equals(UserRole.CASHIER.name()))
+                .map(UserContext::getBankAssignedID).collect(Collectors.toList());
     }
 
     public static void setCurrentUserContext(UserContext userContext) {
@@ -225,4 +243,5 @@ public class BankService {
     public static boolean isSomethingWentWrong() {
         return somethingWentWrong;
     }
+
 }

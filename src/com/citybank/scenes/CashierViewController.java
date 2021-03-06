@@ -6,6 +6,7 @@ import com.citybank.model.enums.AccountType;
 import com.citybank.model.enums.Branch;
 import com.citybank.model.enums.TransactionType;
 import com.citybank.model.enums.UserRole;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -155,9 +156,13 @@ public class CashierViewController implements Initializable {
         dAccNoColumn.setCellValueFactory(cell -> cell.getValue().getAccountNoTableView());
         dAmount.setCellValueFactory(cell -> cell.getValue().getAmountTableView().asObject());
         dAvailBal.setCellValueFactory(cell -> cell.getValue().getAccountBalanceTableView().asObject());
-        allDepositsTable.setItems(BankService.getAllDeposits());
+        updateAllDepositsTable();
     }
 
+    @FXML
+    void updateAllDepositsTable() {
+        allDepositsTable.setItems(BankService.getAllDeposits());
+    }
     // all withdrawals
 
     @FXML
@@ -185,10 +190,13 @@ public class CashierViewController implements Initializable {
         wAccNoColumn.setCellValueFactory(cell -> cell.getValue().getAccountNoTableView());
         wAmount.setCellValueFactory(cell -> cell.getValue().getAmountTableView().asObject());
         wAvailBal.setCellValueFactory(cell -> cell.getValue().getAccountBalanceTableView().asObject());
-        allWithdrawalsTable.setItems(BankService.getAllWithdrawals());
+        updateAllWithdrawalsTable();
     }
 
-
+    @FXML
+    void updateAllWithdrawalsTable() {
+        allWithdrawalsTable.setItems(BankService.getAllWithdrawals());
+    }
 
     // WITHDRAW
 
@@ -259,6 +267,7 @@ public class CashierViewController implements Initializable {
         CContactCol.setCellValueFactory(cell -> cell.getValue().getContactNumberTable());
         cUserNameCol.setCellValueFactory(cell -> cell.getValue().getUserName());
         updateCashiersTableData();
+        loadCashierIDs();
     }
 
     @FXML
@@ -283,20 +292,50 @@ public class CashierViewController implements Initializable {
     void createCashier(ActionEvent event) {
         UserContext newUserContext = new UserContext(cFirstName.getText(), cLastName.getText(), cnic.getText(), cContact.getText(), UserRole.CASHIER);
         Credentials credentials = new Credentials(cUser.getText(), cPW.getText(), newUserContext.getBankAssignedID());
-        BankService.addNewCashier(newUserContext, credentials);
+        String msg  = BankService.addNewCashier(newUserContext, credentials);
+        openMsgPrompt(msg);
+        cFirstName.clear();  cLastName.clear();  cnic.clear();  cContact.clear();  cUser.clear();  cPW.clear();
     }
 
             //Manage cashier
     @FXML private ComboBox<String> cashierId;
 
+    @FXML private Label cEditFullName;
+
+    @FXML private TextField cEditUsername;
+
+    @FXML private TextField cEditPwOne;
+
+    @FXML private TextField cEditPwTwo;
+
+    void loadCashierIDs() {
+        cashierId.getItems().setAll(BankService.getCashierIDs());
+    }
+
+    @FXML
+    void loadCashierDetails(ActionEvent event) {
+        UserContext selectedCashier = BankService.findUserContext(cashierId.getValue());
+        cEditFullName.setText(selectedCashier.getFullNameTable().getValue());
+        cEditUsername.setText(selectedCashier.getUserName().getValue());
+    }
+
     @FXML
     void deleteCashier(ActionEvent event) {
-
+        BankService.deleteCashierAccount(cashierId.getValue());
+        cashierId.setValue(null); cEditFullName.setText("[Select cashier id]"); cEditUsername.clear(); cEditPwOne.clear(); cEditPwTwo.clear();
     }
 
     @FXML
     void openChangeCredentials(ActionEvent event) {
-
+        if(cEditPwOne.getText().equals(cEditPwTwo.getText())) {
+            Credentials changedCredentials = BankService.findCredentials(cashierId.getValue());
+            changedCredentials.setUserName(cEditUsername.getText());
+            changedCredentials.setPassword(cEditPwOne.getText());
+            System.out.println("Credentials changed for : " + changedCredentials.getUserName());
+        }else {
+            openMsgPrompt("Make sure you enter the same password in both the places");
+        }
+        cEditPwOne.clear(); cEditPwTwo.clear();
     }
 
     //Accounts
@@ -318,6 +357,11 @@ public class CashierViewController implements Initializable {
         uNameColumn.setCellValueFactory(cell -> cell.getValue().getNameTableView());
         uNICColumn.setCellValueFactory(cell -> cell.getValue().getNICTableView());
         uContactNoColumn.setCellValueFactory(cell -> cell.getValue().getContactNumberTableView());
+        updateAllUsersTable();
+    }
+
+    @FXML
+    void updateAllUsersTable() {
         allUsersTable.setItems(BankService.getAllAccountHolders());
     }
 
@@ -346,6 +390,11 @@ public class CashierViewController implements Initializable {
         accBranchCol.setCellValueFactory(cell -> cell.getValue().getAccountBranchTable());
         accTypeCol.setCellValueFactory(cell -> cell.getValue().getAccountTypeTable());
         accBalCol.setCellValueFactory(cell -> cell.getValue().getCurrentBalanceTable().asObject());
+        updateAllAccountsTable();
+    }
+
+    @FXML
+    void updateAllAccountsTable() {
         allAccountsTable.setItems(BankService.getAllAccounts());
     }
 

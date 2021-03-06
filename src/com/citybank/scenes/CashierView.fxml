@@ -26,7 +26,7 @@
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1080.0" style="-fx-background-color: #323232;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="152.0">
+            <VBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="197.0">
                <children>
                   <Label fx:id="headerGreeting" alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="157.0" text="Welcome ROLE" textFill="#f6f6f6">
                      <padding>
@@ -36,7 +36,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="headerUsername" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="96.0" text="Username" textFill="#f6f6f6" wrapText="true">
+                  <Label fx:id="headerUsername" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="210.0" text="Username" textFill="#f6f6f6" wrapText="true">
                      <VBox.margin>
                         <Insets right="10.0" />
                      </VBox.margin>
@@ -82,7 +82,7 @@
                                                 </Button>
                                                 <Accordion prefHeight="543.0" prefWidth="914.0">
                                                   <panes>
-                                                    <TitledPane animated="false" expanded="false" styleClass="primary" text="Register a user">
+                                                    <TitledPane animated="false" expanded="false" styleClass="primary" text="Register a customer">
                                                       <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                <children>
@@ -377,16 +377,47 @@
                                                                         <Font name="System Bold" size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <ComboBox fx:id="cashierId" prefWidth="150.0" promptText="Cashier  ID">
+                                                                  <ComboBox fx:id="cashierId" onAction="#loadCashierDetails" prefWidth="347.0" promptText="Cashier  ID">
                                                                      <VBox.margin>
                                                                         <Insets top="10.0" />
                                                                      </VBox.margin>
                                                                   </ComboBox>
+                                                                  <Label text="Name :">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label fx:id="cEditFullName" prefHeight="25.0" prefWidth="278.0" text="[Select cashier id]">
+                                                                     <font>
+                                                                        <Font size="16.0" />
+                                                                     </font>
+                                                                     <VBox.margin>
+                                                                        <Insets left="30.0" top="5.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
                                                                   <Button mnemonicParsing="false" onAction="#deleteCashier" styleClass="danger" text="Delete Cashier">
                                                                      <VBox.margin>
                                                                         <Insets left="30.0" top="20.0" />
                                                                      </VBox.margin>
                                                                   </Button>
+                                                                  <TextField fx:id="cEditUsername" promptText="Username">
+                                                                     <VBox.margin>
+                                                                        <Insets left="30.0" right="570.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <TextField fx:id="cEditPwOne" layoutX="10.0" layoutY="137.0" prefHeight="32.0" prefWidth="682.0" promptText="Password">
+                                                                     <VBox.margin>
+                                                                        <Insets left="30.0" right="570.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
+                                                                  <TextField fx:id="cEditPwTwo" layoutX="10.0" layoutY="189.0" prefHeight="32.0" prefWidth="682.0" promptText="Confirm Password">
+                                                                     <VBox.margin>
+                                                                        <Insets left="30.0" right="570.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
                                                                   <Button mnemonicParsing="false" onAction="#openChangeCredentials" text="Change Credentials">
                                                                      <VBox.margin>
                                                                         <Insets left="30.0" top="10.0" />
@@ -403,7 +434,7 @@
                                        </children></AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="Users">
+                            <Tab text="Customers">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -568,13 +599,13 @@
                                        </children></AnchorPane>
                               </content>
                             </Tab>
-                            <Tab onSelectionChanged="#initiateAllUsersTable" text="Users">
+                            <Tab onSelectionChanged="#initiateAllUsersTable" text="Customers">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
                                           <Accordion AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                              <panes>
-                                                <TitledPane animated="false" styleClass="primary" text="Search user">
+                                                <TitledPane animated="false" styleClass="primary" text="Search customers">
                                                    <content>
                                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                                    </content>
@@ -582,7 +613,7 @@
                                                       <Font name="System Bold" size="15.0" />
                                                    </font>
                                                 </TitledPane>
-                                                <TitledPane animated="false" styleClass="info" text="All users">
+                                                <TitledPane animated="false" onMouseClicked="#updateAllUsersTable" styleClass="info" text="All customers">
                                                    <content>
                                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
