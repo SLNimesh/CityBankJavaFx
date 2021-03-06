@@ -645,11 +645,11 @@
                                                          <children>
                                                             <TableView fx:id="allUsersTable" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                                               <columns>
-                                                                <TableColumn fx:id="uBankIdColumn" prefWidth="164.00000309944153" text="User ID" />
-                                                                <TableColumn fx:id="uNameColumn" minWidth="2.0" prefWidth="222.9999237060547" text="Name" />
-                                                                  <TableColumn fx:id="uNICColumn" minWidth="2.0" prefWidth="144.0" text="NIC" />
-                                                                  <TableColumn fx:id="uContactNoColumn" maxWidth="324.0" minWidth="-1.0" prefWidth="141.0" text="Contact Number" />
-                                                                  <TableColumn fx:id="uAddressColumn" maxWidth="330.0" minWidth="-1.0" prefWidth="154.0" text="Address" />
+                                                                <TableColumn fx:id="uBankIdColumn" prefWidth="135.00000309944153" text="User ID" />
+                                                                <TableColumn fx:id="uNameColumn" minWidth="2.0" prefWidth="195.9999237060547" text="Name" />
+                                                                  <TableColumn fx:id="uNICColumn" minWidth="2.0" prefWidth="111.0" text="NIC" />
+                                                                  <TableColumn fx:id="uContactNoColumn" maxWidth="523.0" minWidth="-1.0" prefWidth="150.0" text="Contact Number" />
+                                                                  <TableColumn fx:id="uAddressColumn" maxWidth="330.0" minWidth="-1.0" prefWidth="235.60006103515616" resizable="false" text="Address" />
                                                               </columns>
                                                             </TableView>
                                                          </children></AnchorPane>

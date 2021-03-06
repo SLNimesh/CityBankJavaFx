@@ -116,6 +116,9 @@ public class BankService {
     public static void deleteAccountHolder(String bankAssignedId) {
         AccountHolder deletedAccountHolder = findAccountHolder(bankAssignedId);
         accountHolders.remove(deletedAccountHolder);
+        deletedAccountHolder.getAccounts().forEach(account -> {
+            allAccounts.remove(findAccount(account));
+        });
         LOGGER.log(Level.INFO, "Account holder deleted : " + bankAssignedId);
     }
 
