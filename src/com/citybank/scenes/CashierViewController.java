@@ -243,6 +243,50 @@ public class CashierViewController implements Initializable {
 
     // Management
         //Customer
+            //Edit
+    @FXML private TextField cusEditID;
+
+    @FXML private TextField cusEditFullName;
+
+    @FXML private TextField cusEditNIC;
+
+    @FXML private TextField cusEditAdd;
+
+    @FXML private TextField cusEditContact;
+
+    @FXML private DatePicker cusEditDOB;
+
+    @FXML
+    void loadAccountHolderEdit(KeyEvent keyEvent) {
+        if(keyEvent.getCode().equals(KeyCode.ENTER)) {
+            AccountHolder selected = BankService.findAccountHolder(cusEditID.getText());
+            cusEditFullName.setText(selected.getName());
+            cusEditNIC.setText(selected.getNIC());
+            cusEditAdd.setText(selected.getAddress());
+            cusEditContact.setText(selected.getContactNumber());
+            cusEditDOB.setValue(selected.getDateOfBirth());
+        }
+    }
+
+    @FXML
+    void clearSelectedAccountHolder() {
+        cusEditFullName.clear(); cusEditNIC.clear(); cusEditAdd.clear();
+        cusEditContact.clear(); cusEditDOB.setValue(null);
+    }
+
+    @FXML
+    void updateAccountHolderInfo() {
+        AccountHolder selected = BankService.findAccountHolder(cusEditID.getText());
+        selected.setName(cusEditFullName.getText());
+        selected.setNIC(cusEditNIC.getText());
+        selected.setDateOfBirth(cusEditDOB.getValue());
+        selected.setContactNumber(cusEditContact.getText());
+        selected.setAddress(cusEditAdd.getText());
+        clearSelectedAccountHolder();
+    }
+
+
+            //Delete
     @FXML private TextField dAccountHolderID;
 
     @FXML private TextArea accHolderDetails;
@@ -384,12 +428,15 @@ public class CashierViewController implements Initializable {
 
     @FXML private TableColumn<AccountHolder, String> uContactNoColumn;
 
+    @FXML private TableColumn<AccountHolder, String> uAddressColumn;
+
     @FXML
     void initiateAllUsersTable() {
         uBankIdColumn.setCellValueFactory(cell -> cell.getValue().getBankAssignedIdTableView());
         uNameColumn.setCellValueFactory(cell -> cell.getValue().getNameTableView());
         uNICColumn.setCellValueFactory(cell -> cell.getValue().getNICTableView());
         uContactNoColumn.setCellValueFactory(cell -> cell.getValue().getContactNumberTableView());
+        uAddressColumn.setCellValueFactory(cell -> cell.getValue().getAddressTableView());
         updateAllUsersTable();
     }
 

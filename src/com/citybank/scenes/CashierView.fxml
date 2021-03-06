@@ -441,13 +441,13 @@
                                        <children>
                                           <Accordion layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                             <panes>
-                                              <TitledPane animated="false" styleClass="primary" text="Edit user details">
+                                              <TitledPane animated="false" styleClass="primary" text="Edit customer details">
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
                                                             <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                                                <children>
-                                                                  <Label text="Bank_Assigned_ID :">
+                                                                  <Label text="Customer ID :">
                                                                      <font>
                                                                         <Font name="System Bold" size="16.0" />
                                                                      </font>
@@ -455,13 +455,17 @@
                                                                         <Insets top="5.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <ChoiceBox prefWidth="150.0" />
+                                                                  <TextField fx:id="cusEditID" onKeyPressed="#loadAccountHolderEdit" promptText="Type id and press enter">
+                                                                     <VBox.margin>
+                                                                        <Insets right="600.0" />
+                                                                     </VBox.margin>
+                                                                  </TextField>
                                                                   <Label alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="209.0" text="Full Name">
                                                                      <VBox.margin>
                                                                         <Insets top="10.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <TextField fx:id="rFullName1" prefHeight="36.0" prefWidth="375.0">
+                                                                  <TextField fx:id="cusEditFullName" prefHeight="36.0" prefWidth="375.0">
                                                                      <VBox.margin>
                                                                         <Insets right="300.0" />
                                                                      </VBox.margin>
@@ -471,7 +475,7 @@
                                                                         <Insets top="5.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <TextField fx:id="rNic1" prefHeight="36.0" prefWidth="210.0">
+                                                                  <TextField fx:id="cusEditNIC" prefHeight="36.0" prefWidth="210.0">
                                                                      <VBox.margin>
                                                                         <Insets right="600.0" />
                                                                      </VBox.margin>
@@ -481,7 +485,7 @@
                                                                         <Insets top="5.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <TextField fx:id="rAddress1" prefHeight="36.0" prefWidth="375.0">
+                                                                  <TextField fx:id="cusEditAdd" prefHeight="36.0" prefWidth="375.0">
                                                                      <VBox.margin>
                                                                         <Insets right="100.0" />
                                                                      </VBox.margin>
@@ -491,7 +495,7 @@
                                                                         <Insets top="5.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <TextField fx:id="rContact1" prefHeight="36.0" prefWidth="375.0">
+                                                                  <TextField fx:id="cusEditContact" prefHeight="36.0" prefWidth="375.0">
                                                                      <VBox.margin>
                                                                         <Insets right="600.0" />
                                                                      </VBox.margin>
@@ -501,22 +505,30 @@
                                                                         <Insets top="5.0" />
                                                                      </VBox.margin>
                                                                   </Label>
-                                                                  <DatePicker fx:id="rDOB1" promptText="Select" />
-                                                                  <Button mnemonicParsing="false" onAction="#openRegisterPrompt" styleClass="info" text="Update Info">
-                                                                     <font>
-                                                                        <Font name="System Bold Italic" size="12.0" />
-                                                                     </font>
+                                                                  <DatePicker fx:id="cusEditDOB" promptText="Select" />
+                                                                  <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <Button mnemonicParsing="false" onAction="#clearSelectedAccountHolder" prefHeight="42.0" prefWidth="65.0" styleClass="info" text="Clear" />
+                                                                        <Button mnemonicParsing="false" onAction="#updateAccountHolderInfo" styleClass="success" text="Update Info">
+                                                                           <font>
+                                                                              <Font name="System Bold Italic" size="12.0" />
+                                                                           </font>
+                                                                           <HBox.margin>
+                                                                              <Insets left="10.0" />
+                                                                           </HBox.margin>
+                                                                        </Button>
+                                                                     </children>
                                                                      <VBox.margin>
-                                                                        <Insets top="20.0" />
+                                                                        <Insets top="10.0" />
                                                                      </VBox.margin>
-                                                                  </Button>
+                                                                  </HBox>
                                                                </children>
                                                             </VBox>
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
                                               </TitledPane>
-                                              <TitledPane animated="false" styleClass="info" text="Remove user">
+                                              <TitledPane animated="false" styleClass="info" text="Remove customer">
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
@@ -633,10 +645,11 @@
                                                          <children>
                                                             <TableView fx:id="allUsersTable" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                                               <columns>
-                                                                <TableColumn fx:id="uBankIdColumn" prefWidth="208.00000309944153" text="User ID" />
-                                                                <TableColumn fx:id="uNameColumn" minWidth="2.0" prefWidth="241.9999237060547" text="Name" />
-                                                                  <TableColumn fx:id="uNICColumn" minWidth="2.0" prefWidth="205.0" text="NIC" />
-                                                                  <TableColumn fx:id="uContactNoColumn" maxWidth="173.0" minWidth="-1.0" prefWidth="172.60006103515616" text="Contact Number" />
+                                                                <TableColumn fx:id="uBankIdColumn" prefWidth="164.00000309944153" text="User ID" />
+                                                                <TableColumn fx:id="uNameColumn" minWidth="2.0" prefWidth="222.9999237060547" text="Name" />
+                                                                  <TableColumn fx:id="uNICColumn" minWidth="2.0" prefWidth="144.0" text="NIC" />
+                                                                  <TableColumn fx:id="uContactNoColumn" maxWidth="324.0" minWidth="-1.0" prefWidth="141.0" text="Contact Number" />
+                                                                  <TableColumn fx:id="uAddressColumn" maxWidth="330.0" minWidth="-1.0" prefWidth="154.0" text="Address" />
                                                               </columns>
                                                             </TableView>
                                                          </children></AnchorPane>

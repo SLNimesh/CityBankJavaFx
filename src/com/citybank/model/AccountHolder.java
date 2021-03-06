@@ -110,4 +110,8 @@ public class AccountHolder implements Serializable {
     public StringProperty getBankAssignedIdTableView() {
         return new SimpleStringProperty(bankAssignedId);
     }
+
+    public StringProperty getAddressTableView() {
+        return  new SimpleStringProperty(address);
+    }
 }
