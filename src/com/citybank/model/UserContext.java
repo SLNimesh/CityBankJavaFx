@@ -1,6 +1,9 @@
 package com.citybank.model;
 
+import com.citybank.BankService;
 import com.citybank.model.enums.UserRole;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -32,6 +35,10 @@ public class UserContext implements Serializable {
         return bankAssignedID;
     }
 
+    public StringProperty getBankAssignedIDTable() {
+        return new SimpleStringProperty(bankAssignedID);
+    }
+
     public void setBankAssignedID(String bankAssignedID) {
         this.bankAssignedID = bankAssignedID;
     }
@@ -48,6 +55,10 @@ public class UserContext implements Serializable {
         return lastName;
     }
 
+    public StringProperty getFullNameTable() {
+        return new SimpleStringProperty(firstName.concat(" ").concat(lastName));
+    }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -56,12 +67,20 @@ public class UserContext implements Serializable {
         return nic;
     }
 
+    public StringProperty getNICTable() {
+        return new SimpleStringProperty(nic);
+    }
+
     public void setNic(String nic) {
         this.nic = nic;
     }
 
     public String getContactNumber() {
         return contactNumber;
+    }
+
+    public StringProperty getContactNumberTable() {
+        return new SimpleStringProperty(contactNumber);
     }
 
     public void setContactNumber(String contactNumber) {
@@ -74,5 +93,9 @@ public class UserContext implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public StringProperty getUserName() {
+        return new SimpleStringProperty(BankService.findCredentials(bankAssignedID).getUserName());
     }
 }

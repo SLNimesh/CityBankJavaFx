@@ -75,7 +75,7 @@ public class CashierViewController implements Initializable {
                         accType.getSelectionModel().getSelectedItem(), Double.parseDouble(initialDeposit.getText()));
         BankService.createNewAccount(newAccount);
         openMsgPrompt("New account with ACC NO. : " + newAccount.getAccountNumber()
-                +  " created for " + newAccount.getAccHolderName() + "(" + newAccount.getAccountHolder() + ").");
+                +  " created for " + newAccount.getAccHolderName().getValue() + "(" + newAccount.getAccountHolder() + ").");
         bankId.clear(); branch.setValue(null); accType.setValue(null); initialDeposit.clear();
     }
 
@@ -233,6 +233,39 @@ public class CashierViewController implements Initializable {
 
     // Management
         //Cashier
+    @FXML
+    private TableView<UserContext> AllCashiersTable;
+
+    @FXML
+    private TableColumn<UserContext, String> cIDCol;
+
+    @FXML
+    private TableColumn<UserContext, String> cNameCol;
+
+    @FXML
+    private TableColumn<UserContext, String> cNICCol;
+
+    @FXML
+    private TableColumn<UserContext, String> CContactCol;
+
+    @FXML
+    private TableColumn<UserContext, String> cUserNameCol;
+
+    @FXML
+    void initializeAllCashiersTable() {
+        cIDCol.setCellValueFactory(cell -> cell.getValue().getBankAssignedIDTable());
+        cNameCol.setCellValueFactory(cell -> cell.getValue().getFullNameTable());
+        cNICCol.setCellValueFactory(cell -> cell.getValue().getNICTable());
+        CContactCol.setCellValueFactory(cell -> cell.getValue().getContactNumberTable());
+        cUserNameCol.setCellValueFactory(cell -> cell.getValue().getUserName());
+        updateCashiersTableData();
+    }
+
+    @FXML
+    void updateCashiersTableData() {
+        AllCashiersTable.setItems(BankService.getAllCashiers());
+    }
+
             //Create new
     @FXML private TextField cFirstName;
 
@@ -248,8 +281,8 @@ public class CashierViewController implements Initializable {
 
     @FXML
     void createCashier(ActionEvent event) {
-        UserContext newUserContext = new UserContext(cFirstName.getText(), cLastName.getText(), cnic.getText(), cContact.getText(), UserRole.MANAGER);
-        Credentials credentials = new Credentials(newUserContext.getBankAssignedID(), cUser.getText(), cPW.getText());
+        UserContext newUserContext = new UserContext(cFirstName.getText(), cLastName.getText(), cnic.getText(), cContact.getText(), UserRole.CASHIER);
+        Credentials credentials = new Credentials(cUser.getText(), cPW.getText(), newUserContext.getBankAssignedID());
         BankService.addNewCashier(newUserContext, credentials);
     }
 

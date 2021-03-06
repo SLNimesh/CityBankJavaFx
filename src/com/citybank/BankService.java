@@ -2,6 +2,8 @@ package com.citybank;
 
 import com.citybank.model.*;
 import com.citybank.model.enums.TransactionType;
+import com.citybank.model.enums.UserRole;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -38,9 +40,9 @@ public class BankService {
                 filter(credentials -> credentials.getUserName().equals(userName) && credentials.decodePassword().equals(password)).findFirst().
                 orElseThrow(() -> new ServiceException("Entered credentials are incorrect"));
 
-        UserContext current = users.stream().filter(userContext -> userContext.getBankAssignedID().equals(enteredCred.getBankAssignedId())).findFirst().
-                orElseThrow(() -> new ServiceException("Failed to load user."));
+        UserContext current = findUserContext(enteredCred.getBankAssignedId());
 
+        LOGGER.log(Level.INFO, "User "+ userName + " authenticated and authorized with role : " + current.getRole());
         setCurrentUserContext(current);
         return currentUserContext;
     }
@@ -49,6 +51,11 @@ public class BankService {
         transactions.add(transaction);
         System.out.println("Transaction added on id : " + transaction.getId());
         LOGGER.log(Level.INFO, transaction.toString());
+    }
+
+    public static Credentials findCredentials(String bankAssignedID) {
+        return securityTokens.stream().filter(credentials -> credentials.getBankAssignedId().equals(bankAssignedID))
+                .findAny().orElseThrow(() -> new ServiceException("No credentials found for given ID"));
     }
 
     public static Account findAccount(String accNo) {
@@ -61,14 +68,23 @@ public class BankService {
                 .orElseThrow(() -> new ServiceException("No user exists under BANK ID : " + bankAssignedId));
     }
 
+    public static UserContext findUserContext(String bankAssignedID) {
+        return users.stream().filter(userContext -> userContext.getBankAssignedID().equals(bankAssignedID)).findFirst().
+                orElseThrow(() -> new ServiceException("Failed to load user."));
+    }
+
     public static Set<Account> findAccountsByAccHolder(String accHolderName) {
         return new HashSet<>();
     }
 
     public static void addNewCashier(UserContext userContext, Credentials userCredentials) {
-        LOGGER.log(Level.INFO, "Cashier added with id: " + userContext.getBankAssignedID());
+        LOGGER.log(Level.INFO, "Cashier added with,\n ID: "
+                + userContext.getBankAssignedID()
+                +"\n NAME : " + userContext.getFirstName() + " " + userContext.getLastName()
+                + "\n ROLE : " + userContext.getRole());
         users.add(userContext);
         securityTokens.add(userCredentials);
+        LOGGER.log(Level.INFO, "Credentials added for username :" + userCredentials.getUserName());
     }
 
     public static void addNewUser(AccountHolder accountHolder) {
@@ -95,6 +111,12 @@ public class BankService {
 
     public static ObservableList<Account> getAllAccounts() {
         return FXCollections.observableArrayList(allAccounts);
+    }
+
+    public static ObservableList<UserContext> getAllCashiers() {
+        return FXCollections
+                .observableArrayList(
+                        users.stream().filter(user -> user.getRole().equals(UserRole.CASHIER.name())).collect(Collectors.toList()));
     }
 
     public static ObservableList<Transaction> getAllDeposits() {
@@ -197,6 +219,7 @@ public class BankService {
             somethingWentWrong = true;
             LOGGER.log(Level.SEVERE, "IO Exception occurred while writing.");
         }
+        LOGGER.log(Level.FINE, "Updated file : " + fileName);
     }
 
     public static boolean isSomethingWentWrong() {

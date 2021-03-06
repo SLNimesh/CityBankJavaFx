@@ -28,7 +28,7 @@ public class LoginFormController {
 
     @FXML
     void authenticate(ActionEvent event) throws IOException {
-        System.out.println("Authenticate user " + username.getText() + " " + password.getText());
+        System.out.println("Authenticating user " + username.getText() + " " + password.getText());
         errorText.setText("");
         try {
             BankService.authenticate(username.getText(), password.getText());
@@ -36,6 +36,7 @@ public class LoginFormController {
             Main.window.setScene(new Scene(root, 1280, 720));
 
         } catch (ServiceException e) {
+            System.out.println(e.getMessage());
             errorText.setText("" + e.getMessage());
         }
     }
