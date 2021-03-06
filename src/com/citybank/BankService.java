@@ -3,6 +3,7 @@ package com.citybank;
 import com.citybank.model.*;
 import com.citybank.model.enums.TransactionType;
 import com.citybank.model.enums.UserRole;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -73,6 +74,12 @@ public class BankService {
                 orElseThrow(() -> new ServiceException("Failed to load user."));
     }
 
+    public static List<String> findTransactionsForAccount(String accountNo) {
+        return transactions.stream().
+                filter(transaction -> transaction.getAccountNo().equals(accountNo)).
+                map(Transaction::toString).collect(Collectors.toList());
+    }
+
     public static Set<Account> findAccountsByAccHolder(String accHolderName) {
         return new HashSet<>();
     }
@@ -119,7 +126,7 @@ public class BankService {
         deletedAccountHolder.getAccounts().forEach(account -> {
             allAccounts.remove(findAccount(account));
         });
-        LOGGER.log(Level.INFO, "Account holder deleted : " + bankAssignedId);
+        LOGGER.log(Level.INFO, "Account holder deactivated : " + bankAssignedId);
     }
 
     public static UserContext getCurrentUserContext() {

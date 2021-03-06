@@ -32,7 +32,7 @@ public class AccountHolder implements Serializable {
         this.accounts = new HashSet<>();
         this.bankAssignedId = String
                 .format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16))
-                .substring(0,16);
+                .substring(0,6);
     }
 
     public void setBankAssignedId(String bankAssignedId) {

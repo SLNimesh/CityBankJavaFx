@@ -6,7 +6,6 @@ import com.citybank.model.enums.AccountType;
 import com.citybank.model.enums.Branch;
 import com.citybank.model.enums.TransactionType;
 import com.citybank.model.enums.UserRole;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,10 +53,6 @@ public class CashierViewController implements Initializable {
         DAccType.getItems().setAll(AccountType.values());
         wAccType.getItems().setAll(AccountType.values());
 
-//        initiateAllDepositsTable();
-//        initiateAllUsersTable();
-//        initiateAllWithdrawalsTable();
-//        initiateAllAccountsTable();
     }
 
 
@@ -123,10 +118,9 @@ public class CashierViewController implements Initializable {
 
     @FXML private TextField depositAmount;
 
+    @FXML private TextArea depositDetail;
+
     @FXML void confirmDeposit(ActionEvent event) {
-        BankService.getAllAccounts().stream()
-                .filter(account -> account.getAccountNumber().equals(dAccNo.getText()) && account.getAccountType().equals(DAccType.getValue()))
-                .findAny().orElseThrow(() -> new ServiceException("Account Number / Account Type invalid"));
         Double amount = Double.parseDouble(depositAmount.getText());
         Account account = BankService.findAccount(dAccNo.getText());
         account.setCurrentBalance(account.getCurrentBalance() + amount);
@@ -134,7 +128,22 @@ public class CashierViewController implements Initializable {
                 = new Transaction(dAccNo.getText(), dDesc.getText(), amount, account.getCurrentBalance(), TransactionType.DEPOSIT);
         BankService.makeTransaction(newTransaction);
         openMsgPrompt(newTransaction.toString());
-        dAccNo.clear(); DAccType.setValue(null); dDesc.clear(); depositAmount.clear();
+        dAccNo.clear(); DAccType.setValue(null); dDesc.clear(); depositAmount.clear(); depositDetail.clear();
+    }
+
+    @FXML
+    void loadAccountAccountDeposit(KeyEvent keyEvent) {
+        if(keyEvent.getCode().equals(KeyCode.ENTER)) {
+            Account account = BankService.findAccount(dAccNo.getText());
+            DAccType.setValue(account.getAccountType());
+            AccountHolder selected = BankService.findAccountHolder(account.getAccountHolder());
+            String details = "\nNAME : " + selected.getName()
+                    + "\nNIC : " + selected.getNIC()
+                    + "\nDOB : " + selected.getDateOfBirth().toString()
+                    + "\nADDRESS : " + selected.getAddress()
+                    + "\nACCOUNTS : " + selected.getAccounts();
+            depositDetail.setText(details);
+        }
     }
 
     // all deposits
@@ -206,40 +215,54 @@ public class CashierViewController implements Initializable {
 
     @FXML private ChoiceBox<AccountType> wAccType = new ChoiceBox<>();
 
-    @FXML private TextField wOtp;
+    @FXML private TextField wBalance;
 
     @FXML private TextField withdrawAmount;
 
-    private String temporaryOTP;
+    @FXML private TextArea wAccDetail;
+
+//    private String temporaryOTP;
+
+    @FXML
+    void loadAccountAccountWithdraw(KeyEvent keyEvent) {
+        if(keyEvent.getCode().equals(KeyCode.ENTER)) {
+           Account account = BankService.findAccount(wAccNo.getText());
+           wAccType.setValue(account.getAccountType());
+           wBalance.setText(account.getAvailBalance().toString());
+           AccountHolder selected = BankService.findAccountHolder(account.getAccountHolder());
+           String details = "\nNAME : " + selected.getName()
+                   + "\nNIC : " + selected.getNIC()
+                   + "\nDOB : " + selected.getDateOfBirth().toString()
+                   + "\nADDRESS : " + selected.getAddress()
+                   + "\nACCOUNTS : " + selected.getAccounts();
+           wAccDetail.setText(details);
+        }
+    }
 
     @FXML
     void confirmWithdraw(ActionEvent event) {
-        System.out.println();
-        BankService.getAllAccounts().stream()
-                .filter(account -> account.getAccountNumber().equals(wAccNo.getText()) && account.getAccountType().equals(wAccType.getValue()))
-                .findAny().orElseThrow(() -> new ServiceException("Account Number / Account Type invalid"));
-        if(wOtp.getText().equals(temporaryOTP)) {
-            Double amount = Double.parseDouble(withdrawAmount.getText());
-            Account account = BankService.findAccount(wAccNo.getText());
-            account.setCurrentBalance(account.getCurrentBalance() - amount);
-            Transaction newTransaction
-                    = new Transaction(wAccNo.getText(), "Withdrawal", amount, account.getCurrentBalance(), TransactionType.WITHDRAWAL);
-            BankService.makeTransaction(newTransaction);
-            openMsgPrompt(newTransaction.toString());
-        }else {
-            System.out.println("Invalid OTP");
-        }
-        wAccNo.clear(); wAccType.setValue(null); withdrawAmount.clear(); wOtp.clear();
+//        if(wOtp.getText().equals(temporaryOTP)) {
+//
+//        }else {
+//            System.out.println("Invalid OTP");
+//        }
+        Double amount = Double.parseDouble(withdrawAmount.getText());
+        Account account = BankService.findAccount(wAccNo.getText());
+        account.setCurrentBalance(account.getCurrentBalance() - amount);
+        Transaction newTransaction
+                = new Transaction(wAccNo.getText(), "Withdrawal", amount, account.getCurrentBalance(), TransactionType.WITHDRAWAL);
+        BankService.makeTransaction(newTransaction);
+        openMsgPrompt(newTransaction.toString());
+        wAccNo.clear(); wAccType.setValue(null); withdrawAmount.clear(); wBalance.clear();
     }
 
-    @FXML
-    void sendOtp(ActionEvent event) {
-        temporaryOTP = String
-                .format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16))
-                .substring(0,16);
-        openMsgPrompt("Your OTP is " + temporaryOTP);
-        // System.out.println("Your OTP is " + temporaryOTP);
-    }
+//    @FXML
+//    void sendOtp(ActionEvent event) {
+//        temporaryOTP = String
+//                .format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16))
+//                .substring(0,16);
+//        openMsgPrompt("Your OTP is " + temporaryOTP);
+//    }
 
     // Management
         //Customer
@@ -415,8 +438,57 @@ public class CashierViewController implements Initializable {
         cEditPwOne.clear(); cEditPwTwo.clear();
     }
 
+            //Settings
+
+    @FXML private TextField rootCurrent;
+
+    @FXML private TextField rootNew;
+
+    @FXML private TextField rootNewTwo;
+
+    @FXML
+    void updateManagerCredentials() {
+        Credentials cr = BankService.findCredentials(BankService.getCurrentUserContext().getBankAssignedID());
+        if(cr.getPassword().equals(rootCurrent.getText())) {
+            if(rootNew.equals(rootNewTwo)){
+                cr.setPassword(rootNew.getText());
+                rootCurrent.clear();
+            }else{
+                openMsgPrompt("Make sure you enter the same password in both the places");
+            }
+            rootNew.clear(); rootNewTwo.clear();
+        }else {
+            openMsgPrompt("Entered current password seems to be invalid.");
+        }
+    }
+
     //Accounts
-        //User
+        //Customer
+            //Search
+    @FXML
+    private TextField searchCustomerID;
+
+    @FXML
+    private TextArea searchCustomerDetail;
+
+    @FXML
+    void searchAccountHolder(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)) {
+            AccountHolder selected = BankService.findAccountHolder(searchCustomerID.getText());
+            String details = "\nNAME : " + selected.getName()
+                    + "\nNIC : " + selected.getNIC()
+                    + "\nDOB : " + selected.getDateOfBirth().toString()
+                    + "\nADDRESS : " + selected.getAddress()
+                    + "\nACCOUNTS : " + selected.getAccounts();
+            searchCustomerDetail.setText(details);
+        }
+    }
+
+    @FXML
+    void clearAccountHolderResult() {
+        searchCustomerDetail.clear(); searchCustomerDetail.clear();
+    }
+
             //All users
     @FXML private TableView<AccountHolder> allUsersTable;
 
@@ -445,8 +517,37 @@ public class CashierViewController implements Initializable {
         allUsersTable.setItems(BankService.getAllAccountHolders());
     }
 
-        //Accounts
-            //All accounts
+    //Accounts
+
+        //Search
+    @FXML private TextField searchAccountNo;
+
+    @FXML private TextArea searchAccDetail;
+
+    @FXML private ListView<String> searchAccTransactions;
+
+
+    @FXML
+    void clearAccountResult() {
+        searchAccDetail.clear(); searchAccountNo.clear(); searchAccTransactions.setItems(null);
+    }
+
+    @FXML
+    void searchAccount(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)) {
+           Account searchedAccount = BankService.findAccount(searchAccountNo.getText());
+           String detail = "ACCOUNT NO : " + searchedAccount.getAccountNumber()
+                   + "\nACCOUNT HOLDER : " + searchedAccount.getAccHolderName().getValue()
+                   + "\nBRANCH : " + searchedAccount.getAccountBranch()
+                   + "\nACCOUNT TYPE : " + searchedAccount.getAccountType().name()
+                   + "\nCURRENT BALANCE : " + searchedAccount.getCurrentBalance()
+                   + "\nAVAILABLE BALANCE : " + searchedAccount.getAvailBalance();
+           searchAccDetail.setText(detail);
+           searchAccTransactions.getItems().addAll(BankService.findTransactionsForAccount(searchedAccount.getAccountNumber()));
+        }
+    }
+
+        //All accounts
 
     @FXML private TableView<Account> allAccountsTable;
 

@@ -12,10 +12,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.UUID;
 
 /* TODO: https://bitbucket.org/agix-material-fx/materialfx-material-design-for-javafx/src/master/material-fx-v0_3.css */
 
@@ -48,6 +50,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Colombo"));
+        //numGenTest();
         //addDummyData();
         launch(args);
 
@@ -87,5 +90,16 @@ public class Main extends Application {
         Account dummyAccount = new Account(accountHolder.getBankAssignedId(), Branch.COLOMBO_03, AccountType.SAVINGS_ACCOUNT, 500D);
         accountHolder.addAccount(dummyAccount.getAccountNumber());
         return accountHolder;
+    }
+
+    public static void numGenTest() {
+        Set<String> testSet = new HashSet<>();
+        for (int i = 0; i <= 100; i++){
+            String str = String
+                    .format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16))
+                    .substring(0,6);
+            testSet.add(str);
+        }
+        System.out.println(testSet.size());
     }
 }

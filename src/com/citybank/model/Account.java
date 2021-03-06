@@ -33,7 +33,7 @@ public class Account implements Serializable {
         this.currentBalance = currentBalance;
         this.accountNumber = String
                 .format("%040d", new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16))
-                .substring(0,16);
+                .substring(0,6);
         this.availBalance = currentBalance - fixedDeposit;
     }
 
