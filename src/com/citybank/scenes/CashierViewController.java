@@ -6,6 +6,8 @@ import com.citybank.model.enums.AccountType;
 import com.citybank.model.enums.Branch;
 import com.citybank.model.enums.TransactionType;
 import com.citybank.model.enums.UserRole;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,8 +25,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class CashierViewController implements Initializable {
 
@@ -263,6 +268,70 @@ public class CashierViewController implements Initializable {
 //                .substring(0,16);
 //        openMsgPrompt("Your OTP is " + temporaryOTP);
 //    }
+
+    //Search
+    @FXML
+    private TextField tAccountNumber;
+
+    @FXML
+    private DatePicker tFrom;
+
+    @FXML
+    private DatePicker tTo;
+
+    @FXML
+    private TableView<Transaction> tTable;
+
+    @FXML
+    private TableColumn<Transaction, String> tDateCol;
+
+    @FXML
+    private TableColumn<Transaction, String> tAccNoCol;
+
+    @FXML
+    private TableColumn<Transaction, String> tTypeCol;
+
+    @FXML
+    private TableColumn<Transaction, Double> tAmountCol;
+
+    @FXML
+    private TableColumn<Transaction, Double> tAccBalCol;
+
+    @FXML
+    void initiateTransactionSearchTable() {
+        tDateCol.setCellValueFactory(cell -> cell.getValue().getTransactionDateTableView());
+        tAccNoCol.setCellValueFactory(cell -> cell.getValue().getAccountNoTableView());
+        tTypeCol.setCellValueFactory(cell -> cell.getValue().getTransactionTypeTableView());
+        tAmountCol.setCellValueFactory(cell -> cell.getValue().getAmountTableView().asObject());
+        tAccBalCol.setCellValueFactory(cell -> cell.getValue().getAccountBalanceTableView().asObject());
+    }
+
+    @FXML
+    void transactionSearch() {
+        Set<Transaction> showData;
+        if(tAccountNumber.getText().length() != 0){
+            showData = BankService.getAllTransactions().stream()
+                    .filter(transaction -> transaction.getAccountNo().equals(tAccountNumber.getText())).collect(Collectors.toSet());
+        }else{
+            showData = BankService.getAllTransactions();
+        }
+        if(tTo.getValue() != null) {
+            showData = showData.stream()
+                    .filter(transaction -> transaction.getTransactionDate().toLocalDate().isBefore(tTo.getValue())).collect(Collectors.toSet());
+        }
+        if(tFrom.getValue() != null) {
+            showData = showData.stream()
+                    .filter(transaction -> transaction.getTransactionDate().toLocalDate().isAfter(tFrom.getValue())).collect(Collectors.toSet());
+        }
+        ObservableList<Transaction> showDataList = FXCollections.observableArrayList(showData);
+        System.out.println("Search results count : " + showDataList.size());
+        tTable.setItems(showDataList);
+    }
+
+    @FXML
+    void clearSearch() {
+        tTable.setItems(null); tFrom.setValue(null); tTo.setValue(null); tAccountNumber.clear();
+    }
 
     // Management
         //Customer

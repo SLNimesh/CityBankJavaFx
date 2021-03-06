@@ -65,6 +65,486 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
+          <Tab text="Accounts">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane prefHeight="642.0" prefWidth="1080.0" side="LEFT" stylesheets="@../css/horizontalTab.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                          <tabs>
+                            <Tab onSelectionChanged="#initiateAllAccountsTable" text="Accounts">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Accordion layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <panes>
+                                              <TitledPane animated="false" styleClass="primary" text="Search account">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                                                               <children>
+                                                                  <HBox alignment="CENTER" prefWidth="800.0">
+                                                                     <children>
+                                                                        <TextField fx:id="searchAccountNo" onKeyPressed="#searchAccount" prefHeight="40.0" prefWidth="191.0" promptText="Enter account number" />
+                                                                        <Button mnemonicParsing="false" onAction="#clearAccountResult" prefHeight="42.0" prefWidth="78.0" styleClass="info" text="Clear">
+                                                                           <HBox.margin>
+                                                                              <Insets left="20.0" />
+                                                                           </HBox.margin>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </HBox>
+                                                                  <TextArea fx:id="searchAccDetail" prefHeight="154.0" prefWidth="300.0" promptText="[Detail]">
+                                                                     <VBox.margin>
+                                                                        <Insets left="250.0" right="250.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </TextArea>
+                                                                  <Label text="Transactions">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <ListView fx:id="searchAccTransactions" prefHeight="200.0" prefWidth="458.0">
+                                                                     <VBox.margin>
+                                                                        <Insets left="150.0" right="150.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </ListView>
+                                                               </children>
+                                                            </VBox>
+                                                         </children></AnchorPane>
+                                                </content>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                              </TitledPane>
+                                              <TitledPane animated="false" styleClass="info" text="All accounts">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <TableView fx:id="allAccountsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                                                              <columns>
+                                                                <TableColumn fx:id="accountNoCol" prefWidth="118.00000309944153" text="Account No." />
+                                                                <TableColumn fx:id="accHolIdCol" prefWidth="136.0" text="Account Holder ID" />
+                                                                  <TableColumn fx:id="accHolNameCol" prefWidth="174.9999237060547" text="Account Holder Name" />
+                                                                  <TableColumn fx:id="accBranchCol" prefWidth="140.0" text="Branch" />
+                                                                  <TableColumn fx:id="accTypeCol" prefWidth="117.0" text="Account Type" />
+                                                                  <TableColumn fx:id="accBalCol" prefWidth="121.60006103515616" text="Balance" />
+                                                              </columns>
+                                                            </TableView>
+                                                         </children></AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab onSelectionChanged="#initiateAllUsersTable" text="Customers">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Accordion AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                             <panes>
+                                                <TitledPane animated="false" styleClass="primary" text="Search customers">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox alignment="CENTER" prefHeight="493.0" prefWidth="498.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                                                               <children>
+                                                                  <TextField fx:id="searchCustomerID" onKeyPressed="#searchAccountHolder" prefHeight="48.0" prefWidth="400.0" promptText="Enter Customer ID">
+                                                                     <VBox.margin>
+                                                                        <Insets left="250.0" right="250.0" />
+                                                                     </VBox.margin>
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <TextArea fx:id="searchCustomerDetail" editable="false" prefHeight="227.0" prefWidth="400.0" promptText="[Detail]">
+                                                                     <VBox.margin>
+                                                                        <Insets left="200.0" right="200.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                     <font>
+                                                                        <Font size="14.0" />
+                                                                     </font>
+                                                                  </TextArea>
+                                                                  <Button mnemonicParsing="false" onAction="#clearAccountHolderResult" prefHeight="42.0" prefWidth="67.0" styleClass="info" text="Clear">
+                                                                     <VBox.margin>
+                                                                        <Insets top="10.0" />
+                                                                     </VBox.margin>
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                               </children>
+                                                            </VBox>
+                                                         </children></AnchorPane>
+                                                   </content>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </TitledPane>
+                                                <TitledPane animated="false" onMouseClicked="#updateAllUsersTable" styleClass="info" text="All customers">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <TableView fx:id="allUsersTable" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                                              <columns>
+                                                                <TableColumn fx:id="uBankIdColumn" prefWidth="135.00000309944153" text="User ID" />
+                                                                <TableColumn fx:id="uNameColumn" minWidth="2.0" prefWidth="195.9999237060547" text="Name" />
+                                                                  <TableColumn fx:id="uNICColumn" minWidth="2.0" prefWidth="111.0" text="NIC" />
+                                                                  <TableColumn fx:id="uContactNoColumn" maxWidth="523.0" minWidth="-1.0" prefWidth="150.0" text="Contact Number" />
+                                                                  <TableColumn fx:id="uAddressColumn" maxWidth="330.0" minWidth="-1.0" prefWidth="235.60006103515616" resizable="false" text="Address" />
+                                                              </columns>
+                                                            </TableView>
+                                                         </children></AnchorPane>
+                                                   </content>
+                                                </TitledPane>
+                                             </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Transactions">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane layoutY="14.0" prefHeight="636.0" prefWidth="1080.0" side="LEFT" stylesheets="@../css/horizontalTab.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                          <tabs>
+                            <Tab onSelectionChanged="#initiateAllDepositsTable" text="Deposits">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <Accordion AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <panes>
+                                              <TitledPane animated="false" styleClass="primary" text="Make a deposit">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <HBox prefHeight="495.0" prefWidth="874.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                               <children>
+                                                                  <VBox prefHeight="495.0" prefWidth="334.0">
+                                                                     <children>
+                                                                        <Label prefHeight="32.0" prefWidth="129.0" text="DEPOSIT">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="20.0" />
+                                                                           </VBox.margin>
+                                                                           <font>
+                                                                              <Font name="System Bold" size="22.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Region prefHeight="30.0" prefWidth="334.0" />
+                                                                        <Label text="Account Number">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <TextField fx:id="dAccNo" maxWidth="200.0" onKeyPressed="#loadAccountAccountDeposit">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="5.0" />
+                                                                           </VBox.margin>
+                                                                        </TextField>
+                                                                        <Label text="Account Type">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <ChoiceBox fx:id="DAccType" prefWidth="250.0">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </ChoiceBox>
+                                                                        <Label layoutX="30.0" layoutY="75.0" text="Description">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <TextField fx:id="dDesc" layoutX="30.0" layoutY="105.0" maxWidth="200.0" prefWidth="200.0">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="5.0" />
+                                                                           </VBox.margin>
+                                                                        </TextField>
+                                                                        <Label text="Amount">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <HBox alignment="BOTTOM_LEFT" prefHeight="26.0" prefWidth="914.0">
+                                                                           <children>
+                                                                              <TextField fx:id="depositAmount" maxWidth="150.0" prefHeight="36.0" prefWidth="822.0">
+                                                                                 <HBox.margin>
+                                                                                    <Insets left="20.0" top="5.0" />
+                                                                                 </HBox.margin>
+                                                                              </TextField>
+                                                                              <Label text="LKR">
+                                                                                 <HBox.margin>
+                                                                                    <Insets left="10.0" />
+                                                                                 </HBox.margin>
+                                                                              </Label>
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <Button mnemonicParsing="false" onAction="#confirmDeposit" text="CONFIRM">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="30.0" />
+                                                                           </VBox.margin>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </VBox>
+                                                                  <TextArea fx:id="depositDetail" prefHeight="272.0" prefWidth="400.0" promptText="[Detail]">
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="100.0" top="100.0" />
+                                                                     </HBox.margin>
+                                                                  </TextArea>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                              <TitledPane animated="false" styleClass="info" text="All deposits">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <TableView fx:id="allDepositsTable" prefHeight="398.0" prefWidth="850.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                                                              <columns>
+                                                                <TableColumn fx:id="dTranID" prefWidth="155.00000309944153" text="Transaction ID" />
+                                                                <TableColumn fx:id="dStamp" minWidth="0.0" prefWidth="155.99998474121094" text="Timestamp" />
+                                                                  <TableColumn fx:id="dAccNoColumn" minWidth="0.0" prefWidth="182.99993896484375" text="Account No." />
+                                                                  <TableColumn fx:id="dAmount" minWidth="0.0" prefWidth="156.0" text="Amount" />
+                                                                  <TableColumn fx:id="dAvailBal" minWidth="0.0" prefWidth="156.00006103515625" text="Available Balance" />
+                                                              </columns>
+                                                            </TableView>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab onSelectionChanged="#initiateAllWithdrawalsTable" text="Withdrawals">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="379.0">
+                                       <children>
+                                          <Accordion AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <panes>
+                                              <TitledPane animated="false" styleClass="primary" text="Make a withdrawal ">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                               <children>
+                                                                  <VBox prefHeight="472.0" prefWidth="348.0">
+                                                                     <children>
+                                                                        <Label prefWidth="150.0" text="WITHDRAW">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="20.0" />
+                                                                           </VBox.margin>
+                                                                           <font>
+                                                                              <Font name="System Bold" size="24.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Region prefHeight="30.0" prefWidth="914.0" />
+                                                                        <Label text="Account Number">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <TextField fx:id="wAccNo" maxWidth="200.0" onKeyPressed="#loadAccountAccountWithdraw">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="5.0" />
+                                                                           </VBox.margin>
+                                                                        </TextField>
+                                                                        <Label text="Account Type">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <ChoiceBox fx:id="wAccType" prefWidth="250.0">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </ChoiceBox>
+                                                                        <Label text="Available balance">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <HBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="337.0" prefHeight="5.0" prefWidth="312.0">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                           <children>
+                                                                              <TextField fx:id="wBalance" editable="false" maxWidth="200.0" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <Label text="Amount">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="10.0" />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <HBox alignment="BOTTOM_LEFT" prefHeight="26.0" prefWidth="914.0">
+                                                                           <children>
+                                                                              <TextField fx:id="withdrawAmount" maxWidth="150.0" prefHeight="36.0" prefWidth="822.0">
+                                                                                 <HBox.margin>
+                                                                                    <Insets left="20.0" top="5.0" />
+                                                                                 </HBox.margin>
+                                                                              </TextField>
+                                                                              <Label text="LKR">
+                                                                                 <HBox.margin>
+                                                                                    <Insets left="10.0" />
+                                                                                 </HBox.margin>
+                                                                              </Label>
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <Button mnemonicParsing="false" onAction="#confirmWithdraw" text="CONFIRM">
+                                                                           <VBox.margin>
+                                                                              <Insets left="20.0" top="30.0" />
+                                                                           </VBox.margin>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </VBox>
+                                                                  <TextArea fx:id="wAccDetail" prefHeight="272.0" prefWidth="400.0" promptText="[Detail]">
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="100.0" top="100.0" />
+                                                                     </HBox.margin>
+                                                                  </TextArea>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                              <TitledPane animated="false" styleClass="info" text="All Withdrawals">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <TableView fx:id="allWithdrawalsTable" prefHeight="451.0" prefWidth="830.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                                                               <columns>
+                                                                  <TableColumn fx:id="wTranID1" prefWidth="155.00000309944153" text="Transaction ID" />
+                                                                  <TableColumn fx:id="wStampCol" minWidth="0.0" prefWidth="155.99998474121094" text="Timestamp" />
+                                                                  <TableColumn fx:id="wAccNoColumn" minWidth="0.0" prefWidth="182.99993896484375" text="Account No." />
+                                                                  <TableColumn fx:id="wAmount" minWidth="0.0" prefWidth="156.0" text="Amount" />
+                                                                  <TableColumn fx:id="wAvailBal" minWidth="0.0" prefWidth="157.0" text="Available Balance" />
+                                                               </columns>
+                                                            </TableView>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab closable="false" onSelectionChanged="#initiateTransactionSearchTable" text="Search">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="379.0">
+                                       <children>
+                                          <Accordion layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <panes>
+                                              <TitledPane animated="false" styleClass="primary" text="Search transactions">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="5.0">
+                                                               <children>
+                                                                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <Label text="Account Number :">
+                                                                           <font>
+                                                                              <Font name="System Bold" size="15.0" />
+                                                                           </font>
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                        </Label>
+                                                                        <TextField fx:id="tAccountNumber">
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                        </TextField>
+                                                                        <Button mnemonicParsing="false" onAction="#clearSearch" styleClass="info" text="Clear">
+                                                                           <HBox.margin>
+                                                                              <Insets right="10.0" />
+                                                                           </HBox.margin>
+                                                                        </Button>
+                                                                        <Button mnemonicParsing="false" onAction="#transactionSearch" styleClass="success" text="Search" />
+                                                                     </children>
+                                                                  </HBox>
+                                                                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0">
+                                                                     <children>
+                                                                        <Label text="From :">
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                           <font>
+                                                                              <Font name="System Bold" size="16.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <DatePicker fx:id="tFrom">
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                        </DatePicker>
+                                                                        <Label layoutX="399.0" layoutY="50.0" text="To :">
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                           <font>
+                                                                              <Font name="System Bold" size="16.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <DatePicker fx:id="tTo">
+                                                                           <HBox.margin>
+                                                                              <Insets right="20.0" />
+                                                                           </HBox.margin>
+                                                                        </DatePicker>
+                                                                     </children>
+                                                                  </HBox>
+                                                                  <Label prefHeight="25.0" prefWidth="62.0" text="Results ">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                     <VBox.margin>
+                                                                        <Insets bottom="2.0" left="20.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </Label>
+                                                                  <TableView fx:id="tTable" prefHeight="360.0" prefWidth="810.0">
+                                                                    <columns>
+                                                                      <TableColumn fx:id="tDateCol" prefWidth="129.00000309944153" text="Date" />
+                                                                      <TableColumn fx:id="tAccNoCol" prefWidth="122.0" text="Account No." />
+                                                                        <TableColumn fx:id="tTypeCol" minWidth="0.0" prefWidth="105.99992370605469" text="W/D" />
+                                                                        <TableColumn fx:id="tAmountCol" prefWidth="103.0" text="Amount" />
+                                                                        <TableColumn fx:id="tAccBalCol" prefWidth="136.0" text="Account Bal." />
+                                                                    </columns>
+                                                                     <columnResizePolicy>
+                                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                                     </columnResizePolicy>
+                                                                  </TableView>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                              </TitledPane>
+                                            </panes>
+                                          </Accordion>
+                                       </children></AnchorPane>
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
             <Tab fx:id="managementTab" text="Management">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -618,481 +1098,6 @@
                      </children></AnchorPane>
                </content>
             </Tab>
-          <Tab text="Accounts">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TabPane prefHeight="642.0" prefWidth="1080.0" side="LEFT" stylesheets="@../css/horizontalTab.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
-                          <tabs>
-                            <Tab onSelectionChanged="#initiateAllAccountsTable" text="Accounts">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Accordion layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                                            <panes>
-                                              <TitledPane animated="false" styleClass="primary" text="Search account">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
-                                                               <children>
-                                                                  <HBox alignment="CENTER" prefWidth="800.0">
-                                                                     <children>
-                                                                        <TextField fx:id="searchAccountNo" onKeyPressed="#searchAccount" prefHeight="40.0" prefWidth="191.0" promptText="Enter account number" />
-                                                                        <Button mnemonicParsing="false" onAction="#clearAccountResult" prefHeight="42.0" prefWidth="78.0" styleClass="info" text="Clear">
-                                                                           <HBox.margin>
-                                                                              <Insets left="20.0" />
-                                                                           </HBox.margin>
-                                                                        </Button>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <TextArea fx:id="searchAccDetail" prefHeight="154.0" prefWidth="300.0" promptText="[Detail]">
-                                                                     <VBox.margin>
-                                                                        <Insets left="250.0" right="250.0" top="10.0" />
-                                                                     </VBox.margin>
-                                                                  </TextArea>
-                                                                  <Label text="Transactions">
-                                                                     <VBox.margin>
-                                                                        <Insets top="10.0" />
-                                                                     </VBox.margin>
-                                                                  </Label>
-                                                                  <ListView fx:id="searchAccTransactions" prefHeight="200.0" prefWidth="458.0">
-                                                                     <VBox.margin>
-                                                                        <Insets left="150.0" right="150.0" top="10.0" />
-                                                                     </VBox.margin>
-                                                                  </ListView>
-                                                               </children>
-                                                            </VBox>
-                                                         </children></AnchorPane>
-                                                </content>
-                                                   <font>
-                                                      <Font name="System Bold" size="15.0" />
-                                                   </font>
-                                              </TitledPane>
-                                              <TitledPane animated="false" styleClass="info" text="All accounts">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <TableView fx:id="allAccountsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
-                                                              <columns>
-                                                                <TableColumn fx:id="accountNoCol" prefWidth="118.00000309944153" text="Account No." />
-                                                                <TableColumn fx:id="accHolIdCol" prefWidth="136.0" text="Account Holder ID" />
-                                                                  <TableColumn fx:id="accHolNameCol" prefWidth="174.9999237060547" text="Account Holder Name" />
-                                                                  <TableColumn fx:id="accBranchCol" prefWidth="140.0" text="Branch" />
-                                                                  <TableColumn fx:id="accTypeCol" prefWidth="117.0" text="Account Type" />
-                                                                  <TableColumn fx:id="accBalCol" prefWidth="121.60006103515616" text="Balance" />
-                                                              </columns>
-                                                            </TableView>
-                                                         </children></AnchorPane>
-                                                </content>
-                                              </TitledPane>
-                                            </panes>
-                                          </Accordion>
-                                       </children></AnchorPane>
-                              </content>
-                            </Tab>
-                            <Tab onSelectionChanged="#initiateAllUsersTable" text="Customers">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Accordion AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                                             <panes>
-                                                <TitledPane animated="false" styleClass="primary" text="Search customers">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <VBox alignment="CENTER" prefHeight="493.0" prefWidth="498.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
-                                                               <children>
-                                                                  <TextField fx:id="searchCustomerID" onKeyPressed="#searchAccountHolder" prefHeight="48.0" prefWidth="400.0" promptText="Enter Customer ID">
-                                                                     <VBox.margin>
-                                                                        <Insets left="250.0" right="250.0" />
-                                                                     </VBox.margin>
-                                                                     <font>
-                                                                        <Font size="14.0" />
-                                                                     </font>
-                                                                  </TextField>
-                                                                  <TextArea fx:id="searchCustomerDetail" editable="false" prefHeight="227.0" prefWidth="400.0" promptText="[Detail]">
-                                                                     <VBox.margin>
-                                                                        <Insets left="200.0" right="200.0" top="10.0" />
-                                                                     </VBox.margin>
-                                                                     <font>
-                                                                        <Font size="14.0" />
-                                                                     </font>
-                                                                  </TextArea>
-                                                                  <Button mnemonicParsing="false" onAction="#clearAccountHolderResult" prefHeight="42.0" prefWidth="67.0" styleClass="info" text="Clear">
-                                                                     <VBox.margin>
-                                                                        <Insets top="10.0" />
-                                                                     </VBox.margin>
-                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                     </font>
-                                                                  </Button>
-                                                               </children>
-                                                            </VBox>
-                                                         </children></AnchorPane>
-                                                   </content>
-                                                   <font>
-                                                      <Font name="System Bold" size="15.0" />
-                                                   </font>
-                                                </TitledPane>
-                                                <TitledPane animated="false" onMouseClicked="#updateAllUsersTable" styleClass="info" text="All customers">
-                                                   <content>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <TableView fx:id="allUsersTable" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                                                              <columns>
-                                                                <TableColumn fx:id="uBankIdColumn" prefWidth="135.00000309944153" text="User ID" />
-                                                                <TableColumn fx:id="uNameColumn" minWidth="2.0" prefWidth="195.9999237060547" text="Name" />
-                                                                  <TableColumn fx:id="uNICColumn" minWidth="2.0" prefWidth="111.0" text="NIC" />
-                                                                  <TableColumn fx:id="uContactNoColumn" maxWidth="523.0" minWidth="-1.0" prefWidth="150.0" text="Contact Number" />
-                                                                  <TableColumn fx:id="uAddressColumn" maxWidth="330.0" minWidth="-1.0" prefWidth="235.60006103515616" resizable="false" text="Address" />
-                                                              </columns>
-                                                            </TableView>
-                                                         </children></AnchorPane>
-                                                   </content>
-                                                </TitledPane>
-                                             </panes>
-                                          </Accordion>
-                                       </children></AnchorPane>
-                              </content>
-                            </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Transactions">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TabPane layoutY="14.0" prefHeight="636.0" prefWidth="1080.0" side="LEFT" stylesheets="@../css/horizontalTab.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
-                          <tabs>
-                            <Tab onSelectionChanged="#initiateAllDepositsTable" text="Deposits">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Accordion AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                                            <panes>
-                                              <TitledPane animated="false" styleClass="primary" text="Make a deposit">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <HBox prefHeight="495.0" prefWidth="874.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <VBox prefHeight="495.0" prefWidth="334.0">
-                                                                     <children>
-                                                                        <Label prefHeight="32.0" prefWidth="129.0" text="DEPOSIT">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="20.0" />
-                                                                           </VBox.margin>
-                                                                           <font>
-                                                                              <Font name="System Bold" size="22.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Region prefHeight="30.0" prefWidth="334.0" />
-                                                                        <Label text="Account Number">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="10.0" />
-                                                                           </VBox.margin>
-                                                                        </Label>
-                                                                        <TextField fx:id="dAccNo" maxWidth="200.0" onKeyPressed="#loadAccountAccountDeposit">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="5.0" />
-                                                                           </VBox.margin>
-                                                                        </TextField>
-                                                                        <Label text="Account Type">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="10.0" />
-                                                                           </VBox.margin>
-                                                                        </Label>
-                                                                        <ChoiceBox fx:id="DAccType" prefWidth="250.0">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="10.0" />
-                                                                           </VBox.margin>
-                                                                        </ChoiceBox>
-                                                                        <Label layoutX="30.0" layoutY="75.0" text="Description">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="10.0" />
-                                                                           </VBox.margin>
-                                                                        </Label>
-                                                                        <TextField fx:id="dDesc" layoutX="30.0" layoutY="105.0" maxWidth="200.0" prefWidth="200.0">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="5.0" />
-                                                                           </VBox.margin>
-                                                                        </TextField>
-                                                                        <Label text="Amount">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="10.0" />
-                                                                           </VBox.margin>
-                                                                        </Label>
-                                                                        <HBox alignment="BOTTOM_LEFT" prefHeight="26.0" prefWidth="914.0">
-                                                                           <children>
-                                                                              <TextField fx:id="depositAmount" maxWidth="150.0" prefHeight="36.0" prefWidth="822.0">
-                                                                                 <HBox.margin>
-                                                                                    <Insets left="20.0" top="5.0" />
-                                                                                 </HBox.margin>
-                                                                              </TextField>
-                                                                              <Label text="LKR">
-                                                                                 <HBox.margin>
-                                                                                    <Insets left="10.0" />
-                                                                                 </HBox.margin>
-                                                                              </Label>
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <Button mnemonicParsing="false" onAction="#confirmDeposit" text="CONFIRM">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="30.0" />
-                                                                           </VBox.margin>
-                                                                        </Button>
-                                                                     </children>
-                                                                  </VBox>
-                                                                  <TextArea fx:id="depositDetail" prefHeight="272.0" prefWidth="400.0" promptText="[Detail]">
-                                                                     <HBox.margin>
-                                                                        <Insets bottom="100.0" top="100.0" />
-                                                                     </HBox.margin>
-                                                                  </TextArea>
-                                                               </children>
-                                                            </HBox>
-                                                         </children>
-                                                      </AnchorPane>
-                                                </content>
-                                              </TitledPane>
-                                              <TitledPane animated="false" styleClass="info" text="All deposits">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <TableView fx:id="allDepositsTable" prefHeight="398.0" prefWidth="850.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
-                                                              <columns>
-                                                                <TableColumn fx:id="dTranID" prefWidth="155.00000309944153" text="Transaction ID" />
-                                                                <TableColumn fx:id="dStamp" minWidth="0.0" prefWidth="155.99998474121094" text="Timestamp" />
-                                                                  <TableColumn fx:id="dAccNoColumn" minWidth="0.0" prefWidth="182.99993896484375" text="Account No." />
-                                                                  <TableColumn fx:id="dAmount" minWidth="0.0" prefWidth="156.0" text="Amount" />
-                                                                  <TableColumn fx:id="dAvailBal" minWidth="0.0" prefWidth="156.00006103515625" text="Available Balance" />
-                                                              </columns>
-                                                            </TableView>
-                                                         </children>
-                                                      </AnchorPane>
-                                                </content>
-                                              </TitledPane>
-                                            </panes>
-                                          </Accordion>
-                                       </children></AnchorPane>
-                              </content>
-                            </Tab>
-                            <Tab onSelectionChanged="#initiateAllWithdrawalsTable" text="Withdrawals">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="379.0">
-                                       <children>
-                                          <Accordion AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                                            <panes>
-                                              <TitledPane animated="false" styleClass="primary" text="Make a withdrawal ">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                               <children>
-                                                                  <VBox prefHeight="472.0" prefWidth="348.0">
-                                                                     <children>
-                                                                        <Label prefWidth="150.0" text="WITHDRAW">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="20.0" />
-                                                                           </VBox.margin>
-                                                                           <font>
-                                                                              <Font name="System Bold" size="24.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Region prefHeight="30.0" prefWidth="914.0" />
-                                                                        <Label text="Account Number">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="10.0" />
-                                                                           </VBox.margin>
-                                                                        </Label>
-                                                                        <TextField fx:id="wAccNo" maxWidth="200.0" onKeyPressed="#loadAccountAccountWithdraw">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="5.0" />
-                                                                           </VBox.margin>
-                                                                        </TextField>
-                                                                        <Label text="Account Type">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="10.0" />
-                                                                           </VBox.margin>
-                                                                        </Label>
-                                                                        <ChoiceBox fx:id="wAccType" prefWidth="250.0">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="10.0" />
-                                                                           </VBox.margin>
-                                                                        </ChoiceBox>
-                                                                        <Label text="Available balance">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="10.0" />
-                                                                           </VBox.margin>
-                                                                        </Label>
-                                                                        <HBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="337.0" prefHeight="5.0" prefWidth="312.0">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="10.0" />
-                                                                           </VBox.margin>
-                                                                           <children>
-                                                                              <TextField fx:id="wBalance" editable="false" maxWidth="200.0" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <Label text="Amount">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="10.0" />
-                                                                           </VBox.margin>
-                                                                        </Label>
-                                                                        <HBox alignment="BOTTOM_LEFT" prefHeight="26.0" prefWidth="914.0">
-                                                                           <children>
-                                                                              <TextField fx:id="withdrawAmount" maxWidth="150.0" prefHeight="36.0" prefWidth="822.0">
-                                                                                 <HBox.margin>
-                                                                                    <Insets left="20.0" top="5.0" />
-                                                                                 </HBox.margin>
-                                                                              </TextField>
-                                                                              <Label text="LKR">
-                                                                                 <HBox.margin>
-                                                                                    <Insets left="10.0" />
-                                                                                 </HBox.margin>
-                                                                              </Label>
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <Button mnemonicParsing="false" onAction="#confirmWithdraw" text="CONFIRM">
-                                                                           <VBox.margin>
-                                                                              <Insets left="20.0" top="30.0" />
-                                                                           </VBox.margin>
-                                                                        </Button>
-                                                                     </children>
-                                                                  </VBox>
-                                                                  <TextArea fx:id="wAccDetail" prefHeight="272.0" prefWidth="400.0" promptText="[Detail]">
-                                                                     <HBox.margin>
-                                                                        <Insets bottom="100.0" top="100.0" />
-                                                                     </HBox.margin>
-                                                                  </TextArea>
-                                                               </children>
-                                                            </HBox>
-                                                         </children>
-                                                      </AnchorPane>
-                                                </content>
-                                              </TitledPane>
-                                              <TitledPane animated="false" styleClass="info" text="All Withdrawals">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <TableView fx:id="allWithdrawalsTable" prefHeight="451.0" prefWidth="830.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
-                                                               <columns>
-                                                                  <TableColumn fx:id="wTranID1" prefWidth="155.00000309944153" text="Transaction ID" />
-                                                                  <TableColumn fx:id="wStampCol" minWidth="0.0" prefWidth="155.99998474121094" text="Timestamp" />
-                                                                  <TableColumn fx:id="wAccNoColumn" minWidth="0.0" prefWidth="182.99993896484375" text="Account No." />
-                                                                  <TableColumn fx:id="wAmount" minWidth="0.0" prefWidth="156.0" text="Amount" />
-                                                                  <TableColumn fx:id="wAvailBal" minWidth="0.0" prefWidth="157.0" text="Available Balance" />
-                                                               </columns>
-                                                            </TableView>
-                                                         </children>
-                                                      </AnchorPane>
-                                                </content>
-                                              </TitledPane>
-                                            </panes>
-                                          </Accordion>
-                                       </children></AnchorPane>
-                              </content>
-                            </Tab>
-                              <Tab closable="false" text="Search">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="379.0">
-                                       <children>
-                                          <Accordion layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                                            <panes>
-                                              <TitledPane animated="false" styleClass="primary" text="Search transactions">
-                                                <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                         <children>
-                                                            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="5.0">
-                                                               <children>
-                                                                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0">
-                                                                     <children>
-                                                                        <Label text="Account Number :">
-                                                                           <font>
-                                                                              <Font name="System Bold" size="15.0" />
-                                                                           </font>
-                                                                           <HBox.margin>
-                                                                              <Insets right="20.0" />
-                                                                           </HBox.margin>
-                                                                        </Label>
-                                                                        <TextField>
-                                                                           <HBox.margin>
-                                                                              <Insets right="20.0" />
-                                                                           </HBox.margin>
-                                                                        </TextField>
-                                                                        <Button mnemonicParsing="false" styleClass="success" text="Search" />
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0">
-                                                                     <children>
-                                                                        <Label text="From :">
-                                                                           <HBox.margin>
-                                                                              <Insets right="20.0" />
-                                                                           </HBox.margin>
-                                                                           <font>
-                                                                              <Font name="System Bold" size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <DatePicker>
-                                                                           <HBox.margin>
-                                                                              <Insets right="20.0" />
-                                                                           </HBox.margin>
-                                                                        </DatePicker>
-                                                                        <Label layoutX="399.0" layoutY="50.0" text="To :">
-                                                                           <HBox.margin>
-                                                                              <Insets right="20.0" />
-                                                                           </HBox.margin>
-                                                                           <font>
-                                                                              <Font name="System Bold" size="16.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <DatePicker>
-                                                                           <HBox.margin>
-                                                                              <Insets right="20.0" />
-                                                                           </HBox.margin>
-                                                                        </DatePicker>
-                                                                     </children>
-                                                                  </HBox>
-                                                                  <Label prefHeight="25.0" prefWidth="62.0" text="Results ">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="16.0" />
-                                                                     </font>
-                                                                     <VBox.margin>
-                                                                        <Insets bottom="2.0" left="20.0" top="10.0" />
-                                                                     </VBox.margin>
-                                                                  </Label>
-                                                                  <TableView prefHeight="360.0" prefWidth="810.0">
-                                                                    <columns>
-                                                                      <TableColumn prefWidth="129.00000309944153" text="Date" />
-                                                                      <TableColumn prefWidth="122.0" text="Account No." />
-                                                                        <TableColumn minWidth="0.0" prefWidth="105.99992370605469" text="W/D" />
-                                                                        <TableColumn prefWidth="103.0" text="Amount" />
-                                                                        <TableColumn prefWidth="136.0" text="Account Bal." />
-                                                                    </columns>
-                                                                     <columnResizePolicy>
-                                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                                                     </columnResizePolicy>
-                                                                  </TableView>
-                                                               </children>
-                                                            </VBox>
-                                                         </children>
-                                                      </AnchorPane>
-                                                </content>
-                                                   <font>
-                                                      <Font name="System Bold" size="15.0" />
-                                                   </font>
-                                              </TitledPane>
-                                            </panes>
-                                          </Accordion>
-                                       </children></AnchorPane>
-                                 </content>
-                              </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
          </tabs>
       </TabPane>
    </children>

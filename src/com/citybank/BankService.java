@@ -167,6 +167,10 @@ public class BankService {
                 .map(UserContext::getBankAssignedID).collect(Collectors.toList());
     }
 
+    public static Set<Transaction> getAllTransactions() {
+        return transactions;
+    }
+
     public static void setCurrentUserContext(UserContext userContext) {
         LOGGER.log(Level.INFO, "Current user set to : " + userContext.getBankAssignedID());
         currentUserContext = userContext;

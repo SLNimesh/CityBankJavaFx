@@ -128,4 +128,8 @@ public class Transaction implements Serializable {
     public DoubleProperty getAccountBalanceTableView() {
         return new SimpleDoubleProperty(accountBalance);
     }
+
+    public StringProperty getTransactionTypeTableView() {
+        return new SimpleStringProperty(type.name());
+    }
 }
