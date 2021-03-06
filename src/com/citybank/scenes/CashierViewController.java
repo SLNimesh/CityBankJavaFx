@@ -23,12 +23,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class CashierViewController implements Initializable {
