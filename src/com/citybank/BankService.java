@@ -113,6 +113,12 @@ public class BankService {
         return deletedAccount;
     }
 
+    public static void deleteAccountHolder(String bankAssignedId) {
+        AccountHolder deletedAccountHolder = findAccountHolder(bankAssignedId);
+        accountHolders.remove(deletedAccountHolder);
+        LOGGER.log(Level.INFO, "Account holder deleted : " + bankAssignedId);
+    }
+
     public static UserContext getCurrentUserContext() {
         return currentUserContext;
     }

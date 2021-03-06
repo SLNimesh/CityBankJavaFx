@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
@@ -366,7 +367,7 @@
                                                       </AnchorPane>
                                                 </content>
                                               </TitledPane>
-                                                <TitledPane animated="false" layoutX="10.0" layoutY="54.0" text="Manage an existing account">
+                                                <TitledPane animated="false" layoutX="10.0" layoutY="54.0" onContextMenuRequested="#loadCashierIDs" text="Manage an existing account">
                                                    <content>
                                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
@@ -521,21 +522,34 @@
                                                          <children>
                                                             <VBox prefHeight="448.0" prefWidth="872.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0">
                                                                <children>
-                                                                  <Label text="Select User">
+                                                                  <Label text="Enter customer Id :">
                                                                      <font>
                                                                         <Font name="System Bold" size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <ComboBox fx:id="cashierId1" prefWidth="150.0" promptText="User ID">
+                                                                  <TextField fx:id="dAccountHolderID" onKeyPressed="#loadAccountHolder">
                                                                      <VBox.margin>
-                                                                        <Insets top="10.0" />
+                                                                        <Insets left="50.0" right="500.0" top="10.0" />
                                                                      </VBox.margin>
-                                                                  </ComboBox>
-                                                                  <Button mnemonicParsing="false" onAction="#deleteCashier" styleClass="danger" text="Delete User">
+                                                                  </TextField>
+                                                                  <TextArea fx:id="accHolderDetails" editable="false" prefHeight="180.0" prefWidth="290.0" promptText="[Details]">
                                                                      <VBox.margin>
-                                                                        <Insets left="30.0" top="20.0" />
+                                                                        <Insets left="50.0" right="450.0" top="10.0" />
                                                                      </VBox.margin>
-                                                                  </Button>
+                                                                  </TextArea>
+                                                                  <HBox prefHeight="46.0" prefWidth="740.0">
+                                                                     <children>
+                                                                        <Button mnemonicParsing="false" onAction="#clearAccountHolder" styleClass="info" text="Clear" />
+                                                                        <Button mnemonicParsing="false" onAction="#deleteAccountHolder" styleClass="danger" text="Delete User">
+                                                                           <HBox.margin>
+                                                                              <Insets left="10.0" />
+                                                                           </HBox.margin>
+                                                                        </Button>
+                                                                     </children>
+                                                                     <VBox.margin>
+                                                                        <Insets left="50.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                  </HBox>
                                                                </children>
                                                             </VBox>
                                                          </children>

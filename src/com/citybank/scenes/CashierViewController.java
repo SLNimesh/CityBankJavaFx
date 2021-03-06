@@ -16,6 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -240,6 +242,35 @@ public class CashierViewController implements Initializable {
     }
 
     // Management
+        //Customer
+    @FXML private TextField dAccountHolderID;
+
+    @FXML private TextArea accHolderDetails;
+
+    @FXML
+    void loadAccountHolder(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)) {
+            AccountHolder selected = BankService.findAccountHolder(dAccountHolderID.getText());
+            String details = "\nNAME : " + selected.getName()
+                    + "\nNIC : " + selected.getNIC()
+                    + "\nDOB : " + selected.getDateOfBirth().toString()
+                    + "\nADDRESS : " + selected.getAddress()
+                    + "\nACCOUNTS : " + selected.getAccounts();
+            accHolderDetails.setText(details);
+        }
+    }
+
+    @FXML
+    void clearAccountHolder() {
+        accHolderDetails.setText("[Details]"); dAccountHolderID.clear();
+    }
+
+    @FXML
+    void deleteAccountHolder(ActionEvent event) {
+        BankService.deleteAccountHolder(dAccountHolderID.getText());
+        clearAccountHolder();
+    }
+
         //Cashier
     @FXML
     private TableView<UserContext> AllCashiersTable;
@@ -308,6 +339,7 @@ public class CashierViewController implements Initializable {
 
     @FXML private TextField cEditPwTwo;
 
+    @FXML
     void loadCashierIDs() {
         cashierId.getItems().setAll(BankService.getCashierIDs());
     }
@@ -321,8 +353,9 @@ public class CashierViewController implements Initializable {
 
     @FXML
     void deleteCashier(ActionEvent event) {
-        BankService.deleteCashierAccount(cashierId.getValue());
+        UserContext deleted = BankService.deleteCashierAccount(cashierId.getValue());
         cashierId.setValue(null); cEditFullName.setText("[Select cashier id]"); cEditUsername.clear(); cEditPwOne.clear(); cEditPwTwo.clear();
+        openMsgPrompt("CASHIER DELETED \n ID : " + deleted.getBankAssignedID() + "\n NAME : " + deleted.getFullNameTable().getValue());
     }
 
     @FXML
