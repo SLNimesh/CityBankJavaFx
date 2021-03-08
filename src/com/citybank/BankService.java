@@ -76,8 +76,8 @@ public class BankService {
 
     public static List<String> findTransactionsForAccount(String accountNo) {
         return transactions.stream().
-                filter(transaction -> transaction.getAccountNo().equals(accountNo)).
-                map(Transaction::toString).collect(Collectors.toList());
+                filter(transaction -> transaction.getAccountNo().equals(accountNo)).sorted(Comparator.comparing(Transaction::getTransactionDate).reversed())
+                .map(Transaction::toString).collect(Collectors.toList());
     }
 
     public static Set<Account> findAccountsByAccHolder(String accHolderName) {

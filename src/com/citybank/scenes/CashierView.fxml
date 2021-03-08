@@ -53,7 +53,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
                <image>
-                  <Image url="@../icons/person.png" />
+                  <Image url="@person.png" />
                </image>
             </ImageView>
          </children>
@@ -66,13 +66,13 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                            <children>
+                              <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@logoFull.png" />
+                                 </image>
+                              </ImageView>
                               <HBox alignment="CENTER" prefHeight="150.0" prefWidth="772.0">
                                  <children>
-                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Welcome.png" />
-                                       </image>
-                                    </ImageView>
                                     <Label style="-fx-text-fill: #3e4040;" text="Welcome !">
                                        <font>
                                           <Font name="System Bold" size="96.0" />
@@ -113,7 +113,7 @@
                                                                         </Button>
                                                                      </children>
                                                                   </HBox>
-                                                                  <TextArea fx:id="searchAccDetail" prefHeight="154.0" prefWidth="300.0" promptText="[Detail]">
+                                                                  <TextArea fx:id="searchAccDetail" editable="false" prefHeight="154.0" prefWidth="300.0" promptText="[Detail]">
                                                                      <VBox.margin>
                                                                         <Insets left="250.0" right="250.0" top="10.0" />
                                                                      </VBox.margin>
@@ -170,7 +170,7 @@
                                                          <children>
                                                             <VBox alignment="CENTER" prefHeight="493.0" prefWidth="498.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                                                                <children>
-                                                                  <TextField fx:id="searchCustomerID" onKeyPressed="#searchAccountHolder" prefHeight="48.0" prefWidth="400.0" promptText="Enter Customer ID">
+                                                                  <TextField fx:id="searchCustomerID" onKeyPressed="#searchAccountHolder" prefHeight="48.0" prefWidth="400.0" promptText="Enter Bank Assigned ID">
                                                                      <VBox.margin>
                                                                         <Insets left="250.0" right="250.0" />
                                                                      </VBox.margin>
@@ -208,7 +208,7 @@
                                                          <children>
                                                             <TableView fx:id="allUsersTable" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                                               <columns>
-                                                                <TableColumn fx:id="uBankIdColumn" prefWidth="135.00000309944153" text="User ID" />
+                                                                <TableColumn fx:id="uBankIdColumn" prefWidth="135.00000309944153" text="Bank Assigned ID" />
                                                                 <TableColumn fx:id="uNameColumn" minWidth="2.0" prefWidth="195.9999237060547" text="Name" />
                                                                   <TableColumn fx:id="uNICColumn" minWidth="2.0" prefWidth="111.0" text="NIC" />
                                                                   <TableColumn fx:id="uContactNoColumn" maxWidth="523.0" minWidth="-1.0" prefWidth="150.0" text="Contact Number" />
@@ -313,7 +313,7 @@
                                                                         </Button>
                                                                      </children>
                                                                   </VBox>
-                                                                  <TextArea fx:id="depositDetail" prefHeight="272.0" prefWidth="400.0" promptText="[Detail]">
+                                                                  <TextArea fx:id="depositDetail" editable="false" prefHeight="272.0" prefWidth="400.0" promptText="[Detail]">
                                                                      <HBox.margin>
                                                                         <Insets bottom="100.0" top="100.0" />
                                                                      </HBox.margin>
@@ -428,7 +428,7 @@
                                                                         </Button>
                                                                      </children>
                                                                   </VBox>
-                                                                  <TextArea fx:id="wAccDetail" prefHeight="272.0" prefWidth="400.0" promptText="[Detail]">
+                                                                  <TextArea fx:id="wAccDetail" editable="false" prefHeight="272.0" prefWidth="400.0" promptText="[Detail]">
                                                                      <HBox.margin>
                                                                         <Insets bottom="100.0" top="100.0" />
                                                                      </HBox.margin>

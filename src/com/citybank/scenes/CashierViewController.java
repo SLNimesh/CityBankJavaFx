@@ -30,8 +30,6 @@ import java.util.stream.Collectors;
 
 public class CashierViewController implements Initializable {
 
-    private UserContext currentUser;
-
     @FXML private Tab managementTab = new Tab();
 
     @FXML private Label headerGreeting;
@@ -44,20 +42,21 @@ public class CashierViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        UserContext user = BankService.getCurrentUserContext();
-        headerUsername.setText(user.getFirstName().concat(" ").concat(user.getLastName()));
-        headerGreeting.setText("Welcome " + user.getRole().toLowerCase());
-        if (!user.getRole().equals("MANAGER")) {
-            managementTab.setDisable(true);
+        try {
+            UserContext user = BankService.getCurrentUserContext();
+            headerUsername.setText(user.getFirstName().concat(" ").concat(user.getLastName()));
+            headerGreeting.setText("Welcome " + user.getRole().toLowerCase());
+            if (!user.getRole().equals("MANAGER")) {
+                managementTab.setDisable(true);
+            }
+            branch.getItems().setAll(Branch.values());
+            accType.getItems().setAll(AccountType.values());
+            DAccType.getItems().setAll(AccountType.values());
+            wAccType.getItems().setAll(AccountType.values());
+        } catch (ServiceException ex) {
+            openMsgPrompt(ex.getMessage());
         }
-        branch.getItems().setAll(Branch.values());
-        accType.getItems().setAll(AccountType.values());
-        DAccType.getItems().setAll(AccountType.values());
-        wAccType.getItems().setAll(AccountType.values());
-
     }
-
-
 
     //  CREATE NEW ACCOUNT
     @FXML private TextField bankId;
@@ -70,13 +69,17 @@ public class CashierViewController implements Initializable {
 
     @FXML
     void openAccount(ActionEvent event) {
-        Account newAccount =
-                new Account(bankId.getText(), branch.getSelectionModel().getSelectedItem(),
-                        accType.getSelectionModel().getSelectedItem(), Double.parseDouble(initialDeposit.getText()));
-        BankService.createNewAccount(newAccount);
-        openMsgPrompt("New account with ACC NO. : " + newAccount.getAccountNumber()
-                +  " created for " + newAccount.getAccHolderName().getValue() + "(" + newAccount.getAccountHolder() + ").");
-        bankId.clear(); branch.setValue(null); accType.setValue(null); initialDeposit.clear();
+        try {
+            Account newAccount =
+                    new Account(bankId.getText(), branch.getSelectionModel().getSelectedItem(),
+                            accType.getSelectionModel().getSelectedItem(), Double.parseDouble(initialDeposit.getText()));
+            BankService.createNewAccount(newAccount);
+            openMsgPrompt("New account with ACC NO. : " + newAccount.getAccountNumber()
+                    +  " created for " + newAccount.getAccHolderName().getValue() + "(" + newAccount.getAccountHolder() + ").");
+            bankId.clear(); branch.setValue(null); accType.setValue(null); initialDeposit.clear();
+        } catch (ServiceException ex) {
+            openMsgPrompt(ex.getMessage());
+        }
     }
 
     //REGISTER
@@ -123,28 +126,36 @@ public class CashierViewController implements Initializable {
     @FXML private TextArea depositDetail;
 
     @FXML void confirmDeposit(ActionEvent event) {
-        Double amount = Double.parseDouble(depositAmount.getText());
-        Account account = BankService.findAccount(dAccNo.getText());
-        account.setCurrentBalance(account.getCurrentBalance() + amount);
-        Transaction newTransaction
-                = new Transaction(dAccNo.getText(), dDesc.getText(), amount, account.getCurrentBalance(), TransactionType.DEPOSIT);
-        BankService.makeTransaction(newTransaction);
-        openMsgPrompt(newTransaction.toString());
-        dAccNo.clear(); DAccType.setValue(null); dDesc.clear(); depositAmount.clear(); depositDetail.clear();
+        try {
+            Double amount = Double.parseDouble(depositAmount.getText());
+            Account account = BankService.findAccount(dAccNo.getText());
+            account.setCurrentBalance(account.getCurrentBalance() + amount);
+            Transaction newTransaction
+                    = new Transaction(dAccNo.getText(), dDesc.getText(), amount, account.getCurrentBalance(), TransactionType.DEPOSIT);
+            BankService.makeTransaction(newTransaction);
+            openMsgPrompt(newTransaction.toString());
+            dAccNo.clear(); DAccType.setValue(null); dDesc.clear(); depositAmount.clear(); depositDetail.clear();
+        } catch (ServiceException | NumberFormatException ex) {
+            openMsgPrompt(ex.getMessage());
+        }
     }
 
     @FXML
     void loadAccountAccountDeposit(KeyEvent keyEvent) {
         if(keyEvent.getCode().equals(KeyCode.ENTER)) {
-            Account account = BankService.findAccount(dAccNo.getText());
-            DAccType.setValue(account.getAccountType());
-            AccountHolder selected = BankService.findAccountHolder(account.getAccountHolder());
-            String details = "\nNAME : " + selected.getName()
-                    + "\nNIC : " + selected.getNIC()
-                    + "\nDOB : " + selected.getDateOfBirth().toString()
-                    + "\nADDRESS : " + selected.getAddress()
-                    + "\nACCOUNTS : " + selected.getAccounts();
-            depositDetail.setText(details);
+            try {
+                Account account = BankService.findAccount(dAccNo.getText());
+                DAccType.setValue(account.getAccountType());
+                AccountHolder selected = BankService.findAccountHolder(account.getAccountHolder());
+                String details = "\nNAME : " + selected.getName()
+                        + "\nNIC : " + selected.getNIC()
+                        + "\nDOB : " + selected.getDateOfBirth().toString()
+                        + "\nADDRESS : " + selected.getAddress()
+                        + "\nACCOUNTS : " + selected.getAccounts();
+                depositDetail.setText(details);
+            } catch (ServiceException ex) {
+                openMsgPrompt(ex.getMessage());
+            }
         }
     }
 
@@ -228,16 +239,20 @@ public class CashierViewController implements Initializable {
     @FXML
     void loadAccountAccountWithdraw(KeyEvent keyEvent) {
         if(keyEvent.getCode().equals(KeyCode.ENTER)) {
-           Account account = BankService.findAccount(wAccNo.getText());
-           wAccType.setValue(account.getAccountType());
-           wBalance.setText(account.getAvailBalance().toString());
-           AccountHolder selected = BankService.findAccountHolder(account.getAccountHolder());
-           String details = "\nNAME : " + selected.getName()
-                   + "\nNIC : " + selected.getNIC()
-                   + "\nDOB : " + selected.getDateOfBirth().toString()
-                   + "\nADDRESS : " + selected.getAddress()
-                   + "\nACCOUNTS : " + selected.getAccounts();
-           wAccDetail.setText(details);
+            try {
+                Account account = BankService.findAccount(wAccNo.getText());
+                wAccType.setValue(account.getAccountType());
+                wBalance.setText(account.getAvailBalance().toString());
+                AccountHolder selected = BankService.findAccountHolder(account.getAccountHolder());
+                String details = "\nNAME : " + selected.getName()
+                        + "\nNIC : " + selected.getNIC()
+                        + "\nDOB : " + selected.getDateOfBirth().toString()
+                        + "\nADDRESS : " + selected.getAddress()
+                        + "\nACCOUNTS : " + selected.getAccounts();
+                wAccDetail.setText(details);
+            } catch (ServiceException ex) {
+                openMsgPrompt(ex.getMessage());
+            }
         }
     }
 
@@ -248,14 +263,18 @@ public class CashierViewController implements Initializable {
 //        }else {
 //            System.out.println("Invalid OTP");
 //        }
-        Double amount = Double.parseDouble(withdrawAmount.getText());
-        Account account = BankService.findAccount(wAccNo.getText());
-        account.setCurrentBalance(account.getCurrentBalance() - amount);
-        Transaction newTransaction
-                = new Transaction(wAccNo.getText(), "Withdrawal", amount, account.getCurrentBalance(), TransactionType.WITHDRAWAL);
-        BankService.makeTransaction(newTransaction);
-        openMsgPrompt(newTransaction.toString());
-        wAccNo.clear(); wAccType.setValue(null); withdrawAmount.clear(); wBalance.clear();
+        try {
+            Double amount = Double.parseDouble(withdrawAmount.getText());
+            Account account = BankService.findAccount(wAccNo.getText());
+            account.setCurrentBalance(account.getCurrentBalance() - amount);
+            Transaction newTransaction
+                    = new Transaction(wAccNo.getText(), "Withdrawal", amount, account.getCurrentBalance(), TransactionType.WITHDRAWAL);
+            BankService.makeTransaction(newTransaction);
+            openMsgPrompt(newTransaction.toString());
+            wAccNo.clear(); wAccType.setValue(null); withdrawAmount.clear(); wBalance.clear();
+        } catch (ServiceException | NumberFormatException ex) {
+            openMsgPrompt(ex.getMessage());
+        }
     }
 
 //    @FXML
@@ -348,12 +367,16 @@ public class CashierViewController implements Initializable {
     @FXML
     void loadAccountHolderEdit(KeyEvent keyEvent) {
         if(keyEvent.getCode().equals(KeyCode.ENTER)) {
-            AccountHolder selected = BankService.findAccountHolder(cusEditID.getText());
-            cusEditFullName.setText(selected.getName());
-            cusEditNIC.setText(selected.getNIC());
-            cusEditAdd.setText(selected.getAddress());
-            cusEditContact.setText(selected.getContactNumber());
-            cusEditDOB.setValue(selected.getDateOfBirth());
+            try {
+                AccountHolder selected = BankService.findAccountHolder(cusEditID.getText());
+                cusEditFullName.setText(selected.getName());
+                cusEditNIC.setText(selected.getNIC());
+                cusEditAdd.setText(selected.getAddress());
+                cusEditContact.setText(selected.getContactNumber());
+                cusEditDOB.setValue(selected.getDateOfBirth());
+            } catch (ServiceException ex) {
+                openMsgPrompt(ex.getMessage());
+            }
         }
     }
 
@@ -365,13 +388,17 @@ public class CashierViewController implements Initializable {
 
     @FXML
     void updateAccountHolderInfo() {
-        AccountHolder selected = BankService.findAccountHolder(cusEditID.getText());
-        selected.setName(cusEditFullName.getText());
-        selected.setNIC(cusEditNIC.getText());
-        selected.setDateOfBirth(cusEditDOB.getValue());
-        selected.setContactNumber(cusEditContact.getText());
-        selected.setAddress(cusEditAdd.getText());
-        clearSelectedAccountHolder();
+        try {
+            AccountHolder selected = BankService.findAccountHolder(cusEditID.getText());
+            selected.setName(cusEditFullName.getText());
+            selected.setNIC(cusEditNIC.getText());
+            selected.setDateOfBirth(cusEditDOB.getValue());
+            selected.setContactNumber(cusEditContact.getText());
+            selected.setAddress(cusEditAdd.getText());
+            clearSelectedAccountHolder();
+        } catch (ServiceException ex) {
+            openMsgPrompt(ex.getMessage());
+        }
     }
 
 
@@ -383,13 +410,17 @@ public class CashierViewController implements Initializable {
     @FXML
     void loadAccountHolder(KeyEvent event) {
         if(event.getCode().equals(KeyCode.ENTER)) {
-            AccountHolder selected = BankService.findAccountHolder(dAccountHolderID.getText());
-            String details = "\nNAME : " + selected.getName()
-                    + "\nNIC : " + selected.getNIC()
-                    + "\nDOB : " + selected.getDateOfBirth().toString()
-                    + "\nADDRESS : " + selected.getAddress()
-                    + "\nACCOUNTS : " + selected.getAccounts();
-            accHolderDetails.setText(details);
+            try {
+                AccountHolder selected = BankService.findAccountHolder(dAccountHolderID.getText());
+                String details = "\nNAME : " + selected.getName()
+                        + "\nNIC : " + selected.getNIC()
+                        + "\nDOB : " + selected.getDateOfBirth().toString()
+                        + "\nADDRESS : " + selected.getAddress()
+                        + "\nACCOUNTS : " + selected.getAccounts();
+                accHolderDetails.setText(details);
+            } catch (ServiceException ex) {
+                openMsgPrompt(ex.getMessage());
+            }
         }
     }
 
@@ -540,13 +571,17 @@ public class CashierViewController implements Initializable {
     @FXML
     void searchAccountHolder(KeyEvent event) {
         if(event.getCode().equals(KeyCode.ENTER)) {
-            AccountHolder selected = BankService.findAccountHolder(searchCustomerID.getText());
-            String details = "\nNAME : " + selected.getName()
-                    + "\nNIC : " + selected.getNIC()
-                    + "\nDOB : " + selected.getDateOfBirth().toString()
-                    + "\nADDRESS : " + selected.getAddress()
-                    + "\nACCOUNTS : " + selected.getAccounts();
-            searchCustomerDetail.setText(details);
+            try {
+                AccountHolder selected = BankService.findAccountHolder(searchCustomerID.getText());
+                String details = "\nNAME : " + selected.getName()
+                        + "\nNIC : " + selected.getNIC()
+                        + "\nDOB : " + selected.getDateOfBirth().toString()
+                        + "\nADDRESS : " + selected.getAddress()
+                        + "\nACCOUNTS : " + selected.getAccounts();
+                searchCustomerDetail.setText(details);
+            } catch (ServiceException ex) {
+                openMsgPrompt(ex.getMessage());
+            }
         }
     }
 
@@ -601,15 +636,19 @@ public class CashierViewController implements Initializable {
     @FXML
     void searchAccount(KeyEvent event) {
         if(event.getCode().equals(KeyCode.ENTER)) {
-           Account searchedAccount = BankService.findAccount(searchAccountNo.getText());
-           String detail = "ACCOUNT NO : " + searchedAccount.getAccountNumber()
-                   + "\nACCOUNT HOLDER : " + searchedAccount.getAccHolderName().getValue()
-                   + "\nBRANCH : " + searchedAccount.getAccountBranch()
-                   + "\nACCOUNT TYPE : " + searchedAccount.getAccountType().name()
-                   + "\nCURRENT BALANCE : " + searchedAccount.getCurrentBalance()
-                   + "\nAVAILABLE BALANCE : " + searchedAccount.getAvailBalance();
-           searchAccDetail.setText(detail);
-           searchAccTransactions.getItems().addAll(BankService.findTransactionsForAccount(searchedAccount.getAccountNumber()));
+            try {
+                Account searchedAccount = BankService.findAccount(searchAccountNo.getText());
+                String detail = "ACCOUNT NO : " + searchedAccount.getAccountNumber()
+                        + "\nACCOUNT HOLDER : " + searchedAccount.getAccHolderName().getValue()
+                        + "\nBRANCH : " + searchedAccount.getAccountBranch()
+                        + "\nACCOUNT TYPE : " + searchedAccount.getAccountType().name()
+                        + "\nCURRENT BALANCE : " + searchedAccount.getCurrentBalance()
+                        + "\nAVAILABLE BALANCE : " + searchedAccount.getAvailBalance();
+                searchAccDetail.setText(detail);
+                searchAccTransactions.getItems().addAll(BankService.findTransactionsForAccount(searchedAccount.getAccountNumber()));
+            } catch (ServiceException ex) {
+                openMsgPrompt(ex.getMessage());
+            }
         }
     }
 
