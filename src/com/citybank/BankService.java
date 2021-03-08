@@ -36,14 +36,14 @@ public class BankService {
 
     private static Logger LOGGER = Logger.getLogger(BankService.class.getName());
 
-    public static UserContext authenticate(String userName, String password) throws RuntimeException {
+    public static UserContext authenticate(String userName, String password) throws ServiceException {
         Credentials enteredCred = securityTokens.stream().
                 filter(credentials -> credentials.getUserName().equals(userName) && credentials.decodePassword().equals(password)).findFirst().
                 orElseThrow(() -> new ServiceException("Entered credentials are incorrect"));
 
         UserContext current = findUserContext(enteredCred.getBankAssignedId());
 
-        LOGGER.log(Level.INFO, "User "+ userName + " authenticated and authorized with role : " + current.getRole());
+        LOGGER.log(Level.INFO, "User " + userName + " authenticated and authorized with role : " + current.getRole());
         setCurrentUserContext(current);
         return currentUserContext;
     }
@@ -54,22 +54,22 @@ public class BankService {
         LOGGER.log(Level.INFO, transaction.toString());
     }
 
-    public static Credentials findCredentials(String bankAssignedID) {
+    public static Credentials findCredentials(String bankAssignedID) throws ServiceException {
         return securityTokens.stream().filter(credentials -> credentials.getBankAssignedId().equals(bankAssignedID))
                 .findAny().orElseThrow(() -> new ServiceException("No credentials found for given ID"));
     }
 
-    public static Account findAccount(String accNo) {
+    public static Account findAccount(String accNo) throws ServiceException {
         return allAccounts.stream().filter(account -> account.getAccountNumber().equals(accNo)).findAny()
                 .orElseThrow(() -> new ServiceException("No account exists under ACC.NO : " + accNo));
     }
 
-    public static AccountHolder findAccountHolder(String bankAssignedId) {
+    public static AccountHolder findAccountHolder(String bankAssignedId) throws ServiceException {
         return accountHolders.stream().filter(accountHolder -> accountHolder.getBankAssignedId().equals(bankAssignedId)).findAny()
                 .orElseThrow(() -> new ServiceException("No user exists under BANK ID : " + bankAssignedId));
     }
 
-    public static UserContext findUserContext(String bankAssignedID) {
+    public static UserContext findUserContext(String bankAssignedID) throws ServiceException {
         return users.stream().filter(userContext -> userContext.getBankAssignedID().equals(bankAssignedID)).findFirst().
                 orElseThrow(() -> new ServiceException("Failed to load user."));
     }
@@ -87,7 +87,7 @@ public class BankService {
     public static String addNewCashier(UserContext userContext, Credentials userCredentials) {
         String msg = "Cashier added with,\n ID: "
                 + userContext.getBankAssignedID()
-                +"\n NAME : " + userContext.getFirstName() + " " + userContext.getLastName()
+                + "\n NAME : " + userContext.getFirstName() + " " + userContext.getLastName()
                 + "\n ROLE : " + userContext.getRole();
         LOGGER.log(Level.INFO, msg);
         users.add(userContext);
@@ -101,7 +101,7 @@ public class BankService {
         accountHolders.add(accountHolder);
     }
 
-    public static void createNewAccount(Account account) {
+    public static void createNewAccount(Account account) throws ServiceException {
         LOGGER.log(Level.INFO, "New Account added with account number: " + account.getAccountNumber());
         allAccounts.add(account);
         AccountHolder accHolder = accountHolders.stream()
