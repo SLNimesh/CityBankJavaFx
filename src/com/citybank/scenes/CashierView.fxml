@@ -948,7 +948,7 @@
                                                          <children>
                                                             <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                                                <children>
-                                                                  <Label text="Customer ID :">
+                                                                  <Label text="Bank Assigned ID">
                                                                      <font>
                                                                         <Font name="System Bold" size="16.0" />
                                                                      </font>
@@ -1035,7 +1035,7 @@
                                                          <children>
                                                             <VBox prefHeight="448.0" prefWidth="872.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0">
                                                                <children>
-                                                                  <Label text="Enter customer Id :">
+                                                                  <Label text="Enter bank assigned Id :">
                                                                      <font>
                                                                         <Font name="System Bold" size="16.0" />
                                                                      </font>

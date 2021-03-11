@@ -1,6 +1,7 @@
 package com.citybank.scenes;
 
 import com.citybank.BankService;
+import com.citybank.TransactionService;
 import com.citybank.model.*;
 import com.citybank.model.enums.AccountType;
 import com.citybank.model.enums.Branch;
@@ -128,10 +129,8 @@ public class CashierViewController implements Initializable {
     @FXML void confirmDeposit(ActionEvent event) {
         try {
             Double amount = Double.parseDouble(depositAmount.getText());
-            Account account = BankService.findAccount(dAccNo.getText());
-            account.setCurrentBalance(account.getCurrentBalance() + amount);
             Transaction newTransaction
-                    = new Transaction(dAccNo.getText(), dDesc.getText(), amount, account.getCurrentBalance(), TransactionType.DEPOSIT);
+                    = TransactionService.makeTransaction(dAccNo.getText(), dDesc.getText(), amount, TransactionType.DEPOSIT);
             BankService.makeTransaction(newTransaction);
             openMsgPrompt(newTransaction.toString());
             dAccNo.clear(); DAccType.setValue(null); dDesc.clear(); depositAmount.clear(); depositDetail.clear();
@@ -265,10 +264,8 @@ public class CashierViewController implements Initializable {
 //        }
         try {
             Double amount = Double.parseDouble(withdrawAmount.getText());
-            Account account = BankService.findAccount(wAccNo.getText());
-            account.setCurrentBalance(account.getCurrentBalance() - amount);
             Transaction newTransaction
-                    = new Transaction(wAccNo.getText(), "Withdrawal", amount, account.getCurrentBalance(), TransactionType.WITHDRAWAL);
+                    = TransactionService.makeTransaction(wAccNo.getText(), "Withdrawal", amount, TransactionType.WITHDRAWAL);
             BankService.makeTransaction(newTransaction);
             openMsgPrompt(newTransaction.toString());
             wAccNo.clear(); wAccType.setValue(null); withdrawAmount.clear(); wBalance.clear();

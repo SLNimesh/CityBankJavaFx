@@ -3,7 +3,6 @@ package com.citybank;
 import com.citybank.model.*;
 import com.citybank.model.enums.TransactionType;
 import com.citybank.model.enums.UserRole;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

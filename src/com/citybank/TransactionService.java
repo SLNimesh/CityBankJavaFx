@@ -6,8 +6,11 @@ import com.citybank.model.Transaction;
 import com.citybank.model.enums.TransactionType;
 
 import java.time.LocalDateTime;
+import java.util.logging.Logger;
 
 public class TransactionService {
+
+    private static Logger LOGGER = Logger.getLogger(TransactionService.class.getName());
 
     public static Transaction makeTransaction(String accNo, String desc, Double amount, TransactionType type) throws ServiceException {
         if (amount <= 0) {
